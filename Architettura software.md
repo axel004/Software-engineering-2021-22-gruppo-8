@@ -1,0 +1,3 @@
+# Software-engineering-2021-22-gruppo-8
+
+L'architettura software scelta per lo sviluppo è la Model-View-Controller tramite JavaFX che utilizza il linguaggio di markup FXML in combinazione con Java. Il "Modello" consiste nella specifica applicazione dell'oggetto di dominio, conterrà quindi l'implementazione dello stack per la memorizzazione degli operandi e dei risultati e l'implementazoine della struttura dati per memorizzare le variabili. La "View" consiste nel file FXML e definirà la GUI della calcolatrice. Il "Controller" è il codice Java che definisce il comportamento dell'interfaccia che interagisce con l'utente, conterrà le varie funzioni per le operazioni tra gli operandi, inserimento di questi nello stack, modifica dei valori dello stack.
