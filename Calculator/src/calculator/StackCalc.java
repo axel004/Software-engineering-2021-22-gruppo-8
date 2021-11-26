@@ -19,7 +19,7 @@ public class StackCalc extends Stack<Complex>{
     */
     public Complex[] visit(){
         Complex[] aux;
-        aux = new Complex[this.size()];
+        aux = new Complex[this.size()]; 
         Stack s2 = new Stack();
         if(!this.isEmpty()){
             int i=0;
@@ -28,7 +28,7 @@ public class StackCalc extends Stack<Complex>{
                 s2.push(aux[i]);
                 i++;
             }
-            for(i=0;i<s2.size();i++){
+            while(!s2.isEmpty()){
                 this.push((Complex) s2.pop());
             }
         }
@@ -47,6 +47,5 @@ public class StackCalc extends Stack<Complex>{
         }
         return this;
     }
-    
     
 }
