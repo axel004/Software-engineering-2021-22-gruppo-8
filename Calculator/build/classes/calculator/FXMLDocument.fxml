@@ -6,11 +6,37 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="429.0" prefWidth="600.0" style="-fx-background-color: #222;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calculator.FXMLDocumentController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="499.0" prefWidth="600.0" style="-fx-background-color: #222;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calculator.FXMLDocumentController">
    <children>
       <VBox layoutX="163.0" prefHeight="400.0" prefWidth="600.0" spacing="15.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <children>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-background-color: #555; -fx-background-radius: 5;">
+               <children>
+                  <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                     <children>
+                        <Label fx:id="value1" textFill="WHITE" />
+                        <Label fx:id="value2" textFill="WHITE" />
+                        <Label fx:id="value3" textFill="WHITE" />
+                        <Label fx:id="value4" textFill="WHITE" />
+                        <Label fx:id="value5" textFill="WHITE" />
+                        <Label fx:id="value6" textFill="WHITE" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                     <children>
+                        <Label fx:id="value7" textFill="WHITE" />
+                        <Label fx:id="value8" textFill="WHITE" />
+                        <Label fx:id="value9" textFill="WHITE" />
+                        <Label fx:id="value10" textFill="WHITE" />
+                        <Label fx:id="value11" textFill="WHITE" />
+                        <Label fx:id="value12" textFill="WHITE" />
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+            </VBox>
             <Label fx:id="currentValue" alignment="CENTER_RIGHT" prefHeight="141.0" prefWidth="635.0" textFill="WHITE">
                <font>
                   <Font size="96.0" />
