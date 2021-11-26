@@ -33,4 +33,15 @@ public class Complex {
     public void setComplex(double complex) {
         this.complex = complex;
     }
+    @Override 
+    public String toString(){
+        if(this.getComplex()>=0){
+            String string = new String(this.getReal()+" + "+this.getComplex()+"j"+"\n");
+            return string;
+        }
+        else{
+            String string = new String(this.getReal()+" "+this.getComplex()+"j"+"\n");
+            return string;
+        }
+    }
 }
