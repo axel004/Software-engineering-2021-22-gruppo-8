@@ -7,6 +7,7 @@ package calculator;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,7 +23,7 @@ import javafx.scene.control.TextField;
  * @author HP115-CS0026
  */
 public class FXMLDocumentController implements Initializable {
-
+    StackCalc stack = new StackCalc();
     @FXML
     private Label currentValue;
     @FXML
@@ -55,33 +56,38 @@ public class FXMLDocumentController implements Initializable {
     private Label value11;
     @FXML
     private Label value12;
-    
-    
+
     private void handleButtonAction(ActionEvent event) {
 
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         resetBtn.disableProperty().bind(Bindings.isEmpty(textArea.textProperty()));
         submitBtn.disableProperty().bind(Bindings.isEmpty(textArea.textProperty()));
         currentValue.textProperty().bindBidirectional(textArea.textProperty());
-    }    
+    }
+
 
     @FXML
     private void submit(ActionEvent event) {
-        // invalid input -> notify the user and clear textArea
         Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid input. Please retry", ButtonType.OK);
-        alert.showAndWait();
         
-        if(alert.getResult() == ButtonType.OK) {
-            textArea.clear();
+        try {
+            checkComplex(textArea.getText());
+            System.out.println("Numero complesso inserito correttamente");
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Please retry");
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.OK) {
+                textArea.clear();
+            }
+        } catch (NullPointerException e2) {
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.OK) {
+                textArea.clear();
+            }
         }
-        // valid input -> checks if the input is an operand or an operator 
-            // if it's an operand then create a new complex number and push the complex number into stack
-            // if it's an operator call the operator manager
-        System.out.println("click on submitBtn, do something..");
-
     }
 
     @FXML
@@ -89,5 +95,31 @@ public class FXMLDocumentController implements Initializable {
         // clear text area
         textArea.clear();
     }
-    
+
+    /*
+    metodo che verifica la correttezza del numero complesso inserito dall'utente
+    se il valore inserito dall'utente non è corretto allora genera un'eccezione 
+     */
+    public void checkComplex(String numComplex) throws NumberFormatException, NullPointerException {
+        String number[], num = "";
+        double real, complex;
+        numComplex = numComplex.replace("j", "");
+        if (numComplex.contains("+")) {
+            number = numComplex.split(Pattern.quote("+"));
+            real = Double.parseDouble(number[0]);
+            complex = Double.parseDouble(number[1]);
+        } else if (numComplex.contains("-")) {
+            if (numComplex.startsWith("-")) {
+                numComplex = numComplex.substring(1);
+                num = "-";
+            }
+            number = numComplex.split("-");
+            real = Double.parseDouble(num.concat(number[0]));
+            complex = Double.parseDouble("-".concat(number[1]));
+        } else {
+            real = Double.parseDouble(numComplex);
+            complex = 0;
+        }
+        stack.add(new Complex(real, complex));
+    }
 }
