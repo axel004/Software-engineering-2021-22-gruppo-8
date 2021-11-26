@@ -26,7 +26,8 @@ import javafx.scene.control.TextField;
  * @author HP115-CS0026
  */
 public class FXMLDocumentController implements Initializable {
-
+    StackCalc stack = new StackCalc();
+    
     @FXML
     private Label currentValue;
     @FXML
@@ -60,13 +61,12 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Label value12;
     
-    private StackCalc stack = new StackCalc();
     private LinkedList<Label> labels = new LinkedList<>();
     
     private void handleButtonAction(ActionEvent event) {
         
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         resetBtn.disableProperty().bind(Bindings.isEmpty(textArea.textProperty()));
