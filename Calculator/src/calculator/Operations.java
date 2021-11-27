@@ -14,7 +14,14 @@ import calculator.Complex;
 public class Operations {
   
     public Complex reverseSign(Complex value) {
-        return new Complex(value.getReal()*-1, value.getComplex()*-1);
+        double real = value.getReal();
+        double complex = value.getComplex();
+        Complex result = new Complex(0,0);
+        if (real != 0)
+            result.setReal(real*-1);
+        if (complex != 0)
+            result.setComplex(complex*-1);       
+        return result;
     }
      
 }

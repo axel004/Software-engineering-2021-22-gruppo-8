@@ -91,10 +91,9 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void submit(ActionEvent event) {
         // valid input -> checks if the input is an operand or an operator 
-        // if it's an operand then create a new complex number and push the complex number into stack
-        // if it's an operator call the operator manager
         Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid input, please retry.", ButtonType.OK);
         try {
+            // if it's an operand then create a new complex number and push the complex number into stack            
             checkComplex(textArea.getText());
             System.out.println("Insert: "+stack.lastElement());
             System.out.println("size: "+stack.size());
@@ -102,13 +101,9 @@ public class FXMLDocumentController implements Initializable {
             textArea.clear();
            
         } catch (NumberFormatException | NullPointerException e) {
-
-            alert.showAndWait();
-            if (alert.getResult() == ButtonType.OK) {
-                textArea.clear();
-            }
+            // input must't be an operand
+            // verify if it's an operator
         }
-
     }
 
     @FXML

@@ -5,13 +5,11 @@
  */
 package calculator;
 
+import java.lang.reflect.Executable;
 import java.util.Stack;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.*;
+import static org.junit.Assert.*;
+
 
 /**
  *
@@ -23,22 +21,6 @@ public class StackCalcTest {
         System.out.print("Test stack initiated\n");
         this.testVisit();
         this.testDestroy();
-    }
-    
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
-    @BeforeEach
-    public void setUp() {
-    }
-    
-    @AfterEach
-    public void tearDown() {
     }
 
     /**
