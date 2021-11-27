@@ -117,29 +117,31 @@ public class Operations {
         }
     }
 
-    public Complex times(Complex x, Complex y) {
-        double reP = this.round(x.getReal() * y.getReal() - x.getComplex() * y.getComplex(),4);
-        double imP = this.round(x.getComplex() * y.getReal() + x.getReal() * y.getComplex(), 4);
+    public Complex times(Complex x, Complex y) { //questa funzione implementa la formula della divisione, le viene passato il dividendo e il risultato della funzione times seguente
+        double reP = this.round(x.getReal() * y.getReal() - x.getComplex() * y.getComplex(),4); //(ac+bd)/(c^2+d^2)
+        double imP = this.round(x.getComplex() * y.getReal() + x.getReal() * y.getComplex(), 4); //(bc-ad)/(C^2+d^2)
         return new Complex (reP, imP);
     }
 
-    public Complex times(double a, Complex y) {
+    public Complex times(double a, Complex y) { //a corrisponde al denominatore della forumula. Viene moltiplicato il denominatore della formula per il divisore coniugato
         double reP =  this.round((double) a * y.getReal(),8);
         double imP =  this.round((double) a * y.getComplex(),8);
-        return new Complex (reP, imP);
+        return new Complex (reP, imP); //reP=c/(C^2+d^2) imP=-d/(C^2+d^2)
     }
 
-    public double square(Complex y) {
+    public double square(Complex y) { //restituisce la somma dei quadrati della parte reale e immaginaria del numero complesso passato
         double reP =  this.round(y.getReal() * y.getReal(), 4);
         double imP = this.round(y.getComplex() * y.getComplex(), 4);
-        return reP+imP;
+        return reP+imP; //C^2+d^2
     }
 
-    public Complex conjugate(Complex y) {
+    public Complex conjugate(Complex y) { //restituisce il coniugato del numero complesso passato
         return new Complex(y.getReal(), -y.getComplex());
     }
 
-
+    /*x=a+bj  y=c+dj
+    la formula per la divisione è: (ac+bd)/(c^2+d^2)+j(bc-ad)/(c^2+d^2)
+    */
     public Complex divisione(Complex x, Complex y){
         try {
             Complex comp = times(1 / square(y), conjugate(y));
