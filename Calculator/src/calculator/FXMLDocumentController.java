@@ -89,6 +89,8 @@ public class FXMLDocumentController implements Initializable {
     }    
 
     @FXML
+    // Data la stringa in input, verifica se è un valore valido (operatore o operando). 
+    // Nel caso in cui la stringa non sia valida, avvisa l'utente con un Alert.
     private void submit(ActionEvent event) {
         // valid input -> checks if the input is an operand or an operator 
         Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid input, please retry.", ButtonType.OK);
@@ -107,11 +109,12 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
+    // Pulisci la text area
     private void reset(ActionEvent event) {
-        // clear text area
         textArea.clear();
     }
     
+    // aggiorna la vista delle label che visualizzano i top 12 valori nello stack
     private void updateTopLabel() {
         // if size >=12 --> print first 12 values
         // else if size < 12 --> print first size values

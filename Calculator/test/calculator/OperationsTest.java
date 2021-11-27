@@ -219,4 +219,25 @@ public class OperationsTest {
         }
     }
     
+    @Test
+    public void testReverseSign() {
+        Operations op = new Operations();
+        // a
+        assertEquals(new Complex(-2,0),op.reverseSign(new Complex(2,0)));
+        // -a
+        assertEquals(new Complex(2,0),op.reverseSign(new Complex(-2,0)));
+        // a+jb
+        assertEquals(new Complex(2,2),op.reverseSign(new Complex(-2,-2)));
+        // a-jb
+        assertEquals(new Complex(2,-2),op.reverseSign(new Complex(-2,2)));
+        // -a+jb
+        assertEquals(new Complex(-2,2),op.reverseSign(new Complex(2,-2)));
+        // -a-jb
+        assertEquals(new Complex(-2,-2),op.reverseSign(new Complex(2,2)));
+        // jb
+        assertEquals(new Complex(0,2),op.reverseSign(new Complex(0,-2)));
+        // -jb
+        assertEquals(new Complex(0,-2),op.reverseSign(new Complex(0,2)));
+    }
+    
 }
