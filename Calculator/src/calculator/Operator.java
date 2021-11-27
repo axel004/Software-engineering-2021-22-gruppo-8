@@ -17,7 +17,7 @@ public class Operator {
     }
    
     
-    public boolean isoperator(String operator, StackCalc e){
+    public boolean isoperator(String operator, StackCalc e) throws Exception{
         Complex val1;
         Complex val2;
         Operations o = new Operations();
@@ -30,7 +30,8 @@ public class Operator {
                     return true;
                 }
                 else
-                    return false;
+                    throw new Exception("Non ci sono abbastanza valori nello stack");
+
             case "-":
                 if(e.size()>=2){            //controllo se ci sono almeno due valori
                     val2 = e.pop();
@@ -39,7 +40,8 @@ public class Operator {
                     return true;
                 }
                 else
-                    return false;
+                    throw new Exception("Non ci sono abbastanza valori nello stack");
+
             case "/":
                 if(e.size()>=2){            //controllo se ci sono almeno due valori
                     val2 = e.pop();
@@ -48,7 +50,7 @@ public class Operator {
                     return true;
                 }
                 else
-                    return false;
+                    throw new Exception("Non ci sono abbastanza valori nello stack");
             case "*":
             if(e.size()>=2){            //controllo se ci sono almeno due valori
                     val2 = e.pop();
@@ -57,7 +59,7 @@ public class Operator {
                     return true;
                 }
                 else
-                    return false; 
+                    throw new Exception("Non ci sono abbastanza valori nello stack");
             case "+-":
                 if(e.size()>=1){            //controllo se ci sono almeno due valori
                     val1 = e.pop();         //ottengo i due valori dallo stackj
@@ -65,8 +67,8 @@ public class Operator {
                     return true;
                 }
                 else
-                    return false;
-            case "sqrt":
+                    throw new Exception("Non ci sono abbastanza valori nello stack");
+                    case "sqrt":
                 if(e.size()>=1){
                 val1 = e.pop();             // ottengo il valore dallo stack
                 e.push(o.radice(val1));        //inserisco nello stack il nuovo valore    
@@ -76,7 +78,7 @@ public class Operator {
                 return true;
                 }
                 else 
-                    return false;
+                    throw new Exception("Non ci sono abbastanza valori nello stack");
         }
         
         return false;

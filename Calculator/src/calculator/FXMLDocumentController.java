@@ -10,6 +10,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
@@ -94,25 +96,33 @@ public class FXMLDocumentController implements Initializable {
     // Nel caso in cui la stringa non sia valida, avvisa l'utente con un Alert.
     private void submit(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid input, please retry.", ButtonType.OK);
-        // verifica se è un operatore
-        Operator op = new Operator();
-        if (op.isoperator(textArea.getText(), stack)) {
-            updateTopLabel();
-            textArea.clear();
-        }
-        // altrimenti verifica se è un operando
-        else {
-            try {
-                // if it's an operand then create a new complex number and push the complex number into stack            
-                checkComplex(textArea.getText());
-                System.out.println("Numero complesso inserito correttamente");
+        Alert alert2 = new Alert(Alert.AlertType.ERROR, "Please insert at least one other value ", ButtonType.OK);
+        try {
+            // verifica se è un operatore
+            Operator op = new Operator();
+            if (op.isoperator(textArea.getText(), stack)) {
                 updateTopLabel();
                 textArea.clear();
-            } catch (NumberFormatException e) {
-                alert.showAndWait();
-                if (alert.getResult() == ButtonType.OK) {
+            }
+            // altrimenti verifica se è un operando
+            else {
+                try {
+                    // if it's an operand then create a new complex number and push the complex number into stack
+                    checkComplex(textArea.getText());
+                    System.out.println("Numero complesso inserito correttamente");
+                    updateTopLabel();
                     textArea.clear();
+                } catch (NumberFormatException e) {
+                    alert.showAndWait();
+                    if (alert.getResult() == ButtonType.OK) {
+                        textArea.clear();
+                    }
                 }
+            }
+        } catch (Exception ex) {
+            alert2.showAndWait();
+            if (alert.getResult() == ButtonType.OK) {
+                textArea.clear();
             }
         }
     }
