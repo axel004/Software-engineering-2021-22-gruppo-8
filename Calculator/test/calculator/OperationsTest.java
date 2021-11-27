@@ -217,6 +217,30 @@ public class OperationsTest {
                 stacc.push(num2);
             }
         }
+        
+        c1 = new Complex(4.6,-7.1);
+        stacc.push(c1);
+        c1 = new Complex(1.5,6.6);
+        stacc.push(c1);
+        num2 = stacc.pop();
+        if(num2!=null){
+            num1 = stacc.pop();
+            if(num1!=null){
+                stacc.push(operation.sum(num1, num2));
+                expResult = new Complex(6.1,-0.5);
+                assertEquals(expResult, operation.sum(num1, num2));
+            }
+            else{
+                stacc.push(num2);
+            }
+        }        
+    }
+    
+    @Test
+    public void testMultiply() {
+        System.out.print("multiply test");
+        
+        
     }
     
     @Test

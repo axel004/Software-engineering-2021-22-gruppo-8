@@ -6,7 +6,6 @@
 package calculator;
 
 import java.lang.reflect.Executable;
-import java.util.Stack;
 import org.junit.*;
 import static org.junit.Assert.*;
 /**
@@ -15,66 +14,85 @@ import static org.junit.Assert.*;
  */
 public class StackCalcTest {
     
-    public StackCalcTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
-
-    /**
-     * Test of pop method, of class StackCalc.
-     */
-    @Test
-    public void testPop() {
-        System.out.println("pop");
-        StackCalc instance = new StackCalc();
-        Complex expResult = null;
-        Complex result = instance.pop();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of push method, of class StackCalc.
-     */
-    @Test
-    public void testPush() {
-        System.out.println("push");
-        Complex item = null;
-        StackCalc instance = new StackCalc();
-        Complex expResult = null;
-        Complex result = instance.push(item);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
     /**
      * Test of visit method, of class StackCalc.
      */
     @Test
     public void testVisit() {
-        System.out.println("visit");
-        StackCalc instance = new StackCalc();
-        Complex[] expResult = null;
-        Complex[] result = instance.visit();
-        assertArrayEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("visit test\n");
+        StackCalc stacc = new StackCalc();
+        
+        Complex c1 = new Complex(1,2);
+        Complex c2 = new Complex(4,2);
+        Complex c3 = new Complex(45,5);
+        Complex c4 = new Complex(4.6,22);
+        
+        stacc.push(c1);
+        stacc.push(c2);
+        stacc.push(c3);
+        stacc.push(c4);
+        
+        Complex c5 = new Complex(-2,11);
+        stacc.push(c5);
+        Complex c6 = new Complex(5,-1);
+        stacc.push(c6);
+        Complex c7 = new Complex(-9,-6);
+        stacc.push(c7);
+        
+        Complex c8 = new Complex(0,0);
+        stacc.push(c8);
+        Complex c9 = new Complex(1,0);
+        stacc.push(c9);
+        Complex c10 = new Complex(-1,0);
+        stacc.push(c10);
+        Complex c11 = new Complex(0,-1);
+        stacc.push(c11);
+        Complex c12 = new Complex(0,1);
+        stacc.push(c12);
+        
+        Complex[] array = stacc.visit();
+        Complex[] expResult0 = {c12,c11,c10,c9,c8,c7,c6,c5,c4,c3,c2,c1};
+        Assert.assertArrayEquals(expResult0,array);
+        
+        stacc.pop();
+        array = stacc.visit();
+        Complex[] expResult1 = {c11,c10,c9,c8,c7,c6,c5,c4,c3,c2,c1};
+        Assert.assertArrayEquals(expResult1,array);
+        
+        stacc.pop();
+        array = stacc.visit();
+        Complex[] expResult2 = {c10,c9,c8,c7,c6,c5,c4,c3,c2,c1};
+        Assert.assertArrayEquals(expResult2,array);
+        
+        stacc.pop();
+        array = stacc.visit();
+        Complex[] expResult3 = {c9,c8,c7,c6,c5,c4,c3,c2,c1};
+        Assert.assertArrayEquals(expResult3,array);
+        
+        stacc.pop();
+        array = stacc.visit();
+        Complex[] expResult4 = {c8,c7,c6,c5,c4,c3,c2,c1};
+        Assert.assertArrayEquals(expResult4,array);
+        
+        stacc.pop();
+        array = stacc.visit();
+        Complex[] expResult5 = {c7,c6,c5,c4,c3,c2,c1};
+        Assert.assertArrayEquals(expResult5,array);
+        
+        stacc.pop();
+        array = stacc.visit();
+        Complex[] expResult6 = {c6,c5,c4,c3,c2,c1};
+        Assert.assertArrayEquals(expResult6,array);
+        
+        stacc.pop();
+        array = stacc.visit();
+        Complex[] expResult7 = {c5,c4,c3,c2,c1};
+        Assert.assertArrayEquals(expResult7,array);
+        
+        stacc.pop();
+        array = stacc.visit();
+        Complex[] expResult8 = {c4,c3,c2,c1};
+        Assert.assertArrayEquals(expResult8,array);
     }
 
     /**
@@ -82,13 +100,46 @@ public class StackCalcTest {
      */
     @Test
     public void testDestroy() {
-        System.out.println("destroy");
-        StackCalc instance = new StackCalc();
-        Stack expResult = null;
-        Stack result = instance.destroy();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("destroy test\n");
+        StackCalc stacc = new StackCalc();
+        
+        Complex c1 = new Complex(1,2);
+        Complex c2 = new Complex(4,2);
+        Complex c3 = new Complex(45,5);
+        Complex c4 = new Complex(4.6,22);
+        
+        stacc.push(c1);
+        stacc.push(c2);
+        stacc.push(c3);
+        stacc.push(c4);
+        
+        Complex c5 = new Complex(-2,11);
+        stacc.push(c5);
+        Complex c6 = new Complex(5,-1);
+        stacc.push(c6);
+        Complex c7 = new Complex(-9,-6);
+        stacc.push(c7);
+        
+        Complex c8 = new Complex(0,0);
+        stacc.push(c8);
+        Complex c9 = new Complex(1,0);
+        stacc.push(c9);
+        Complex c10 = new Complex(-1,0);
+        stacc.push(c10);
+        Complex c11 = new Complex(0,-1);
+        stacc.push(c11);
+        Complex c12 = new Complex(0,1);
+        stacc.push(c12);
+        
+        stacc.destroy();
+        Complex[] array = stacc.visit();
+        Complex[] expResult0 = null;
+        Assert.assertArrayEquals(expResult0,array);
+        
+        stacc.destroy();
+        array = stacc.visit();
+        Complex[] expResult1 = null;
+        Assert.assertArrayEquals(expResult1,array);
     }
     
 }
