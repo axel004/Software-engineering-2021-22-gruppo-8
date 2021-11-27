@@ -15,6 +15,7 @@ import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.AccessibleRole;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -92,19 +93,30 @@ public class FXMLDocumentController implements Initializable {
     // Data la stringa in input, verifica se è un valore valido (operatore o operando). 
     // Nel caso in cui la stringa non sia valida, avvisa l'utente con un Alert.
     private void submit(ActionEvent event) {
-        // valid input -> checks if the input is an operand or an operator 
         Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid input, please retry.", ButtonType.OK);
-        try {
-            // if it's an operand then create a new complex number and push the complex number into stack            
-            checkComplex(textArea.getText());
-            System.out.println("Insert: "+stack.lastElement());
-            System.out.println("size: "+stack.size());
+        // verifica se è un operatore
+        Operator op = new Operator();
+        if (op.isoperator(textArea.getText(), stack)) {
             updateTopLabel();
             textArea.clear();
-           
-        } catch (NumberFormatException | NullPointerException e) {
-            // input must't be an operand
-            // verify if it's an operator
+        }
+        // altrimenti verifica se è un operando
+        else {
+            try {
+                // if it's an operand then create a new complex number and push the complex number into stack            
+                checkComplex(textArea.getText());
+                System.out.println("Insert: "+stack.lastElement());
+                System.out.println("size: "+stack.size());
+                updateTopLabel();
+                textArea.clear();
+
+            } catch (NumberFormatException | NullPointerException e) {
+                // l'input non è valido, mostra alert
+                alert.showAndWait();
+                if (alert.getResult() == ButtonType.OK) {
+                    textArea.clear();
+                } 
+            }
         }
     }
 
@@ -118,6 +130,8 @@ public class FXMLDocumentController implements Initializable {
     private void updateTopLabel() {
         // if size >=12 --> print first 12 values
         // else if size < 12 --> print first size values
+        for (Label l : labels)
+            l.setVisible(false);
         int i=0;
         for (int j=stack.size()-1; j>=0; j--) {
             if (i==12)
