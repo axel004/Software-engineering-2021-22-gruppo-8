@@ -24,6 +24,22 @@ public class Operations {
         return result;
     }
     
+    public Complex multiply(Complex a, Complex b){
+        try{
+            Double A = a.getReal();
+            Double C = b.getReal();
+            Double B = a.getComplex();
+            Double D = b.getComplex();
+            
+            Complex res = new Complex(A*C - B*D, A*D - B*C);
+            return res;
+        }
+        catch(Exception e){
+            System.out.print("Multiply error\n");
+            return null;
+        }
+    }
+    
     public Complex sum(Complex a, Complex b){
         try{
         Complex res = new Complex (a.getReal() + b.getReal(), a.getComplex() + b.getComplex());
