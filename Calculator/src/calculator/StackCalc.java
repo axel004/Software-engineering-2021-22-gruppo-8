@@ -5,6 +5,7 @@
  */
 package calculator;
 
+import java.util.EmptyStackException;
 import java.util.Stack;
 //import calculator.Complex;
 
@@ -13,6 +14,32 @@ import java.util.Stack;
  * @author Alberto
  */
 public class StackCalc extends Stack<Complex>{
+    
+   
+    @Override
+    public Complex pop(){
+        try{
+            Complex item = super.pop();
+            return item;
+        }
+        catch(EmptyStackException e){
+            System.out.print("Errore stack\n");
+            return null;
+        }
+    }
+    
+    @Override
+    public Complex push(Complex item){
+        try{
+            item = super.push(item);
+            return item;
+        }
+        catch(EmptyStackException e){
+            System.out.print("Errore stack\n");
+            return null;
+        }
+    }
+    
     
     /*
         Metodo che ritorna un array di elementi, con il primo che è quello in cima allo stack
@@ -28,11 +55,25 @@ public class StackCalc extends Stack<Complex>{
                 s2.push(aux[i]);
                 i++;
             }
+            Complex c;
             while(!s2.isEmpty()){
-                this.push((Complex) s2.pop());
+                c = (Complex) s2.pop();
+                if(c!=null){
+                    this.push(c);
+                }
+                else{
+                    break;
+                }
             }
+            if(this.isEmpty()){
+                this.setSize(0);
+            }
+            return aux;
         }
-        return aux;
+        else{
+            return null;
+        }
+        
     }
     
     /*
