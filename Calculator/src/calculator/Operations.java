@@ -6,12 +6,25 @@
 package calculator;
 
 import calculator.Complex;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /**
  *
  * @author Alberto
  */
 public class Operations {
+    
+        
+    private static double round(double value, int places) {
+        if (places < 0) {
+            throw new IllegalArgumentException();
+        }
+
+        BigDecimal bd = new BigDecimal(Double.toString(value));
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
   
     public Complex reverseSign(Complex value) {
         try{
@@ -38,8 +51,8 @@ public class Operations {
             Double D = b.getComplex();
             
             Complex res = new Complex((A*C) - (B*D), (A*D) + (B*C));
-            res.setReal(Math.round(res.getReal()*10000)/10000.0);
-            res.setComplex(Math.round(res.getComplex()*10000)/10000.0);
+            res.setReal(this.round(res.getReal(), 4));
+            res.setComplex(this.round(res.getComplex(), 4));
             return res;
         }
         catch(Exception e){
@@ -61,10 +74,10 @@ public class Operations {
 
     public Complex differenza(Complex val1, Complex val2){
         try{
-            Complex totaldiff = new Complex(val1.getReal()-val2.getReal(),val1.getComplex()-val2.getComplex());  //eseguo la differenza
-            totaldiff.setReal(Math.round(totaldiff.getReal()*10000)/10000.0);
-            totaldiff.setComplex(Math.round(totaldiff.getComplex()*10000)/10000.0);
-            return totaldiff;
+            Complex res = new Complex(val1.getReal()-val2.getReal(),val1.getComplex()-val2.getComplex());  //eseguo la differenza
+            res.setReal(this.round(res.getReal(),4));
+            res.setComplex(this.round(res.getComplex(),4));
+            return res;
         }
         catch(Exception e){
             System.out.print("Diff error\n");
@@ -74,27 +87,75 @@ public class Operations {
     }   
     
     
-    public Complex radice(Complex val){
-        
-        if(val.getComplex()==0)     //controllo se il valore è reale
-            if(val.getReal()>=0)     //se è maggiore di zero eseguo la radice classica
-                val.setReal(Math.sqrt(val.getReal()));
-            else{
-                val.setComplex(Math.sqrt((-1*val.getReal()))); //se è minore di zero eseguo la radice del valore trasformato in positivo
-                val.setReal(0);             //e lo inserisco come valore immaginario e setto la parte reale a 0
+    public Complex radice(Complex val) {
+        try {
+            if (val.getComplex() == 0) //controllo se il valore è reale
+            {
+                if (val.getReal() >= 0) //se è maggiore di zero eseguo la radice classica
+                {
+                    val.setReal(Math.sqrt(val.getReal()));
+                    val.setReal(this.round(val.getReal(), 4));
+                } else {
+                    val.setComplex(Math.sqrt((-1 * val.getReal()))); //se è minore di zero eseguo la radice del valore trasformato in positivo
+                    val.setComplex(this.round(val.getComplex(), 4));
+                    val.setReal(0);             //e lo inserisco come valore immaginario e setto la parte reale a 0
+                }
+            } else {
+                double abs = Math.sqrt(val.getReal() * val.getReal() + val.getComplex() * val.getComplex());   //calcolo modulo e fase
+                double arg = (2 * Math.PI + Math.atan2(val.getComplex(), val.getReal())) % (2 * Math.PI);
+
+                val.setReal(Math.sqrt(abs) * (Math.cos((arg / 2))));        //calcolo i valori reali e immaginari e li inserisco nell'oggetto val
+                val.setComplex(Math.sqrt(abs) * (Math.sin(arg / 2)));
+                val.setReal(this.round(val.getReal(), 4));
+                val.setComplex(this.round(val.getComplex(), 4));
             }
-        else{
-            double abs= Math.sqrt(val.getReal()*val.getReal()+val.getComplex()*val.getComplex());   //calcolo modulo e fase
-            double arg = (2*Math.PI + Math.atan2(val.getComplex(),val.getReal())) % (2*Math.PI);
 
-            val.setReal(Math.sqrt(abs)*(Math.cos((arg/2))));        //calcolo i valori reali e immaginari e li inserisco nell'oggetto val
-            val.setComplex(Math.sqrt(abs)*(Math.sin(arg/2)));
-            val.setReal(Math.round(val.getReal()*10000)/10000.0);
-            val.setComplex(Math.round(val.getComplex()*10000)/10000.0);
+            return val;
+        } catch (Exception e) {
+            System.out.print("Radice error\n");
+            return null;
         }
-      
-        return val;
-
     }
-     
+
+    public Complex times(Complex x, Complex y) {
+        double reP = x.getReal() * y.getReal() - x.getComplex() * y.getComplex();
+        double imP = x.getComplex() * y.getReal() + x.getReal() * y.getComplex();
+        Complex res = new Complex (reP, imP);
+        res.setReal(this.round(res.getReal(),4));
+        res.setComplex(this.round(res.getComplex(),4));
+        return res;
+    }
+
+    public Complex times(double a, Complex y) {
+        double reP =  a * y.getReal();
+        double imP = a * y.getComplex();
+        Complex val = new Complex (reP, imP);
+        val.setReal(this.round(val.getReal(), 4));
+        val.setComplex(this.round(val.getComplex(), 4));
+        return val;
+    }
+
+    public double square(Complex y) {
+        double reP =  y.getReal() * y.getReal();
+        double imP = y.getComplex() * y.getComplex();
+        Complex val = new Complex (reP, imP);
+        val.setReal(this.round(val.getReal(), 4));
+        val.setComplex(this.round(val.getComplex(), 4));
+        return val.getReal()+val.getComplex();
+    }
+
+    public Complex conjugate(Complex y) {
+        return new Complex(y.getReal(), -y.getComplex());
+    }
+
+
+    public Complex divisione(Complex x, Complex y){
+        try {
+            Complex comp = times(1 / square(y), conjugate(y));
+            return times(x, comp);
+        } catch (Exception e) {
+            System.out.print("Div error\n");
+            return null;
+        }
+    }
 }
