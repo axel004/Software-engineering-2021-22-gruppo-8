@@ -29,15 +29,9 @@ public class StackCalc extends Stack<Complex>{
     }
     
     @Override
-    public Complex push(Complex item){
-        try{
-            item = super.push(item);
-            return item;
-        }
-        catch(EmptyStackException e){
-            System.out.print("Errore stack\n");
-            return null;
-        }
+    public Complex push(Complex item) {
+        item = super.push(item);
+        return item;
     }
     
     
