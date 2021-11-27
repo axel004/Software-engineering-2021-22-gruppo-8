@@ -46,9 +46,25 @@ public class OperatorTest {
         Complex val2=new Complex(2,10);
         Complex val3=new Complex(9,10);
         StackCalc e = new StackCalc();
-        e.add(val3);
-        e.add(val2);
-        e.add(val1);
+        e.push(val3);
+        e.push(val2);
+        e.push(val1);
+        e.push(val3);
+        e.push(val2);
+        e.push(val1);
+        e.push(val3);
+        e.push(val2);
+        e.push(val1);
+        e.push(val3);
+        e.push(val2);
+        e.push(val1);
+        e.push(val3);
+        e.push(val2);
+        e.push(val1);
+        e.push(val3);
+        e.push(val2);
+        e.push(val1);
+        
         Operator instance = new Operator();
         assertEquals(false,instance.isoperator("ciao", e));
         assertEquals(true,instance.isoperator("+", e));
