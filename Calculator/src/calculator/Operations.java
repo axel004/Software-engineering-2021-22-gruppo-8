@@ -31,7 +31,9 @@ public class Operations {
             Double B = a.getComplex();
             Double D = b.getComplex();
             
-            Complex res = new Complex(A*C - B*D, A*D - B*C);
+            Complex res = new Complex((A*C) - (B*D), (A*D) + (B*C));
+            res.setReal(Math.round(res.getReal()*10000)/10000.0);
+            res.setComplex(Math.round(res.getComplex()*10000)/10000.0);
             return res;
         }
         catch(Exception e){
