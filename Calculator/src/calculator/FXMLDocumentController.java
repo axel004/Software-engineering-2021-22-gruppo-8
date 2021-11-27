@@ -105,17 +105,14 @@ public class FXMLDocumentController implements Initializable {
             try {
                 // if it's an operand then create a new complex number and push the complex number into stack            
                 checkComplex(textArea.getText());
-                System.out.println("Insert: "+stack.lastElement());
-                System.out.println("size: "+stack.size());
+                System.out.println("Numero complesso inserito correttamente");
                 updateTopLabel();
                 textArea.clear();
-
-            } catch (NumberFormatException | NullPointerException e) {
-                // l'input non è valido, mostra alert
+            } catch (NumberFormatException e) {
                 alert.showAndWait();
                 if (alert.getResult() == ButtonType.OK) {
                     textArea.clear();
-                } 
+                }
             }
         }
     }
@@ -147,7 +144,7 @@ public class FXMLDocumentController implements Initializable {
     metodo che verifica la correttezza del numero complesso inserito dall'utente
     ritorna il numero complesso 
      */
-    public void checkComplex(String numComplex) throws NumberFormatException, NullPointerException {
+    public void checkComplex(String numComplex) throws NumberFormatException{
         String number[], num = "";
         double real, complex;
         numComplex = numComplex.replace("j", "");
@@ -161,9 +158,15 @@ public class FXMLDocumentController implements Initializable {
                 numComplex = numComplex.substring(1);
                 num = "-";
             }
-            number = numComplex.split("-");
-            real = Double.parseDouble(num.concat(number[0]));
-            complex = Double.parseDouble("-".concat(number[1]));
+            if(!numComplex.contains("-")){
+                real = Double.parseDouble(num.concat(numComplex));
+                complex=0;
+            }
+            else{
+                number = numComplex.split("-");
+                real = Double.parseDouble(num.concat(number[0]));
+                complex = Double.parseDouble("-".concat(number[1]));
+            }
         } else {
             real = Double.parseDouble(numComplex);
             complex = 0;
