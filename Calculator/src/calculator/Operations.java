@@ -84,14 +84,13 @@ public class Operations {
                 val.setReal(0);             //e lo inserisco come valore immaginario e setto la parte reale a 0
             }
         else{
-        double abs= Math.sqrt(val.getReal()*val.getReal()+val.getComplex()*val.getComplex());   //calcolo modulo e fase
-        double arg = (2*Math.PI + Math.atan2(val.getComplex(),val.getReal())) % (2*Math.PI);
+            double abs= Math.sqrt(val.getReal()*val.getReal()+val.getComplex()*val.getComplex());   //calcolo modulo e fase
+            double arg = (2*Math.PI + Math.atan2(val.getComplex(),val.getReal())) % (2*Math.PI);
 
-        val.setReal(Math.sqrt(abs)*(Math.cos((arg/2))));        //calcolo i valori reali e immaginari e li inserisco nell'oggetto val
-        val.setComplex(Math.sqrt(abs)*(Math.sin(arg/2)));
-        val.setReal(Math.round(val.getReal()*10000)/10000.0);
-        val.setComplex(Math.round(val.getComplex()*10000)/10000.0);
-
+            val.setReal(Math.sqrt(abs)*(Math.cos((arg/2))));        //calcolo i valori reali e immaginari e li inserisco nell'oggetto val
+            val.setComplex(Math.sqrt(abs)*(Math.sin(arg/2)));
+            val.setReal(Math.round(val.getReal()*10000)/10000.0);
+            val.setComplex(Math.round(val.getComplex()*10000)/10000.0);
         }
       
         return val;
