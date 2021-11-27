@@ -30,6 +30,7 @@ public class FXMLDocumentControllerTest {
         check.checkComplex("0-0j");
         check.checkComplex("-0+0j");
         check.checkComplex("0");
+        check.checkComplex("3j");
     }
     
     /**

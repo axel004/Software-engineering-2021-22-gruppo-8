@@ -97,6 +97,7 @@ public class FXMLDocumentController implements Initializable {
     private void submit(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid input, please retry.", ButtonType.OK);
         Alert alert2 = new Alert(Alert.AlertType.ERROR, "Please insert at least one other value ", ButtonType.OK);
+        Alert alert3 = new Alert(Alert.AlertType.ERROR, "Impossible to divide ", ButtonType.OK);
         try {
             // verifica se è un operatore
             Operator op = new Operator();
@@ -119,9 +120,14 @@ public class FXMLDocumentController implements Initializable {
                     }
                 }
             }
+        } catch (IllegalArgumentException e2){
+            alert3.showAndWait();
+            if (alert3.getResult() == ButtonType.OK) {
+                textArea.clear();
+            }
         } catch (Exception ex) {
             alert2.showAndWait();
-            if (alert.getResult() == ButtonType.OK) {
+            if (alert2.getResult() == ButtonType.OK) {
                 textArea.clear();
             }
         }
@@ -154,29 +160,32 @@ public class FXMLDocumentController implements Initializable {
     metodo che verifica la correttezza del numero complesso inserito dall'utente
     ritorna il numero complesso 
      */
-    public void checkComplex(String numComplex) throws NumberFormatException{
+    public void checkComplex(String numComplex) throws NumberFormatException {
         String number[], num = "";
         double real, complex;
-        numComplex = numComplex.replace("j", "");
         if (numComplex.contains("+")) {
+            numComplex = numComplex.replace("j", "");
             number = numComplex.split(Pattern.quote("+"));
             real = Double.parseDouble(number[0]);
             complex = Double.parseDouble(number[1]);
-        }
-        else if (numComplex.contains("-")) {
-            if (numComplex.startsWith("-")){
+        } else if (numComplex.contains("-")) {
+            numComplex = numComplex.replace("j", "");
+            if (numComplex.startsWith("-")) {
                 numComplex = numComplex.substring(1);
                 num = "-";
             }
-            if(!numComplex.contains("-")){
+            if (!numComplex.contains("-")) {
                 real = Double.parseDouble(num.concat(numComplex));
-                complex=0;
-            }
-            else{
+                complex = 0;
+            } else {
                 number = numComplex.split("-");
                 real = Double.parseDouble(num.concat(number[0]));
                 complex = Double.parseDouble("-".concat(number[1]));
             }
+        } else if (numComplex.contains("j")) {
+            numComplex = numComplex.replace("j", "");
+            real = 0;
+            complex = Double.parseDouble(numComplex);
         } else {
             real = Double.parseDouble(numComplex);
             complex = 0;

@@ -44,9 +44,12 @@ public class Operator {
 
             case "/":
                 if(e.size()>=2){            //controllo se ci sono almeno due valori
+                    if (e.peek().equals(new Complex(0,0))) {
+                        throw new IllegalArgumentException();
+                    }
                     val2 = e.pop();
                     val1 = e.pop();         //ottengo i due valori dallo stackj
-                    //e.push(o.div(val1,val2)); //inserisco il nuovo valore
+                    e.push(o.divisione(val1,val2)); //inserisco il nuovo valore
                     return true;
                 }
                 else
@@ -72,9 +75,6 @@ public class Operator {
                 if(e.size()>=1){
                 val1 = e.pop();             // ottengo il valore dallo stack
                 e.push(o.radice(val1));        //inserisco nello stack il nuovo valore    
-                val1.setComplex((val1.getReal())*-1);
-                val1.setComplex((val1.getComplex())*-1);      //dalla radice ottengo due valori opposti                             
-                e.push(val1);            //inserisco entrambi nello stack
                 return true;
                 }
                 else 
