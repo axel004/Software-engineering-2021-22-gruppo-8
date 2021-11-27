@@ -1,4 +1,10 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package calculator;
+
+import calculator.Operations;
 
 /**
  *
@@ -7,6 +13,7 @@ package calculator;
 public class Operator {
 
     public Operator() {
+        
     }
    
     
@@ -16,31 +23,63 @@ public class Operator {
         Operations o = new Operations();
         switch(operator){
             case "+":
-                //sum();
-                return true;
+                if(e.size()>=2){            //controllo se ci sono almeno due valori
+                    val2 = e.pop();
+                    val1 = e.pop();         //ottengo i due valori dallo stackj
+                    //e.push(o.differenza(val1,val2)); //inserisco il nuovo valore
+                    return true;
+                }
+                else
+                    return false;
             case "-":
-                //val2 = e.pop();
-                //val1 = e.pop();
-                //e.push(o.differenza(val1,val2));
-                return true;
+                if(e.size()>=2){            //controllo se ci sono almeno due valori
+                    val2 = e.pop();
+                    val1 = e.pop();         //ottengo i due valori dallo stackj
+                    e.push(o.differenza(val1,val2)); //inserisco il nuovo valore
+                    return true;
+                }
+                else
+                    return false;
             case "/":
-                //div();
-                return true;
+                if(e.size()>=2){            //controllo se ci sono almeno due valori
+                    val2 = e.pop();
+                    val1 = e.pop();         //ottengo i due valori dallo stackj
+                    e.push(o.differenza(val1,val2)); //inserisco il nuovo valore
+                    return true;
+                }
+                else
+                    return false;
             case "*":
-                //prod();                
-                return true;
+            if(e.size()>=2){            //controllo se ci sono almeno due valori
+                    val2 = e.pop();
+                    val1 = e.pop();         //ottengo i due valori dallo stackj
+                    e.push(o.differenza(val1,val2)); //inserisco il nuovo valore
+                    return true;
+                }
+                else
+                    return false; 
             case "+-":
-                //cambio();
-                return true;
+                if(e.size()>=2){            //controllo se ci sono almeno due valori
+                    val2 = e.pop();
+                    val1 = e.pop();         //ottengo i due valori dallo stackj
+                    e.push(o.differenza(val1,val2)); //inserisco il nuovo valore
+                    return true;
+                }
+                else
+                    return false;
             case "sqrt":
-                //val1 = e.pop();
-                //e.push(o.radice(val1));
-                //val1.setComplex((val1.getComplex())*-1);
-                //e.push(val1);
+                if(e.size()>=1){
+                val1 = e.pop();             // ottengo il valore dallo stack
+                e.push(o.radice(val1));        //inserisco nello stack il nuovo valore    
+                val1.setComplex((val1.getReal())*-1);
+                val1.setComplex((val1.getComplex())*-1);      //dalla radice ottengo due valori opposti                             
+                e.push(val1);            //inserisco entrambi nello stack
                 return true;
+                }
+                else 
+                    return false;
         }
         
         return false;
-    }    
-    
+    }   
 }

@@ -508,4 +508,41 @@ public class OperationsTest {
         assertEquals(new Complex(0,-2),op.reverseSign(new Complex(0,2)));
     }
     
+     @Test
+    public void DifferenzaTest() {
+        System.out.println("differenza");
+        Operations instance = new Operations();
+        assertEquals(new Complex(-5,5), instance.differenza(new Complex(5,8), new Complex(10,3))); //a+jb - a+jb
+        assertEquals(new Complex(16,-23), instance.differenza(new Complex(6,-20), new Complex(-10,3)));//a-jb - -a+jb
+        assertEquals(new Complex(-10,-12), instance.differenza(new Complex(0,-9), new Complex(10,3)));//-jb - a+jb
+        assertEquals(new Complex(-3,0), instance.differenza(new Complex(-13,8), new Complex(-10,8)));//-a+jb - -a+jb
+        assertEquals(new Complex(-13,8), instance.differenza(new Complex(-13,8), new Complex(0,0)));//differenza con numero neutro
+        assertEquals(new Complex(-13,0), instance.differenza(new Complex(-13,8), new Complex(0,8)));//-a+jb - jb
+        assertEquals(new Complex(0,0), instance.differenza(new Complex(5,8), new Complex(5,8)));//differenza tra due nuemri uguali
+        assertEquals(new Complex(-95,-3), instance.differenza(new Complex(5,0), new Complex(100,3)));//a - a+jb
+        assertEquals(new Complex(-5,1.0), instance.differenza(new Complex(5.3,0.9), new Complex(10.3,-0.1)));//differenza con valori decimali
+        assertEquals(new Complex(-5.117,1.142), instance.differenza(new Complex(5.333,0.985), new Complex(10.45,-0.157)));
+        assertEquals(new Complex(0,0), instance.differenza(new Complex(0,0), new Complex(0,0)));//differenza tra zero
+        // TODO review the generated test code and remove the default call to fail.
+        //fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of radice method, of class Operations.
+     */
+    @Test
+    public void RadiceTest() {
+        System.out.println("radice");
+        Operations instance = new Operations();
+        assertEquals(new Complex(2,0), instance.radice(new Complex(4,0)));//rad numero reale
+        assertEquals(new Complex(0,2), instance.radice(new Complex(-4,0)));//rad numero reale negativo
+        assertEquals(new Complex(0,0), instance.radice(new Complex(0,0)));//rad di zer0
+        assertEquals(new Complex(2.6864,1.489), instance.radice(new Complex(5,8)));//rad di un numero complesso
+        assertEquals(new Complex(1.28,0.8594), instance.radice(new Complex(0.9,2.2)));//rad di un nnumero complesso decimale
+        assertEquals(new Complex(-3.9422,10.2733), instance.radice(new Complex(-90,-81)));//rad di un  numero complesso negativo
+        
+        // TODO review the generated test code and remove the default call to fail.
+        //fail("The test case is a prototype.");
+    }
+    
 }

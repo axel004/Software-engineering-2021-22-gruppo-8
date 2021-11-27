@@ -52,5 +52,38 @@ public class Operations {
             return null;
         }
     }
+
+    public Complex differenza(Complex val1, Complex val2){
+        Complex totaldiff = new Complex(val1.getReal()-val2.getReal(),val1.getComplex()-val2.getComplex());  //eseguo la differenza
+        totaldiff.setReal(Math.round(totaldiff.getReal()*10000)/10000.0);
+        totaldiff.setComplex(Math.round(totaldiff.getComplex()*10000)/10000.0);
+        return totaldiff;
+     
+    }   
+    
+    
+    public Complex radice(Complex val){
+        
+        if(val.getComplex()==0)     //controllo se il valore è reale
+            if(val.getReal()>=0)     //se è maggiore di zero eseguo la radice classica
+                val.setReal(Math.sqrt(val.getReal()));
+            else{
+                val.setComplex(Math.sqrt((-1*val.getReal()))); //se è minore di zero eseguo la radice del valore trasformato in positivo
+                val.setReal(0);             //e lo inserisco come valore immaginario e setto la parte reale a 0
+            }
+        else{
+        double abs= Math.sqrt(val.getReal()*val.getReal()+val.getComplex()*val.getComplex());   //calcolo modulo e fase
+        double arg = (2*Math.PI + Math.atan2(val.getComplex(),val.getReal())) % (2*Math.PI);
+        
+        val.setReal(Math.sqrt(abs)*(Math.cos((arg/2))));        //calcolo i valori reali e immaginari e li inserisco nell'oggetto val
+        val.setComplex(Math.sqrt(abs)*(Math.sin(arg/2)));
+        val.setReal(Math.round(val.getReal()*10000)/10000.0);
+        val.setComplex(Math.round(val.getComplex()*10000)/10000.0);
+        
+        }
+      
+        return val;
+
+    }
      
 }
