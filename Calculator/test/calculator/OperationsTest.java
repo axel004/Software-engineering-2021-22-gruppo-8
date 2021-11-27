@@ -544,7 +544,10 @@ public class OperationsTest {
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
-    
+
+    /**
+     * Test of division method, of class Operations.
+     */
     @Test
     public void testDiv(){
         System.out.println("divisione test");
@@ -552,6 +555,9 @@ public class OperationsTest {
         assertEquals(new Complex(1,0), instance.divisione(new Complex(2,2), new Complex(2,2)));
         assertEquals(new Complex(-0.7,0.1), instance.divisione(new Complex(-2,1), new Complex(3,-1)));
         assertEquals(new Complex(0,0), instance.divisione(new Complex(0,0), new Complex(2,2)));
+        assertEquals(null, instance.divisione(new Complex(0,0), new Complex(0,0))); //forma indeterminata 0/0 --> l'operazione non avviene e ottengo null
+        assertEquals(null, instance.divisione(new Complex(-0.5,3.70), new Complex(0,0))); //se il divisore è 0+0j allora l'operazione non avviene e ottengo null
+        assertEquals(new Complex(0,1), instance.divisione(new Complex(3,3), new Complex(3,-3)));
     }
     
 }

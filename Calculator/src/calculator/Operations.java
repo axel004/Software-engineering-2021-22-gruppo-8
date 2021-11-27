@@ -118,30 +118,21 @@ public class Operations {
     }
 
     public Complex times(Complex x, Complex y) {
-        double reP = x.getReal() * y.getReal() - x.getComplex() * y.getComplex();
-        double imP = x.getComplex() * y.getReal() + x.getReal() * y.getComplex();
-        Complex res = new Complex (reP, imP);
-        res.setReal(this.round(res.getReal(),4));
-        res.setComplex(this.round(res.getComplex(),4));
-        return res;
+        double reP = this.round(x.getReal() * y.getReal() - x.getComplex() * y.getComplex(),4);
+        double imP = this.round(x.getComplex() * y.getReal() + x.getReal() * y.getComplex(), 4);
+        return new Complex (reP, imP);
     }
 
     public Complex times(double a, Complex y) {
-        double reP =  a * y.getReal();
-        double imP = a * y.getComplex();
-        Complex val = new Complex (reP, imP);
-        val.setReal(this.round(val.getReal(), 4));
-        val.setComplex(this.round(val.getComplex(), 4));
-        return val;
+        double reP =  this.round((double) a * y.getReal(),8);
+        double imP =  this.round((double) a * y.getComplex(),8);
+        return new Complex (reP, imP);
     }
 
     public double square(Complex y) {
-        double reP =  y.getReal() * y.getReal();
-        double imP = y.getComplex() * y.getComplex();
-        Complex val = new Complex (reP, imP);
-        val.setReal(this.round(val.getReal(), 4));
-        val.setComplex(this.round(val.getComplex(), 4));
-        return val.getReal()+val.getComplex();
+        double reP =  this.round(y.getReal() * y.getReal(), 4);
+        double imP = this.round(y.getComplex() * y.getComplex(), 4);
+        return reP+imP;
     }
 
     public Complex conjugate(Complex y) {
