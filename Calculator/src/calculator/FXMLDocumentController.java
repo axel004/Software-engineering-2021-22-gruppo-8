@@ -169,15 +169,21 @@ public class FXMLDocumentController implements Initializable {
             real = Double.parseDouble(number[0]);
             complex = Double.parseDouble(number[1]);
         } else if (numComplex.contains("-")) {
-            numComplex = numComplex.replace("j", "");
             if (numComplex.startsWith("-")) {
                 numComplex = numComplex.substring(1);
                 num = "-";
             }
             if (!numComplex.contains("-")) {
-                real = Double.parseDouble(num.concat(numComplex));
-                complex = 0;
+                if (numComplex.contains("j")) {
+                    numComplex = numComplex.replace("j", "");
+                    real = 0;
+                    complex = Double.parseDouble(num.concat(numComplex));
+                } else {
+                    real = Double.parseDouble(num.concat(numComplex));
+                    complex = 0;
+                }
             } else {
+                numComplex = numComplex.replace("j", "");
                 number = numComplex.split("-");
                 real = Double.parseDouble(num.concat(number[0]));
                 complex = Double.parseDouble("-".concat(number[1]));
