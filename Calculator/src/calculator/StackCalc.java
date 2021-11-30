@@ -73,7 +73,7 @@ public class StackCalc extends Stack<Complex>{
     /*
         Metodo che ritorna uno stack svuotato dagli elementi che vi erano prima
     */
-    public Stack destroy(){
+    public StackCalc destroy(){
         Complex aux = null;
         if(!this.isEmpty()){
             while(!this.isEmpty()){

@@ -560,4 +560,23 @@ public class OperationsTest {
         assertEquals(new Complex(0,1), instance.divisione(new Complex(3,3), new Complex(3,-3)));
     }
     
+    @Test
+    public void testClear() {
+        System.out.println("*** TEST clear() ***");
+        Operations op = new Operations();
+        StackCalc stack = new StackCalc();
+        Complex value = new Complex(18,32);
+        Complex value2 = new Complex(3,43);
+        // test con stack vuoto
+        op.clear(stack);
+        assertEquals(0,stack.size());
+        // test con stack non vuoto
+        stack.push(value);
+        stack.push(value2);
+        op.clear(stack);
+        assertEquals(0,stack.size());
+        
+        
+    }
+    
 }
