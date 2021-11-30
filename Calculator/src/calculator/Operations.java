@@ -151,4 +151,11 @@ public class Operations {
             return null;
         }
     }
+    
+    /*
+    metodo che prende il primo elemento (senza eliminarlo) nello stack e lo copia nello stack stesso
+    */
+    public void dup(StackCalc stack){
+        stack.push(stack.peek());
+    }
 }

@@ -73,7 +73,12 @@ public class OperatorTest {
             assertEquals(true,instance.isoperator("-", e));
             assertEquals(true,instance.isoperator("*", e));
             assertEquals(true,instance.isoperator("+-", e));
-            assertEquals(true,instance.isoperator("sqrt", e)); 
+            assertEquals(true,instance.isoperator("sqrt", e));
+            assertEquals(true,instance.isoperator("clear", e));
+            assertEquals(true,instance.isoperator("dup", e)); 
+            assertEquals(true,instance.isoperator("drop", e)); 
+            assertEquals(true,instance.isoperator("swap", e));
+            assertEquals(true,instance.isoperator("over", e)); 
         }
         catch(Exception a){
                 System.out.print("isoperator error");

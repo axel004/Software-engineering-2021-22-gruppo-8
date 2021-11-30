@@ -22,6 +22,34 @@ public class Operator {
         Complex val2;
         Operations o = new Operations();
         switch(operator){
+            case "clear":
+                //chiamata alla funzione clear
+            case "dup":
+                if (e.size()>=1){
+                    o.dup(e);
+                    return true;
+                }
+                else
+                    throw new Exception("Non ci sono valori nello stack");
+            case "drop":
+                if (e.size()>=1){
+                    //chiamata alla funzione drop
+                    return true;
+                }
+                else
+                    throw new Exception("Non ci sono valori nello stack");
+            case "swap":
+                if (e.size()>=2) {
+                    //chiamata alla funzione swap
+                    return true;
+                } else
+                    throw new Exception("Non ci sono abbastanza valori nello stack");
+            case "over":
+                if (e.size()>=2) {
+                    //chiamata alla funzione over
+                    return true;
+                } else
+                    throw new Exception("Non ci sono abbastanza valori nello stack");
             case "+":
                 if(e.size()>=2){            //controllo se ci sono almeno due valori
                     val2 = e.pop();
