@@ -560,4 +560,38 @@ public class OperationsTest {
         assertEquals(new Complex(0,1), instance.divisione(new Complex(3,3), new Complex(3,-3)));
     }
     
+    @Test
+    public void testClear() {
+        System.out.println("*** TEST clear() ***");
+        Operations op = new Operations();
+        StackCalc stack = new StackCalc();
+        Complex value = new Complex(18,32);
+        Complex value2 = new Complex(3,43);
+        // test con stack vuoto
+        op.clear(stack);
+        assertEquals(0,stack.size());
+        // test con stack non vuoto
+        stack.push(value);
+        stack.push(value2);
+        op.clear(stack);
+        assertEquals(0,stack.size());
+    }
+    
+    /*
+    * Test of dup method, of class Operations.
+    */
+    @Test
+    public void testDup() {
+        System.out.println("*** TEST dup() ***");
+        Operations op = new Operations();
+        StackCalc stack = new StackCalc();
+        Complex value = new Complex(0,-7.2);
+        Complex value2 = new Complex(3,9);
+        stack.push(value);
+        stack.push(value2);
+        op.dup(stack);
+        assertEquals(3,stack.size()); //verifico che il metodo dup inserisca un nuovo elemento nello stack senza rimuoverne altri
+        assertEquals(new Complex(3,9),stack.peek()); //verifico che il nuovo elemento inserito in cima allo stack corrisponde all'ultimo elemento inserito prima di quello nuovo
+    }
+    
 }
