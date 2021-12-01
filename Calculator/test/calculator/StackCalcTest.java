@@ -311,7 +311,7 @@ public class StackCalcTest {
     }
     
     /*
-    * Test of dup method, of class Operations.
+    * Test of dup method, of class StackCalc.
      */
     @Test
     public void testDup() {

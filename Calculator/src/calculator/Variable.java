@@ -33,4 +33,15 @@ public class Variable {
         return struct.get(key);
     }
     
+    /*
+    questa funzione salva il valore presente in cima allo stack nella variabile scelta dall'utente (key).
+    corrisponde al comando ">x"
+    */
+    public void savingInVariable(String key, StackCalc stack) throws Exception{
+        if(struct.containsKey(key))
+           throw new Exception("La variabile è già stata utilizzata");
+        else{
+            this.setVariable(key, stack.pop());
+        }
+    }
 }

@@ -67,5 +67,35 @@ public class VariableTest {
         Variable v = new Variable();
         v.getVariable(null);
     }
-
+    
+    /**
+     * Test of savingInVariable method, of class Variable.
+     */
+    @Test
+    public void testsavingInVariable() throws Exception {
+        System.out.println("*** TEST savingInVariable() ***");
+        Variable v = new Variable();
+        Complex value = new Complex(75, 87);
+        Complex value2 = new Complex(8, -19);
+        Complex value3 = new Complex(100, 30);
+        Complex value4 = new Complex(-0.5, -9);
+        Complex value5 = new Complex(34, 12);
+        Complex value6 = new Complex(0, 0);
+        StackCalc stack = new StackCalc();
+        stack.push(value);
+        stack.push(value2);
+        stack.push(value3);
+        stack.push(value4);
+        stack.push(value5);
+        try{
+            v.savingInVariable("a", stack);
+            v.savingInVariable("k", stack);
+            v.savingInVariable("w", stack);
+            v.savingInVariable("z", stack);
+            v.savingInVariable("a", stack); //lancia l'eccezione poichè la variabile è stata già usata
+        }catch (Exception e){
+            System.out.println("La variabile è stata già utilizzata");
+        }
+    }
+    
 }
