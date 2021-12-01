@@ -44,12 +44,21 @@ public class Variable {
     /*
     questa funzione salva il valore presente nella variabile selezionata dall'utente (key) in cima allo stack
     corrisponde al comando "<x"
-     */
+    */
     public void savingInStack(String key, StackCalc stack) throws Exception {
         if (!struct.containsKey(key)) {
             throw new Exception("Non è presente la variabile selezionata");
         } else {
             stack.push(struct.get(key));
         }
+    }
+    
+    /*
+    questa funzione somma il valore presente nella variabile selezionata dall'utente con quello presente in cima allo stack
+    e salva il risultato nella variabile stessa
+    corrisponde al comando "+x"
+    */
+    public void sumVariable (String key, Operations op, StackCalc stack){
+        this.setVariable(key, op.sum(this.getVariable(key), stack.pop()));
     }
 }
