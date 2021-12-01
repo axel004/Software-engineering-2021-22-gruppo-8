@@ -83,4 +83,8 @@ public class StackCalc extends Stack<Complex>{
         return this;
     }
     
+    public void drop(){
+        this.pop();
+    }
+    
 }
