@@ -310,4 +310,19 @@ public class StackCalcTest {
         Assert.assertEquals(string,stacc.toString());
     }
     
+    /*
+    * Test of dup method, of class Operations.
+     */
+    @Test
+    public void testDup() {
+        System.out.println("*** TEST dup() ***");
+        StackCalc stack = new StackCalc();
+        Complex value = new Complex(0, -7.2);
+        Complex value2 = new Complex(3, 9);
+        stack.push(value);
+        stack.push(value2);
+        stack.dup();
+        assertEquals(3, stack.size()); //verifico che il metodo dup inserisca un nuovo elemento nello stack senza rimuoverne altri
+        assertEquals(new Complex(3, 9), stack.peek()); //verifico che il nuovo elemento inserito in cima allo stack corrisponde all'ultimo elemento inserito prima di quello nuovo
+    }
 }

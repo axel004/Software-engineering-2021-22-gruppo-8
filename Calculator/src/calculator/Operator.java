@@ -26,14 +26,14 @@ public class Operator {
                 o.clear(e);
             case "dup":
                 if (e.size()>=1){
-                    o.dup(e);
+                    e.dup();
                     return true;
                 }
                 else
                     throw new Exception("Non ci sono valori nello stack");
             case "drop":
                 if (e.size()>=1){
-                    //chiamata alla funzione drop
+                    e.drop();
                     return true;
                 }
                 else

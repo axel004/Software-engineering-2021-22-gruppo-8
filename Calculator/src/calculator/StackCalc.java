@@ -87,4 +87,10 @@ public class StackCalc extends Stack<Complex>{
         this.pop();
     }
     
+    /*
+    metodo che prende il primo elemento (senza eliminarlo) nello stack e lo copia nello stack stesso
+    */
+    public void dup() {
+        this.push(this.peek());
+    }
 }
