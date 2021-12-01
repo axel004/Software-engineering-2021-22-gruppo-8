@@ -100,4 +100,11 @@ public class StackCalc extends Stack<Complex>{
             return;
         this.destroy();
     }
+    
+        public void swap(){
+        Complex val1 = this.pop();
+        Complex val2 = this.pop();
+        this.push(val1);
+        this.push(val2);
+    }
 }

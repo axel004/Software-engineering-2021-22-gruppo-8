@@ -342,4 +342,48 @@ public class StackCalcTest {
         assertEquals(0,stack.size());
     }
     
+        @Test
+    public void Testswap(){
+        System.out.println("swap test\n");
+        StackCalc stacc = new StackCalc();
+        
+        Complex c1 = new Complex(1,2);
+        Complex c2 = new Complex(4,2);
+        Complex c3 = new Complex(45,5);
+        Complex c4 = new Complex(0,0);
+        
+        stacc.push(c1);
+        stacc.push(c2);
+        stacc.push(c3);
+        stacc.push(c4);
+        
+        stacc.swap();
+        //System.out.print(stacc.toString());
+        String string = "[1.0 + 2.0j\n" +
+                        ", 4.0 + 2.0j\n" +
+                        ", 0.0 + 0.0j\n" +
+                        ", 45.0 + 5.0j\n" +
+                        "]";
+        Assert.assertEquals(string,stacc.toString());
+        
+        stacc.swap();
+        //System.out.print(stacc.toString());
+                string = "[1.0 + 2.0j\n" +
+                        ", 4.0 + 2.0j\n" +
+                        ", 45.0 + 5.0j\n" +
+                        ", 0.0 + 0.0j\n" +
+                        "]";
+        Assert.assertEquals(string,stacc.toString());
+        
+        stacc.pop();
+        stacc.pop();
+               
+        stacc.swap();
+                string = "[4.0 + 2.0j\n" +
+                        ", 1.0 + 2.0j\n" +
+                        "]";
+        Assert.assertEquals(string,stacc.toString());
+   
+    }
+    
 }

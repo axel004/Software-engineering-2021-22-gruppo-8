@@ -40,7 +40,7 @@ public class Operator {
                     throw new Exception("Non ci sono valori nello stack");
             case "swap":
                 if (e.size()>=2) {
-                    //chiamata alla funzione swap
+                    e.swap();
                     return true;
                 } else
                     throw new Exception("Non ci sono abbastanza valori nello stack");
