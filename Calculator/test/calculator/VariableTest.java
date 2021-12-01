@@ -155,4 +155,29 @@ public class VariableTest {
         v.sumVariable("h", op, stack);
         assertEquals(new Complex(42, -7), v.getVariable("h"));
     }
+    
+    /**
+     * Test of diffVariable method, of class Variable.
+     */
+    @Test
+    public void testDiffVariable() throws Exception {
+        System.out.println("*** TEST diffVariable() ***");
+        Variable v = new Variable();
+        Operations op = new Operations();
+        Complex value = new Complex(0, 0);
+        Complex value2 = new Complex(8, -19);
+        Complex value3 = new Complex(10, 30);
+        Complex value4 = new Complex(-0.5, -9);
+        Complex value5 = new Complex(34, 12);
+        StackCalc stack = new StackCalc();
+        stack.push(value);
+        stack.push(value2);
+        stack.push(value3);
+        v.setVariable("c", value4);
+        v.setVariable("h", value5);
+        v.diffVariable("c", op, stack);
+        assertEquals(new Complex(-10.5, -39), v.getVariable("c"));
+        v.diffVariable("h", op, stack);
+        assertEquals(new Complex(26, 31), v.getVariable("h"));
+    }
 }

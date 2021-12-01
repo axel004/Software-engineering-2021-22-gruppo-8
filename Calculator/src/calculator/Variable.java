@@ -61,4 +61,13 @@ public class Variable {
     public void sumVariable (String key, Operations op, StackCalc stack){
         this.setVariable(key, op.sum(this.getVariable(key), stack.pop()));
     }
+    
+    /*
+    questa funzione sottrae al valore presente nella variabile selezionata dall'utente quello presente in cima allo stack
+    e salva il risultato nella variabile stessa
+    corrisponde al comando "-x"
+     */
+    public void diffVariable(String key, Operations op, StackCalc stack) {
+        this.setVariable(key, op.differenza(this.getVariable(key), stack.pop()));
+    }
 }
