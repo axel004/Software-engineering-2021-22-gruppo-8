@@ -15,6 +15,7 @@ import java.util.Stack;
  */
 public class StackCalc extends Stack<Complex>{
     
+    
    
     @Override
     public Complex pop(){
@@ -106,5 +107,17 @@ public class StackCalc extends Stack<Complex>{
         Complex val2 = this.pop();
         this.push(val1);
         this.push(val2);
+    }
+        
+    public void over(){
+        try{
+        Complex ultimo = this.pop();
+        Complex penultimo = this.peek();
+        this.push(ultimo);
+        this.push(penultimo);
+        }
+        catch(Exception e){
+            System.out.print("Over error\n");
+        }
     }
 }
