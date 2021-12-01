@@ -93,4 +93,11 @@ public class StackCalc extends Stack<Complex>{
     public void dup() {
         this.push(this.peek());
     }
+    
+        
+    public void clear() {
+        if (this.isEmpty())
+            return;
+        this.destroy();
+    }
 }

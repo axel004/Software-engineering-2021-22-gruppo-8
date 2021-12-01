@@ -23,7 +23,7 @@ public class Operator {
         Operations o = new Operations();
         switch(operator){
             case "clear":
-                o.clear(e);
+                e.clear();
             case "dup":
                 if (e.size()>=1){
                     e.dup();

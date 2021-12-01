@@ -15,12 +15,6 @@ import java.math.RoundingMode;
  */
 public class Operations {
     
-    public StackCalc clear(StackCalc stack) {
-        if (stack.isEmpty())
-            return stack;
-        return stack.destroy();
-    }
-    
     private static double round(double value, int places) {
         if (places < 0) {
             throw new IllegalArgumentException();
