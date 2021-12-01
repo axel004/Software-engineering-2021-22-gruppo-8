@@ -46,7 +46,7 @@ public class Operator {
                     throw new Exception("Non ci sono abbastanza valori nello stack");
             case "over":
                 if (e.size()>=2) {
-                    //chiamata alla funzione over
+                    e.over();
                     return true;
                 } else
                     throw new Exception("Non ci sono abbastanza valori nello stack");

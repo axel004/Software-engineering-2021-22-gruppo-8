@@ -86,20 +86,14 @@ public class VariableTest {
         stack.push(value3);
         stack.push(value4);
         stack.push(value5);
-        try{
-            v.savingInVariable("a", stack);
-            assertEquals(value5, v.getVariable("a"));
-            v.savingInVariable("k", stack);
-            assertEquals(value4, v.getVariable("k"));
-            v.savingInVariable("w", stack);
-            assertEquals(value3, v.getVariable("w"));
-            v.savingInVariable("z", stack);
-            assertEquals(value2, v.getVariable("z"));
-            v.savingInVariable("a", stack); //lancia l'eccezione poichè la variabile è stata già usata
-            assertEquals(value, v.getVariable("a"));
-        }catch (Exception e){
-            System.out.println("La variabile è stata già utilizzata");
-        }
+        v.savingInVariable("a", stack);
+        assertEquals(value5, v.getVariable("a"));
+        v.savingInVariable("k", stack);
+        assertEquals(value4, v.getVariable("k"));
+        v.savingInVariable("w", stack);
+        assertEquals(value3, v.getVariable("w"));
+        v.savingInVariable("z", stack);
+        assertEquals(value2, v.getVariable("z"));
     }
     
     /**
