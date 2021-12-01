@@ -44,4 +44,16 @@ public class Variable {
             this.setVariable(key, stack.pop());
         }
     }
+    
+    /*
+    questa funzione salva il valore presente nella variabile selezionata dall'utente (key) in cima allo stack
+    corrisponde al comando "<x"
+     */
+    public void savingInStack(String key, StackCalc stack) throws Exception {
+        if (!struct.containsKey(key)) {
+            throw new Exception("Non è presente la variabile selezionata");
+        } else {
+            stack.push(struct.get(key));
+        }
+    }
 }

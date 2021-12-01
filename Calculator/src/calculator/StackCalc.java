@@ -102,21 +102,20 @@ public class StackCalc extends Stack<Complex>{
         this.destroy();
     }
     
-        public void swap(){
+    public void swap() {
         Complex val1 = this.pop();
         Complex val2 = this.pop();
         this.push(val1);
         this.push(val2);
     }
         
-    public void over(){
-        try{
-        Complex ultimo = this.pop();
-        Complex penultimo = this.peek();
-        this.push(ultimo);
-        this.push(penultimo);
-        }
-        catch(Exception e){
+    public void over() {
+        try {
+            Complex ultimo = this.pop();
+            Complex penultimo = this.peek();
+            this.push(ultimo);
+            this.push(penultimo);
+        } catch (Exception e) {
             System.out.print("Over error\n");
         }
     }

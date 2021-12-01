@@ -80,7 +80,6 @@ public class VariableTest {
         Complex value3 = new Complex(100, 30);
         Complex value4 = new Complex(-0.5, -9);
         Complex value5 = new Complex(34, 12);
-        Complex value6 = new Complex(0, 0);
         StackCalc stack = new StackCalc();
         stack.push(value);
         stack.push(value2);
@@ -89,13 +88,52 @@ public class VariableTest {
         stack.push(value5);
         try{
             v.savingInVariable("a", stack);
+            assertEquals(value5, v.getVariable("a"));
             v.savingInVariable("k", stack);
+            assertEquals(value4, v.getVariable("k"));
             v.savingInVariable("w", stack);
+            assertEquals(value3, v.getVariable("w"));
             v.savingInVariable("z", stack);
+            assertEquals(value2, v.getVariable("z"));
             v.savingInVariable("a", stack); //lancia l'eccezione poichè la variabile è stata già usata
+            assertEquals(value, v.getVariable("a"));
         }catch (Exception e){
             System.out.println("La variabile è stata già utilizzata");
         }
     }
     
+    /**
+     * Test of savingInStack method, of class Variable.
+     */
+    @Test
+    public void testsavingInStack() throws Exception {
+        System.out.println("*** TEST savingInStack() ***");
+        Variable v = new Variable();
+        Complex value = new Complex(75, 87);
+        Complex value2 = new Complex(8, -19);
+        Complex value3 = new Complex(100, 30);
+        Complex value4 = new Complex(-0.5, -9);
+        Complex value5 = new Complex(34, 12);
+        StackCalc stack = new StackCalc();
+        v.setVariable("a", value);
+        v.setVariable("m", value2);
+        v.setVariable("r", value3);
+        v.setVariable("c", value4);
+        v.setVariable("h", value5);
+        try {
+            v.savingInStack("a", stack);
+            assertEquals(value, stack.peek());
+            v.savingInStack("m", stack);
+            assertEquals(value2, stack.peek());
+            v.savingInStack("r", stack);
+            assertEquals(value3, stack.peek());
+            v.savingInStack("c", stack);
+            assertEquals(value4, stack.peek());
+            v.savingInStack("h", stack);
+            assertEquals(value5, stack.peek());
+            v.savingInStack("q", stack);
+        } catch (Exception e) {
+            System.out.println("La variabile non è stata ancora utilizzata");
+        }
+    }
 }
