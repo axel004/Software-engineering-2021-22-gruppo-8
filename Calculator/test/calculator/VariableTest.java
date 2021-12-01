@@ -72,7 +72,7 @@ public class VariableTest {
      * Test of savingInVariable method, of class Variable.
      */
     @Test
-    public void testsavingInVariable() throws Exception {
+    public void testSavingInVariable() throws Exception {
         System.out.println("*** TEST savingInVariable() ***");
         Variable v = new Variable();
         Complex value = new Complex(75, 87);
@@ -100,7 +100,7 @@ public class VariableTest {
      * Test of savingInStack method, of class Variable.
      */
     @Test
-    public void testsavingInStack() throws Exception {
+    public void testSavingInStack() throws Exception {
         System.out.println("*** TEST savingInStack() ***");
         Variable v = new Variable();
         Complex value = new Complex(75, 87);
