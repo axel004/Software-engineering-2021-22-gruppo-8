@@ -12,7 +12,7 @@ import java.util.HashMap;
  * @author Alberto
  */
 public class Customs {
-    private static HashMap<String,String> mappa = new HashMap();
+    private HashMap<String,String> mappa = new HashMap();
     
     /*
     "crea" inserisce una chiave nomeOperazione nella mappa, e vi inserisce la stringa "0" come valore;
