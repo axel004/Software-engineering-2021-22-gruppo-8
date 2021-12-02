@@ -48,10 +48,11 @@ public class Variable {
     corrisponde al comando ">x"
     */
     public void savingInVariable(String key) throws Exception{
-        if (struct.containsKey(key)) {
-            throw new Exception();
-        }
         this.setVariable(key, stack.pop());
+    }
+
+    public StackCalc getStack() {
+        return stack;
     }
     
     /*
@@ -59,11 +60,7 @@ public class Variable {
     corrisponde al comando "<x"
     */
     public void savingInStack(String key) throws Exception {
-        if (!struct.containsKey(key)) {
-            throw new Exception("Non è presente la variabile selezionata");
-        } else {
             stack.push(struct.get(key));
-        }
     }
     
     /*

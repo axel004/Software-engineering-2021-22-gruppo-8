@@ -117,7 +117,7 @@ public class FXMLDocumentController implements Initializable {
             // verifica se è un operatore
             Operator op = new Operator();
 
-            if (op.isoperator(textArea.getText(), stack)) {
+            if (op.isOperator(textArea.getText(), stack)) {
                 updateTopLabel();
                 textArea.clear();
             }
