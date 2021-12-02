@@ -83,7 +83,9 @@ public class StackCalc extends Stack<Complex>{
         }
         return this;
     }
-    
+    /*
+    metodo che elimina l'elemento in cima allo stack
+    */
     public void drop(){
         this.pop();
     }
@@ -109,6 +111,9 @@ public class StackCalc extends Stack<Complex>{
         this.push(val2);
     }
         
+    /*
+    metodo che copia il penultimo elemento e lo mette nello stack
+    */
     public void over() {
         try {
             Complex ultimo = this.pop();
