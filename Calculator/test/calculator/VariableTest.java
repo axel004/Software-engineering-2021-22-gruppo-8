@@ -5,6 +5,8 @@
  */
 package calculator;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -21,7 +23,8 @@ public class VariableTest {
     @Test
     public void testSetVariable() {
         System.out.println("*** TEST setVariable() ***");
-        Variable v = new Variable();
+        StackCalc stack = new StackCalc();
+        Variable v = new Variable(stack);
         Complex value = new Complex(32,15);
         Complex newValue = new Complex(19,23);
         // caso 1: creo variabile con nome numerico e quindi non ammissibile --> null
@@ -45,7 +48,9 @@ public class VariableTest {
     @Test()
     public void testGetVariable() {
         System.out.println("*** TEST getVariable() ***");
-        Variable v = new Variable();
+        StackCalc stack = new StackCalc();
+        Variable v = new Variable(stack);        
+  
         Complex value = new Complex(32,15);
         Complex newValue = new Complex(19,23);
         // caso 1: variabile ammissibile non ancora inizializzata
@@ -64,7 +69,8 @@ public class VariableTest {
     @Test(expected = NullPointerException.class)
     public void testGetVariableNullKey() {
         System.out.println("*** TEST getVariable() with null Key ***");
-        Variable v = new Variable();
+        StackCalc stack = new StackCalc();
+        Variable v = new Variable(stack);
         v.getVariable(null);
     }
     
@@ -74,25 +80,26 @@ public class VariableTest {
     @Test
     public void testSavingInVariable() throws Exception {
         System.out.println("*** TEST savingInVariable() ***");
-        Variable v = new Variable();
+        StackCalc stack = new StackCalc();
+        Variable v = new Variable(stack);
         Complex value = new Complex(75, 87);
         Complex value2 = new Complex(8, -19);
         Complex value3 = new Complex(100, 30);
         Complex value4 = new Complex(-0.5, -9);
         Complex value5 = new Complex(34, 12);
-        StackCalc stack = new StackCalc();
+        
         stack.push(value);
         stack.push(value2);
         stack.push(value3);
         stack.push(value4);
         stack.push(value5);
-        v.savingInVariable("a", stack);
+        v.savingInVariable("a");
         assertEquals(value5, v.getVariable("a"));
-        v.savingInVariable("k", stack);
+        v.savingInVariable("k");
         assertEquals(value4, v.getVariable("k"));
-        v.savingInVariable("w", stack);
+        v.savingInVariable("w");
         assertEquals(value3, v.getVariable("w"));
-        v.savingInVariable("z", stack);
+        v.savingInVariable("z");
         assertEquals(value2, v.getVariable("z"));
     }
     
@@ -102,30 +109,30 @@ public class VariableTest {
     @Test
     public void testSavingInStack() throws Exception {
         System.out.println("*** TEST savingInStack() ***");
-        Variable v = new Variable();
+        StackCalc stack = new StackCalc();
+        Variable v = new Variable(stack);
         Complex value = new Complex(75, 87);
         Complex value2 = new Complex(8, -19);
         Complex value3 = new Complex(100, 30);
         Complex value4 = new Complex(-0.5, -9);
         Complex value5 = new Complex(34, 12);
-        StackCalc stack = new StackCalc();
         v.setVariable("a", value);
         v.setVariable("m", value2);
         v.setVariable("r", value3);
         v.setVariable("c", value4);
         v.setVariable("h", value5);
         try {
-            v.savingInStack("a", stack);
+            v.savingInStack("a");
             assertEquals(value, stack.peek());
-            v.savingInStack("m", stack);
+            v.savingInStack("m");
             assertEquals(value2, stack.peek());
-            v.savingInStack("r", stack);
+            v.savingInStack("r");
             assertEquals(value3, stack.peek());
-            v.savingInStack("c", stack);
+            v.savingInStack("c");
             assertEquals(value4, stack.peek());
-            v.savingInStack("h", stack);
+            v.savingInStack("h");
             assertEquals(value5, stack.peek());
-            v.savingInStack("q", stack);
+            v.savingInStack("q");
         } catch (Exception e) {
             System.out.println("La variabile non è stata ancora utilizzata");
         }
@@ -137,22 +144,22 @@ public class VariableTest {
     @Test
     public void testSumVariable() throws Exception {
         System.out.println("*** TEST sumVariable() ***");
-        Variable v = new Variable();
+        StackCalc stack = new StackCalc();
+        Variable v = new Variable(stack);
         Operations op = new Operations();
         Complex value = new Complex(0, 0);
         Complex value2 = new Complex(8, -19);
         Complex value3 = new Complex(10, 30);
         Complex value4 = new Complex(-0.5, -9);
         Complex value5 = new Complex(34, 12);
-        StackCalc stack = new StackCalc();
         stack.push(value);
         stack.push(value2);
         stack.push(value3);
         v.setVariable("c", value4);
         v.setVariable("h", value5);
-        v.sumVariable("c", op, stack);
+        v.sumVariable("c", op);
         assertEquals(new Complex(9.5, 21), v.getVariable("c"));
-        v.sumVariable("h", op, stack);
+        v.sumVariable("h", op);
         assertEquals(new Complex(42, -7), v.getVariable("h"));
     }
     
@@ -162,22 +169,22 @@ public class VariableTest {
     @Test
     public void testDiffVariable() throws Exception {
         System.out.println("*** TEST diffVariable() ***");
-        Variable v = new Variable();
+        StackCalc stack = new StackCalc();
+        Variable v = new Variable(stack);
         Operations op = new Operations();
         Complex value = new Complex(0, 0);
         Complex value2 = new Complex(8, -19);
         Complex value3 = new Complex(10, 30);
         Complex value4 = new Complex(-0.5, -9);
         Complex value5 = new Complex(34, 12);
-        StackCalc stack = new StackCalc();
         stack.push(value);
         stack.push(value2);
         stack.push(value3);
         v.setVariable("c", value4);
         v.setVariable("h", value5);
-        v.diffVariable("c", op, stack);
+        v.diffVariable("c", op);
         assertEquals(new Complex(-10.5, -39), v.getVariable("c"));
-        v.diffVariable("h", op, stack);
+        v.diffVariable("h", op);
         assertEquals(new Complex(26, 31), v.getVariable("h"));
     }
 }

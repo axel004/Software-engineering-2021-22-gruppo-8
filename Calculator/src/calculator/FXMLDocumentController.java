@@ -30,6 +30,7 @@ import javafx.scene.control.TextField;
  */
 public class FXMLDocumentController implements Initializable {
     StackCalc stack = new StackCalc();
+    Variable v = new Variable(stack);
     
     @FXML
     private Label currentValue;
@@ -65,6 +66,12 @@ public class FXMLDocumentController implements Initializable {
     private Label value12;
     
     private LinkedList<Label> labels = new LinkedList<>();
+    @FXML
+    private Label SelectedFileLbl;
+    @FXML
+    private Button loadFileBtn;
+    @FXML
+    private Button StoreFileBtn;
     
     private void handleButtonAction(ActionEvent event) {
         
@@ -98,9 +105,18 @@ public class FXMLDocumentController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid input, please retry.", ButtonType.OK);
         Alert alert2 = new Alert(Alert.AlertType.ERROR, "Please insert at least one other value ", ButtonType.OK);
         Alert alert3 = new Alert(Alert.AlertType.ERROR, "Impossible to divide ", ButtonType.OK);
+        /*Alert alert4 = new Alert(Alert.AlertType.INFORMATION, "Update variable?", ButtonType.NO, ButtonType.OK);
+        
+        alert4.showAndWait();
+        if (alert4.getResult() == ButtonType.OK)
+            System.out.println("update");
+        else {
+            System.out.println("no update");
+        }*/
         try {
             // verifica se è un operatore
             Operator op = new Operator();
+
             if (op.isoperator(textArea.getText(), stack)) {
                 updateTopLabel();
                 textArea.clear();
@@ -197,6 +213,16 @@ public class FXMLDocumentController implements Initializable {
             complex = 0;
         }
         stack.add(new Complex(real, complex));
+    }
+
+    @FXML
+    private void loadFromFile(ActionEvent event) {
+        System.out.println("load from file must be implemented");
+    }
+
+    @FXML
+    private void storeOnFile(ActionEvent event) {
+        System.out.println("store on file must be implemented");
     }
 }
 
