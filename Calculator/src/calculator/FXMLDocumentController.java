@@ -5,6 +5,7 @@
  */
 package calculator;
 
+import java.io.File;
 import java.net.URL;
 import java.util.Collections;
 import java.util.Iterator;
@@ -23,6 +24,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 /**
  *
@@ -30,7 +33,7 @@ import javafx.scene.control.TextField;
  */
 public class FXMLDocumentController implements Initializable {
     StackCalc stack = new StackCalc();
-    Variable v = new Variable(stack);
+    Variable var = new Variable(stack);
     
     @FXML
     private Label currentValue;
@@ -105,19 +108,13 @@ public class FXMLDocumentController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid input, please retry.", ButtonType.OK);
         Alert alert2 = new Alert(Alert.AlertType.ERROR, "Please insert at least one other value ", ButtonType.OK);
         Alert alert3 = new Alert(Alert.AlertType.ERROR, "Impossible to divide ", ButtonType.OK);
-        /*Alert alert4 = new Alert(Alert.AlertType.INFORMATION, "Update variable?", ButtonType.NO, ButtonType.OK);
-        
-        alert4.showAndWait();
-        if (alert4.getResult() == ButtonType.OK)
-            System.out.println("update");
-        else {
-            System.out.println("no update");
-        }*/
+        Alert alert4 = new Alert(Alert.AlertType.ERROR, "Invalid variable operation, please retry ", ButtonType.OK);
         try {
             // verifica se è un operatore
             Operator op = new Operator();
-
-            if (op.isOperator(textArea.getText(), stack)) {
+            String text = textArea.getText();
+            
+            if (op.isOperator(text, stack) || op.isStackOperator(text, stack) || op.isVariableOperator(text, var)) {
                 updateTopLabel();
                 textArea.clear();
             }
@@ -126,7 +123,6 @@ public class FXMLDocumentController implements Initializable {
                 try {
                     // if it's an operand then create a new complex number and push the complex number into stack
                     checkComplex(textArea.getText());
-                    System.out.println("Numero complesso inserito correttamente");
                     updateTopLabel();
                     textArea.clear();
                 } catch (NumberFormatException e) {
@@ -136,7 +132,12 @@ public class FXMLDocumentController implements Initializable {
                     }
                 }
             }
-        } catch (IllegalArgumentException e2){
+        } catch (VariableException e0) {
+            alert4.showAndWait();
+            if (alert4.getResult() == ButtonType.OK) {
+                textArea.clear();
+            }
+        }catch (IllegalArgumentException e2){
             alert3.showAndWait();
             if (alert3.getResult() == ButtonType.OK) {
                 textArea.clear();
@@ -215,13 +216,28 @@ public class FXMLDocumentController implements Initializable {
         stack.add(new Complex(real, complex));
     }
 
+    private File selectFile() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Load from file");
+        fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Text Files", "*.txt"));
+        
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null) {  
+            SelectedFileLbl.setText(selectedFile.toString());
+            return selectedFile;
+        }
+        return null;
+    }
+    
     @FXML
     private void loadFromFile(ActionEvent event) {
-        System.out.println("load from file must be implemented");
+        File file = selectFile();
+        System.out.println("load from a file must be implemented");
     }
 
     @FXML
     private void storeOnFile(ActionEvent event) {
+        File file = selectFile();
         System.out.println("store on file must be implemented");
     }
 }

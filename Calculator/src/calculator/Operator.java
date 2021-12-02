@@ -121,7 +121,7 @@ public class Operator {
         return false;
     }
 
-    public boolean isVariableOperator(String operator, Variable varmap) throws Exception {
+    public boolean isVariableOperator(String operator, Variable varmap) throws VariableException, Exception {
         Operations op = new Operations();
         String[] opval = operator.split("(?!^)");
 
@@ -135,28 +135,28 @@ public class Operator {
                     varmap.savingInStack(opval[1]);
                     return true;
                 } else {
-                    throw new Exception("La variabile non è stata definita");
+                    throw new VariableException("La variabile non è stata definita");
                 }
             case ">":
                 if (varmap.getStack().size() >= 1) { //controllo che ci sia almeno un valore nello stack
                     varmap.savingInVariable(opval[1]);
                     return true;
                 } else {
-                    throw new Exception("La variabile non è stata definita oppure lo stack è vuoto");
+                    throw new VariableException("La variabile non è stata definita oppure lo stack è vuoto");
                 }
             case "+":
                 if (varmap.getVariable(opval[1]) != null && varmap.getStack().size() >= 1) { //controllo l'esistenza della chiave e l'esistenza di almeno un valore nello stack
                     varmap.sumVariable(opval[1], op);
                     return true;
                 } else {
-                    throw new Exception("La variabile non è stata definita oppure lo stack è vuoto");
+                    throw new VariableException("La variabile non è stata definita oppure lo stack è vuoto");
                 }
             case "-":
                 if (varmap.getVariable(opval[1]) != null && varmap.getStack().size() >= 1) { //controllo l'esistenza della chiave e l'esistenza di almeno un valore nello stack
                     varmap.diffVariable(opval[1], op);
                     return true;
                 } else {
-                    throw new Exception("La variabile non è stata definita oppure lo stack è vuoto");
+                    throw new VariableException("La variabile non è stata definita oppure lo stack è vuoto");
                 }
         }
         return false;
