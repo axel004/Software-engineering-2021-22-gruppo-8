@@ -131,7 +131,7 @@ public class Operator {
         }
         switch (opval[0]) {
             case "<":
-                if (varmap.getVariable(opval[1]) != null) { //controllo l'esistenza della chiave
+                if (varmap.getValue(opval[1]) != null) { //controllo l'esistenza della chiave
                     varmap.savingInStack(opval[1]);
                     return true;
                 } else {
@@ -145,14 +145,14 @@ public class Operator {
                     throw new VariableException("La variabile non è stata definita oppure lo stack è vuoto");
                 }
             case "+":
-                if (varmap.getVariable(opval[1]) != null && varmap.getStack().size() >= 1) { //controllo l'esistenza della chiave e l'esistenza di almeno un valore nello stack
+                if (varmap.getValue(opval[1]) != null && varmap.getStack().size() >= 1) { //controllo l'esistenza della chiave e l'esistenza di almeno un valore nello stack
                     varmap.sumVariable(opval[1], op);
                     return true;
                 } else {
                     throw new VariableException("La variabile non è stata definita oppure lo stack è vuoto");
                 }
             case "-":
-                if (varmap.getVariable(opval[1]) != null && varmap.getStack().size() >= 1) { //controllo l'esistenza della chiave e l'esistenza di almeno un valore nello stack
+                if (varmap.getValue(opval[1]) != null && varmap.getStack().size() >= 1) { //controllo l'esistenza della chiave e l'esistenza di almeno un valore nello stack
                     varmap.diffVariable(opval[1], op);
                     return true;
                 } else {

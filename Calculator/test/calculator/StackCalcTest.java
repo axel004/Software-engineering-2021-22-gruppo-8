@@ -13,84 +13,89 @@ import static org.junit.Assert.*;
  * @author Alberto
  */
 public class StackCalcTest {
+    StackCalc stack = StackCalc.getStack();
     
+    //prima di eseguire qualsiasi metodo, ripristina lo stack
+    @Before
+    public void setUp() {
+        stack.clear();
+    }
     /**
      * Test of visit method, of class StackCalc.
      */
     @Test
     public void testVisit() {
         System.out.println("visit test\n");
-        StackCalc stacc = new StackCalc();
         
         Complex c1 = new Complex(1,2);
         Complex c2 = new Complex(4,2);
         Complex c3 = new Complex(45,5);
         Complex c4 = new Complex(4.6,22);
         
-        stacc.push(c1);
-        stacc.push(c2);
-        stacc.push(c3);
-        stacc.push(c4);
+        stack.push(c1);
+        stack.push(c2);
+        stack.push(c3);
+        stack.push(c4);
         
         Complex c5 = new Complex(-2,11);
-        stacc.push(c5);
+        stack.push(c5);
         Complex c6 = new Complex(5,-1);
-        stacc.push(c6);
+        stack.push(c6);
         Complex c7 = new Complex(-9,-6);
-        stacc.push(c7);
+        stack.push(c7);
         
         Complex c8 = new Complex(0,0);
-        stacc.push(c8);
+        stack.push(c8);
         Complex c9 = new Complex(1,0);
-        stacc.push(c9);
+        stack.push(c9);
         Complex c10 = new Complex(-1,0);
-        stacc.push(c10);
+        stack.push(c10);
         Complex c11 = new Complex(0,-1);
-        stacc.push(c11);
+        stack.push(c11);
         Complex c12 = new Complex(0,1);
-        stacc.push(c12);
+        stack.push(c12);
         
-        Complex[] array = stacc.visit();
+        Complex[] array = stack.visit();
         Complex[] expResult0 = {c12,c11,c10,c9,c8,c7,c6,c5,c4,c3,c2,c1};
         Assert.assertArrayEquals(expResult0,array);
         
-        stacc.pop();
-        array = stacc.visit();
+        stack.pop();
+        array = stack.visit();
         Complex[] expResult1 = {c11,c10,c9,c8,c7,c6,c5,c4,c3,c2,c1};
         Assert.assertArrayEquals(expResult1,array);
         
-        stacc.pop();
-        array = stacc.visit();
+        stack.pop();
+        array = stack.visit();
         Complex[] expResult2 = {c10,c9,c8,c7,c6,c5,c4,c3,c2,c1};
         Assert.assertArrayEquals(expResult2,array);
         
-        stacc.pop();
-        array = stacc.visit();
+        stack.pop();
+        array = stack.visit();
         Complex[] expResult3 = {c9,c8,c7,c6,c5,c4,c3,c2,c1};
         Assert.assertArrayEquals(expResult3,array);
         
-        stacc.pop();
-        array = stacc.visit();
+        stack.pop();
+        array = stack.visit();
         Complex[] expResult4 = {c8,c7,c6,c5,c4,c3,c2,c1};
         Assert.assertArrayEquals(expResult4,array);
         
-        stacc.pop();
-        array = stacc.visit();
+        stack.pop();
+        array = stack.visit();
         Complex[] expResult5 = {c7,c6,c5,c4,c3,c2,c1};
         Assert.assertArrayEquals(expResult5,array);
         
-        stacc.pop();
-        array = stacc.visit();
+        stack.pop();
+        array = stack.visit();
         Complex[] expResult6 = {c6,c5,c4,c3,c2,c1};
         Assert.assertArrayEquals(expResult6,array);
         
-        stacc.pop();
-        array = stacc.visit();
+        stack.pop();
+        array = stack.visit();
         Complex[] expResult7 = {c5,c4,c3,c2,c1};
         Assert.assertArrayEquals(expResult7,array);
         
-        stacc.pop();
-        array = stacc.visit();
+        stack.pop();
+        array = stack.visit();
         Complex[] expResult8 = {c4,c3,c2,c1};
         Assert.assertArrayEquals(expResult8,array);
     }
@@ -101,43 +106,42 @@ public class StackCalcTest {
     @Test
     public void testDestroy() {
         System.out.println("destroy test\n");
-        StackCalc stacc = new StackCalc();
         
         Complex c1 = new Complex(1,2);
         Complex c2 = new Complex(4,2);
         Complex c3 = new Complex(45,5);
         Complex c4 = new Complex(4.6,22);
         
-        stacc.push(c1);
-        stacc.push(c2);
-        stacc.push(c3);
-        stacc.push(c4);
+        stack.push(c1);
+        stack.push(c2);
+        stack.push(c3);
+        stack.push(c4);
         
         Complex c5 = new Complex(-2,11);
-        stacc.push(c5);
+        stack.push(c5);
         Complex c6 = new Complex(5,-1);
-        stacc.push(c6);
+        stack.push(c6);
         Complex c7 = new Complex(-9,-6);
-        stacc.push(c7);
+        stack.push(c7);
         
         Complex c8 = new Complex(0,0);
-        stacc.push(c8);
+        stack.push(c8);
         Complex c9 = new Complex(1,0);
-        stacc.push(c9);
+        stack.push(c9);
         Complex c10 = new Complex(-1,0);
-        stacc.push(c10);
+        stack.push(c10);
         Complex c11 = new Complex(0,-1);
-        stacc.push(c11);
+        stack.push(c11);
         Complex c12 = new Complex(0,1);
-        stacc.push(c12);
+        stack.push(c12);
         
-        stacc.destroy();
-        Complex[] array = stacc.visit();
+        stack.destroy();
+        Complex[] array = stack.visit();
         Complex[] expResult0 = null;
         Assert.assertArrayEquals(expResult0,array);
         
-        stacc.destroy();
-        array = stacc.visit();
+        stack.destroy();
+        array = stack.visit();
         Complex[] expResult1 = null;
         Assert.assertArrayEquals(expResult1,array);
     }
@@ -145,37 +149,36 @@ public class StackCalcTest {
     @Test
     public void testDrop() {
         System.out.println("drop test\n");
-        StackCalc stacc = new StackCalc();
         
         Complex c1 = new Complex(1,2);
         Complex c2 = new Complex(4,2);
         Complex c3 = new Complex(45,5);
         Complex c4 = new Complex(4.6,22);
         
-        stacc.push(c1);
-        stacc.push(c2);
-        stacc.push(c3);
-        stacc.push(c4);
+        stack.push(c1);
+        stack.push(c2);
+        stack.push(c3);
+        stack.push(c4);
         
         Complex c5 = new Complex(-2,11);
-        stacc.push(c5);
+        stack.push(c5);
         Complex c6 = new Complex(5,-1);
-        stacc.push(c6);
+        stack.push(c6);
         Complex c7 = new Complex(-9,-6);
-        stacc.push(c7);
+        stack.push(c7);
         
         Complex c8 = new Complex(0,0);
-        stacc.push(c8);
+        stack.push(c8);
         Complex c9 = new Complex(1,0);
-        stacc.push(c9);
+        stack.push(c9);
         Complex c10 = new Complex(-1,0);
-        stacc.push(c10);
+        stack.push(c10);
         Complex c11 = new Complex(0,-1);
-        stacc.push(c11);
+        stack.push(c11);
         Complex c12 = new Complex(0,1);
-        stacc.push(c12);
+        stack.push(c12);
         
-        stacc.drop();
+        stack.drop();
         //System.out.print(stacc.toString());
         String string = "[1.0 + 2.0j\n" +
                         ", 4.0 + 2.0j\n" +
@@ -189,9 +192,9 @@ public class StackCalcTest {
                         ", -1.0 + 0.0j\n" +
                         ", 0.0 -1.0j\n" +
                         "]";
-        Assert.assertEquals(string,stacc.toString());
+        Assert.assertEquals(string,stack.toString());
         
-        stacc.drop();
+        stack.drop();
         //System.out.print(stacc.toString());
         string = "[1.0 + 2.0j\n" +
                         ", 4.0 + 2.0j\n" +
@@ -204,9 +207,9 @@ public class StackCalcTest {
                         ", 1.0 + 0.0j\n" +
                         ", -1.0 + 0.0j\n" +
                         "]";
-        Assert.assertEquals(string,stacc.toString());
+        Assert.assertEquals(string,stack.toString());
         
-        stacc.drop();
+        stack.drop();
         //System.out.print(stacc.toString());
         string = "[1.0 + 2.0j\n" +
                         ", 4.0 + 2.0j\n" +
@@ -218,9 +221,9 @@ public class StackCalcTest {
                         ", 0.0 + 0.0j\n" +
                         ", 1.0 + 0.0j\n" +
                         "]";
-        Assert.assertEquals(string,stacc.toString());
+        Assert.assertEquals(string,stack.toString());
         
-        stacc.drop();
+        stack.drop();
         //System.out.print(stacc.toString());
         string = "[1.0 + 2.0j\n" +
                         ", 4.0 + 2.0j\n" +
@@ -231,9 +234,9 @@ public class StackCalcTest {
                         ", -9.0 -6.0j\n" +
                         ", 0.0 + 0.0j\n" +
                         "]";
-        Assert.assertEquals(string,stacc.toString());
+        Assert.assertEquals(string,stack.toString());
         
-        stacc.drop();
+        stack.drop();
         //System.out.print(stacc.toString());
         string = "[1.0 + 2.0j\n" +
                         ", 4.0 + 2.0j\n" +
@@ -243,9 +246,9 @@ public class StackCalcTest {
                         ", 5.0 -1.0j\n" +
                         ", -9.0 -6.0j\n" +
                         "]";
-        Assert.assertEquals(string,stacc.toString());
+        Assert.assertEquals(string,stack.toString());
         
-        stacc.drop();
+        stack.drop();
         //System.out.print(stacc.toString());
         string = "[1.0 + 2.0j\n" +
                         ", 4.0 + 2.0j\n" +
@@ -254,9 +257,9 @@ public class StackCalcTest {
                         ", -2.0 + 11.0j\n" +
                         ", 5.0 -1.0j\n" +
                         "]";
-        Assert.assertEquals(string,stacc.toString());
+        Assert.assertEquals(string,stack.toString());
         
-        stacc.drop();
+        stack.drop();
         //System.out.print(stacc.toString());
         string = "[1.0 + 2.0j\n" +
                         ", 4.0 + 2.0j\n" +
@@ -264,50 +267,50 @@ public class StackCalcTest {
                         ", 4.6 + 22.0j\n" +
                         ", -2.0 + 11.0j\n" +
                         "]";
-        Assert.assertEquals(string,stacc.toString());
+        Assert.assertEquals(string,stack.toString());
         
-        stacc.drop();
+        stack.drop();
         //System.out.print(stacc.toString());
         string = "[1.0 + 2.0j\n" +
                         ", 4.0 + 2.0j\n" +
                         ", 45.0 + 5.0j\n" +
                         ", 4.6 + 22.0j\n" +
                         "]";
-        Assert.assertEquals(string,stacc.toString());
+        Assert.assertEquals(string,stack.toString());
         
-        stacc.drop();
+        stack.drop();
         //System.out.print(stacc.toString());
         string = "[1.0 + 2.0j\n" +
                         ", 4.0 + 2.0j\n" +
                         ", 45.0 + 5.0j\n" +
                         "]";
-        Assert.assertEquals(string,stacc.toString());
+        Assert.assertEquals(string,stack.toString());
         
-        stacc.drop();
+        stack.drop();
         //System.out.print(stacc.toString());
         string = "[1.0 + 2.0j\n" +
                         ", 4.0 + 2.0j\n" +
                         "]";
-        Assert.assertEquals(string,stacc.toString());
+        Assert.assertEquals(string,stack.toString());
         
         
-        stacc.drop();
+        stack.drop();
         //System.out.print(stacc.toString());
         string = "[1.0 + 2.0j\n" +
                         "]";
-        Assert.assertEquals(string,stacc.toString());
+        Assert.assertEquals(string,stack.toString());
         
-        stacc.drop();
+        stack.drop();
         //System.out.print(stacc.toString());
         string = "[" +
                         "]";
-        Assert.assertEquals(string,stacc.toString());
+        Assert.assertEquals(string,stack.toString());
         
-        stacc.drop();
+        stack.drop();
         //System.out.print(stacc.toString());
         string = "[" +
                         "]";
-        Assert.assertEquals(string,stacc.toString());
+        Assert.assertEquals(string,stack.toString());
     }
     
     /*
@@ -316,7 +319,6 @@ public class StackCalcTest {
     @Test
     public void testDup() {
         System.out.println("*** TEST dup() ***");
-        StackCalc stack = new StackCalc();
         Complex value = new Complex(0, -7.2);
         Complex value2 = new Complex(3, 9);
         stack.push(value);
@@ -329,7 +331,6 @@ public class StackCalcTest {
     @Test
     public void testClear() {
         System.out.println("*** TEST clear() ***");
-        StackCalc stack = new StackCalc();
         Complex value = new Complex(18,32);
         Complex value2 = new Complex(3,43);
         // test con stack vuoto
@@ -345,83 +346,81 @@ public class StackCalcTest {
         @Test
     public void Testswap(){
         System.out.println("swap test\n");
-        StackCalc stacc = new StackCalc();
         
         Complex c1 = new Complex(1,2);
         Complex c2 = new Complex(4,2);
         Complex c3 = new Complex(45,5);
         Complex c4 = new Complex(0,0);
         
-        stacc.push(c1);
-        stacc.push(c2);
-        stacc.push(c3);
-        stacc.push(c4);
+        stack.push(c1);
+        stack.push(c2);
+        stack.push(c3);
+        stack.push(c4);
         
-        stacc.swap();
+        stack.swap();
         //System.out.print(stacc.toString());
         String string = "[1.0 + 2.0j\n" +
                         ", 4.0 + 2.0j\n" +
                         ", 0.0 + 0.0j\n" +
                         ", 45.0 + 5.0j\n" +
                         "]";
-        Assert.assertEquals(string,stacc.toString());
+        Assert.assertEquals(string,stack.toString());
         
-        stacc.swap();
+        stack.swap();
         //System.out.print(stacc.toString());
                 string = "[1.0 + 2.0j\n" +
                         ", 4.0 + 2.0j\n" +
                         ", 45.0 + 5.0j\n" +
                         ", 0.0 + 0.0j\n" +
                         "]";
-        Assert.assertEquals(string,stacc.toString());
+        Assert.assertEquals(string,stack.toString());
         
-        stacc.pop();
-        stacc.pop();
+        stack.pop();
+        stack.pop();
                
-        stacc.swap();
+        stack.swap();
                 string = "[4.0 + 2.0j\n" +
                         ", 1.0 + 2.0j\n" +
                         "]";
-        Assert.assertEquals(string,stacc.toString());
+        Assert.assertEquals(string,stack.toString());
    
     }
     
     @Test
     public void testOver(){
         System.out.println("over test\n");
-        StackCalc stacc = new StackCalc();
         
-        stacc.over();
+        stack.over();
         
         Complex c1 = new Complex(1,2);
         Complex c2 = new Complex(4,2);
         Complex c3 = new Complex(45,5);
         Complex c4 = new Complex(4.6,22);
         
-        stacc.push(c1);
-        stacc.push(c2);
-        stacc.push(c3);
-        stacc.push(c4);
+        stack.push(c1);
+        stack.push(c2);
+        stack.push(c3);
+        stack.push(c4);
         
         Complex c5 = new Complex(-2,11);
-        stacc.push(c5);
+        stack.push(c5);
         Complex c6 = new Complex(5,-1);
-        stacc.push(c6);
+        stack.push(c6);
         Complex c7 = new Complex(-9,-6);
-        stacc.push(c7);
+        stack.push(c7);
         
         Complex c8 = new Complex(0,0);
-        stacc.push(c8);
+        stack.push(c8);
         Complex c9 = new Complex(1,0);
-        stacc.push(c9);
+        stack.push(c9);
         Complex c10 = new Complex(-1,0);
-        stacc.push(c10);
+        stack.push(c10);
         Complex c11 = new Complex(0,-1);
-        stacc.push(c11);
+        stack.push(c11);
         Complex c12 = new Complex(0,1);
-        stacc.push(c12);
+        stack.push(c12);
         
-        stacc.over();
+        stack.over();
         //System.out.print(stacc.toString());
         String string = "[1.0 + 2.0j\n" +
                         ", 4.0 + 2.0j\n" +
@@ -437,6 +436,6 @@ public class StackCalcTest {
                         ", 0.0 + 1.0j\n" +
                         ", 0.0 -1.0j\n" +
                         "]";
-        Assert.assertEquals(string,stacc.toString());
+        Assert.assertEquals(string,stack.toString());
     }
 }

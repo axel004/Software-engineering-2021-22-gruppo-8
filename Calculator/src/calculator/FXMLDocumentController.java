@@ -32,8 +32,9 @@ import javafx.stage.FileChooser.ExtensionFilter;
  * @author HP115-CS0026
  */
 public class FXMLDocumentController implements Initializable {
-    StackCalc stack = new StackCalc();
-    Variable var = new Variable(stack);
+    StackCalc stack = StackCalc.getStack();
+    Variable var = Variable.getVariable(stack);
+    Operator op = new Operator();
     
     @FXML
     private Label currentValue;
@@ -111,7 +112,6 @@ public class FXMLDocumentController implements Initializable {
         Alert alert4 = new Alert(Alert.AlertType.ERROR, "Invalid variable operation, please retry ", ButtonType.OK);
         try {
             // verifica se è un operatore
-            Operator op = new Operator();
             String text = textArea.getText();
             
             if (op.isOperator(text, stack) || op.isStackOperator(text, stack) || op.isVariableOperator(text, var)) {

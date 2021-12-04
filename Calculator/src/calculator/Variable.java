@@ -12,11 +12,17 @@ import java.util.TreeMap;
  * @author HP115-CS0026
  */
 public class Variable {
-
+    static private Variable instance = null;
     private TreeMap<String, Complex> struct;
     private StackCalc stack;
     
-    public Variable(StackCalc stack) {
+    public static Variable getVariable(StackCalc stack){
+        if (instance==null)
+            instance = new Variable (stack);
+        return instance;
+    }
+    
+    private Variable(StackCalc stack) {
         struct = new TreeMap<>();
         this.stack = stack;
     }
@@ -39,7 +45,7 @@ public class Variable {
     }
 
     
-    public Complex getVariable(String key) {
+    public Complex getValue(String key) {
         return struct.get(key);
     }
     
@@ -69,7 +75,7 @@ public class Variable {
     corrisponde al comando "+x"
     */
     public void sumVariable (String key, Operations op){
-        this.setVariable(key, op.sum(this.getVariable(key), stack.pop()));
+        setVariable(key, op.sum(getValue(key), stack.pop()));
     }
     
     /*
@@ -78,6 +84,6 @@ public class Variable {
     corrisponde al comando "-x"
      */
     public void diffVariable(String key, Operations op) {
-        this.setVariable(key, op.differenza(this.getVariable(key), stack.pop()));
+        this.setVariable(key, op.differenza(this.getValue(key), stack.pop()));
     }
 }

@@ -14,7 +14,16 @@ import java.util.Stack;
  * @author Alberto
  */
 public class StackCalc extends Stack<Complex>{
+    static private StackCalc stack = null;
     
+    public static StackCalc getStack() {
+        if (stack == null) {
+            stack = new StackCalc();
+        }
+        return stack;
+    }
+    private StackCalc() {
+    }
     
    
     @Override

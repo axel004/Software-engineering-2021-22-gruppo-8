@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
  * @author Asus
  */
 public class OperatorTest {
-    
+    StackCalc e = StackCalc.getStack();
     public OperatorTest() {
     }
     
@@ -45,7 +45,6 @@ public class OperatorTest {
         Complex val1=new Complex(5,10);
         Complex val2=new Complex(2,10);
         Complex val3=new Complex(9,10);
-        StackCalc e = new StackCalc();
         e.push(val3);
         e.push(val2);
         e.push(val1);
@@ -86,7 +85,6 @@ public class OperatorTest {
         Complex val1=new Complex(5,10);
         Complex val2=new Complex(2,10);
         Complex val3=new Complex(9,10);
-        StackCalc e = new StackCalc();
         e.push(val3);
         e.push(val2);
         e.push(val1);
@@ -113,11 +111,10 @@ public class OperatorTest {
         Complex val1=new Complex(5,10);
         Complex val2=new Complex(2,10);
         Complex val3=new Complex(9,10);
-        StackCalc e = new StackCalc();
         e.push(val3);
         e.push(val2);
         e.push(val1);
-        Variable var = new Variable(e);
+        Variable var = Variable.getVariable(e);
         Complex val4 = new Complex(0,90);
         var.setVariable("x",val4);
         
