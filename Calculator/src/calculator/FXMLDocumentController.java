@@ -229,36 +229,36 @@ public class FXMLDocumentController implements Initializable {
     public void checkComplex(String numComplex) throws NumberFormatException {
         String number[], num = "";
         double real, complex;
-        if (numComplex.contains("+")) {
-            numComplex = numComplex.replace("j", "");
+        if (numComplex.contains("+")) { //verifico se il numero complesso contiene il +
+            numComplex = numComplex.replace("j", ""); //se è presente la j la rimuovo
             number = numComplex.split(Pattern.quote("+"));
             real = Double.parseDouble(number[0]);
             complex = Double.parseDouble(number[1]);
-        } else if (numComplex.contains("-")) {
-            if (numComplex.startsWith("-")) {
-                numComplex = numComplex.substring(1);
+        } else if (numComplex.contains("-")) { //verifico se il numero complesso o il numero reale contiene un meno
+            if (numComplex.startsWith("-")) { //verifico se il valore inizia con - 
+                numComplex = numComplex.substring(1); //prendo solo la sottostringa senza il -
                 num = "-";
             }
-            if (!numComplex.contains("-")) {
-                if (numComplex.contains("j")) {
-                    numComplex = numComplex.replace("j", "");
+            if (!numComplex.contains("-")) {//verifico se il numero complesso presenta un ulteriore -
+                if (numComplex.contains("j")) {//se non c'è il -, verifico se il numero è complesso (contiene j)
+                    numComplex = numComplex.replace("j", "");//tolgo la j
                     real = 0;
-                    complex = Double.parseDouble(num.concat(numComplex));
-                } else {
+                    complex = Double.parseDouble(num.concat(numComplex));//concateno il valore con num in modo tale che se il numero era negativo allora rimetto il - altrimenti concateno con uno spazio vuoto
+                } else {//altrimenti il numero è un numero reale negativo
                     real = Double.parseDouble(num.concat(numComplex));
                     complex = 0;
                 }
-            } else {
+            } else {//è un numero complesso con parte immaginaria negativa
                 numComplex = numComplex.replace("j", "");
                 number = numComplex.split("-");
                 real = Double.parseDouble(num.concat(number[0]));
                 complex = Double.parseDouble("-".concat(number[1]));
             }
-        } else if (numComplex.contains("j")) {
+        } else if (numComplex.contains("j")) { //verifico se il numero inserito contiene j, in questo caso ho un numero complesso senza parte reale
             numComplex = numComplex.replace("j", "");
             real = 0;
             complex = Double.parseDouble(numComplex);
-        } else {
+        } else {//verifico che il valore sia un numero reale senza parte immaginaria
             real = Double.parseDouble(numComplex);
             complex = 0;
         }
