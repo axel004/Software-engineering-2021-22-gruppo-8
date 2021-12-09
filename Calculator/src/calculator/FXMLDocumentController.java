@@ -34,7 +34,6 @@ import javafx.stage.FileChooser.ExtensionFilter;
 public class FXMLDocumentController implements Initializable {
     StackCalc stack = StackCalc.getStack();
     Variable var = Variable.getVariable(stack);
-    Operator op = new Operator();
     
     @FXML
     private Label currentValue;
@@ -106,6 +105,53 @@ public class FXMLDocumentController implements Initializable {
     // Data la stringa in input, verifica se è un valore valido (operatore o operando). 
     // Nel caso in cui la stringa non sia valida, avvisa l'utente con un Alert.
     private void submit(ActionEvent event) {
+        // just for test
+        Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid input, please retry.", ButtonType.OK);
+        Alert alert2 = new Alert(Alert.AlertType.ERROR, "Please insert at least one other value ", ButtonType.OK);
+        Alert alert3 = new Alert(Alert.AlertType.ERROR, "Impossible to divide ", ButtonType.OK);
+        Alert alert4 = new Alert(Alert.AlertType.ERROR, "Invalid variable operation, please retry ", ButtonType.OK);
+        
+        OperatorFactory of = new OperatorFactory();
+        String text = textArea.getText();
+        
+        try {
+            Command c = of.getCommand(text);
+            try { 
+                c.execute(text);
+            } catch(LessArgException lessArgEx) {
+                alert2.showAndWait();
+                if (alert2.getResult() == ButtonType.OK) {
+                    textArea.clear();
+                }
+            } catch(VariableException varEx) {
+                alert4.showAndWait();
+                if (alert4.getResult() == ButtonType.OK) {
+                    textArea.clear();
+                }
+            }
+            textArea.clear();
+            updateTopLabel();
+        } catch (Exception ex) {
+            
+            try {
+                // if it's an operand then create a new complex number and push the complex number into stack
+                checkComplex(textArea.getText());
+                updateTopLabel();
+                textArea.clear();
+            } catch (NumberFormatException exNumb) {
+                alert.showAndWait();
+                if (alert.getResult() == ButtonType.OK) {
+                    textArea.clear();
+                }
+            }
+            
+        }
+        
+        
+
+        
+        
+        /*
         Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid input, please retry.", ButtonType.OK);
         Alert alert2 = new Alert(Alert.AlertType.ERROR, "Please insert at least one other value ", ButtonType.OK);
         Alert alert3 = new Alert(Alert.AlertType.ERROR, "Impossible to divide ", ButtonType.OK);
@@ -113,6 +159,9 @@ public class FXMLDocumentController implements Initializable {
         try {
             // verifica se è un operatore
             String text = textArea.getText();
+            
+            
+            
             
             if (op.isOperator(text, stack) || op.isStackOperator(text, stack) || op.isVariableOperator(text, var)) {
                 updateTopLabel();
@@ -147,7 +196,7 @@ public class FXMLDocumentController implements Initializable {
             if (alert2.getResult() == ButtonType.OK) {
                 textArea.clear();
             }
-        }
+        }*/
     }
 
     @FXML
@@ -240,5 +289,6 @@ public class FXMLDocumentController implements Initializable {
         File file = selectFile();
         System.out.println("store on file must be implemented");
     }
+    
 }
 

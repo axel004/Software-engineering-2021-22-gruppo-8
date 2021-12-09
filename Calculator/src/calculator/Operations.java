@@ -62,8 +62,8 @@ public class Operations {
     
     public Complex sum(Complex a, Complex b){
         try{
-        Complex res = new Complex (a.getReal() + b.getReal(), a.getComplex() + b.getComplex());
-        return res;
+            Complex res = new Complex (a.getReal() + b.getReal(), a.getComplex() + b.getComplex());
+            return res;
         }
         catch(Exception e){
             System.out.print("Sum error\n");

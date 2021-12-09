@@ -53,7 +53,7 @@ public class Variable {
     questa funzione salva il valore presente in cima allo stack nella variabile scelta dall'utente (key).
     corrisponde al comando ">x"
     */
-    public void savingInVariable(String key) throws Exception{
+    public void savingInVariable(String key) {
         this.setVariable(key, stack.pop());
     }
 
@@ -65,8 +65,8 @@ public class Variable {
     questa funzione salva il valore presente nella variabile selezionata dall'utente (key) in cima allo stack
     corrisponde al comando "<x"
     */
-    public void savingInStack(String key) throws Exception {
-            stack.push(struct.get(key));
+    public void savingInStack(String key) {
+        stack.push(struct.get(key));
     }
     
     /*
