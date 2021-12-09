@@ -5,6 +5,8 @@
  */
 package calculator;
 
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -25,13 +27,21 @@ public class CustomsTest {
     public void testCrea() {
         System.out.println("crea test\n");
         String nomeOperazione = "somma";
-        Customs instance = new Customs();
+        Map<String, Command> operationMap = new HashMap<>();
+        operationMap.put("+", new SumCommand());
+        operationMap.put("-", new DiffCommand());
+        operationMap.put("+-", new RevSignCommand());
+        Customs instance = new Customs(operationMap);
         boolean expResult = true;
         boolean result = instance.crea(nomeOperazione);
         assertEquals(expResult, result);
         
         expResult = false;
         result = instance.crea(nomeOperazione);
+        assertEquals(expResult, result);
+        
+        expResult = false;
+        result = instance.crea("+");
         assertEquals(expResult, result);
     }
 
@@ -43,7 +53,11 @@ public class CustomsTest {
         System.out.println("modifica test\n");
         String nomeOperazione = "somma";
         String operazione = "+";
-        Customs instance = new Customs();
+        Map<String, Command> operationMap = new HashMap<>();
+        operationMap.put("+", new SumCommand());
+        operationMap.put("-", new DiffCommand());
+        operationMap.put("+-", new RevSignCommand());
+        Customs instance = new Customs(operationMap);
         instance.crea(nomeOperazione);
         instance.modifica(nomeOperazione, operazione);
         assertEquals(instance.getOperazione(nomeOperazione),"+");
@@ -72,6 +86,21 @@ public class CustomsTest {
         operazione = "+,+-,-";
         instance.modifica(nomeOperazione, operazione);
         assertEquals(instance.getOperazione(nomeOperazione),null);
+        
+        nomeOperazione = "somma";
+        operazione = "+,5+5j";
+        instance.modifica(nomeOperazione, operazione);
+        assertEquals(instance.getOperazione(nomeOperazione),"+,5+5j");
+        
+        nomeOperazione = "somma";
+        operazione = "+,5j";
+        instance.modifica(nomeOperazione, operazione);
+        assertEquals(instance.getOperazione(nomeOperazione),"+,5j");
+        
+        nomeOperazione = "somma";
+        operazione = "+,5";
+        instance.modifica(nomeOperazione, operazione);
+        assertEquals(instance.getOperazione(nomeOperazione),"+,5");
     }
 
     /**
@@ -82,21 +111,53 @@ public class CustomsTest {
         System.out.println("istanziaNuovaOperazione test\n");
         String nomeOperazione = "somma";
         String operazione = "+,+-,-";
-        Customs instance = new Customs();
+        Map<String, Command> operationMap = new HashMap<>();
+        operationMap.put("+", new SumCommand());
+        operationMap.put("-", new DiffCommand());
+        operationMap.put("+-", new RevSignCommand());
+        Customs instance = new Customs(operationMap);
         instance.istanziaNuovaOperazione(nomeOperazione, operazione);
         assertEquals(instance.getOperazione(nomeOperazione),"+,+-,-");
         
         nomeOperazione = "somma";
         operazione = "+,+-,-";
-        instance = new Customs();
         instance.istanziaNuovaOperazione(nomeOperazione, operazione);
         assertEquals(instance.getOperazione(nomeOperazione),"+,+-,-");
         
         nomeOperazione = "differenza";
         operazione = "+,+-,-";
-        instance = new Customs();
         instance.istanziaNuovaOperazione(nomeOperazione, operazione);
         assertEquals(instance.getOperazione(nomeOperazione),"+,+-,-");
+        
+        nomeOperazione = "doppiasomma";
+        operazione = "+,+";
+        instance.istanziaNuovaOperazione(nomeOperazione, operazione);
+        assertEquals(instance.getOperazione(nomeOperazione),"+,+");
+        
+        nomeOperazione = "doppio";
+        operazione = "+,gagag";
+        instance.istanziaNuovaOperazione(nomeOperazione, operazione);
+        assertEquals(instance.getOperazione(nomeOperazione),null);
+        
+        nomeOperazione = "doppio";
+        operazione = "+,+";
+        instance.istanziaNuovaOperazione(nomeOperazione, operazione);
+        assertEquals(instance.getOperazione(nomeOperazione),"+,+");
+        
+        nomeOperazione = "doppio";
+        operazione = "+,5+5j";
+        instance.istanziaNuovaOperazione(nomeOperazione, operazione);
+        assertEquals(instance.getOperazione(nomeOperazione),"+,+");
+        
+        nomeOperazione = "doppio";
+        operazione = "+,5j";
+        instance.istanziaNuovaOperazione(nomeOperazione, operazione);
+        assertEquals(instance.getOperazione(nomeOperazione),"+,+");
+        
+        nomeOperazione = "doppio";
+        operazione = "+,5";
+        instance.istanziaNuovaOperazione(nomeOperazione, operazione);
+        assertEquals(instance.getOperazione(nomeOperazione),"+,+");
     }
     
 }

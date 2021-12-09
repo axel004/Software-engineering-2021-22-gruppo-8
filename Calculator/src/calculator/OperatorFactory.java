@@ -14,7 +14,7 @@ import java.util.*;
  * @author HP115-CS0026
  */
 public class OperatorFactory {
-    private final Map<String, Command> operationMap = new HashMap<>();
+    protected final Map<String, Command> operationMap = new HashMap<>();
     
     public OperatorFactory() {
         operationMap.put("+", new SumCommand());
