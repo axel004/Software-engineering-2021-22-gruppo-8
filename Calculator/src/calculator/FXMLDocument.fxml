@@ -6,11 +6,11 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="578.0" prefWidth="695.0" style="-fx-background-color: #222;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calculator.FXMLDocumentController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="685.0" prefWidth="695.0" style="-fx-background-color: #222;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calculator.FXMLDocumentController">
    <children>
-      <VBox prefHeight="531.0" prefWidth="695.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox prefHeight="650.0" prefWidth="695.0" AnchorPane.bottomAnchor="31.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" style="-fx-background-color: orange;">
+            <HBox alignment="TOP_RIGHT" prefHeight="60.0" prefWidth="695.0" spacing="10.0" style="-fx-background-color: orange;">
                <children>
                   <Label fx:id="SelectedFileLbl" alignment="TOP_LEFT" prefHeight="21.0" prefWidth="520.0" text="No file selected yet..." />
                   <Button fx:id="loadFileBtn" mnemonicParsing="false" onAction="#loadFromFile" style="-fx-background-color: darkorange; -fx-border-radius: 0;" text="Load">
@@ -119,11 +119,15 @@
                         <Font size="96.0" />
                      </font>
                   </Label>
-                  <Label prefHeight="27.0" prefWidth="274.0" text="Add a value or an operation:" textFill="WHITE">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label prefHeight="27.0" prefWidth="274.0" text="Add a value or an operation:" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
                   <TextField fx:id="textArea" style="-fx-background-color: #555; -fx-background-radius: 5; -fx-text-fill: white;">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -131,7 +135,35 @@
                   </TextField>
                   <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                      <children>
-                        <VBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="159.0" spacing="5.0">
+                        <TextField fx:id="nameOperation" disable="true" prefHeight="41.0" prefWidth="202.0" style="-fx-background-color: #555; -fx-background-radius: 5; -fx-text-fill: white;" text="Operation name...">
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </TextField>
+                        <TextField fx:id="seqOperation" disable="true" prefHeight="41.0" prefWidth="426.0" style="-fx-background-color: #555; -fx-background-radius: 5; -fx-text-fill: white;" text="Sequence of operations separed by commas...">
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Button fx:id="newOpBtn" alignment="CENTER" mnemonicParsing="false" onAction="#addCustomOperation" prefHeight="31.0" prefWidth="201.0" style="-fx-background-color: #555; -fx-background-border: 10;" text="Declare a new operation" textFill="WHITE">
+                           <padding>
+                              <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                           </padding>
+                        </Button>
+                        <Button fx:id="insertOpBtn" alignment="CENTER" mnemonicParsing="false" onAction="#insertCustomOperation" prefHeight="31.0" prefWidth="171.0" style="-fx-background-color: #555; -fx-background-border: 10;" text="Insert a new operation" textFill="WHITE">
+                           <padding>
+                              <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                           </padding>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <VBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="182.0" spacing="5.0">
                            <children>
                               <Label text="E: Enter value" textFill="WHITE">
                                  <font>

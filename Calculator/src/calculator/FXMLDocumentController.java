@@ -34,6 +34,9 @@ import javafx.stage.FileChooser.ExtensionFilter;
 public class FXMLDocumentController implements Initializable {
     StackCalc stack = StackCalc.getStack();
     Variable var = Variable.getVariable(stack);
+    OperatorFactory of = new OperatorFactory();
+
+    Customs custOp = new Customs(of.getOperationMap());
     
     @FXML
     private Label currentValue;
@@ -75,6 +78,15 @@ public class FXMLDocumentController implements Initializable {
     private Button loadFileBtn;
     @FXML
     private Button StoreFileBtn;
+    @FXML
+    private Button newOpBtn;
+
+    @FXML
+    private Button insertOpBtn;
+    @FXML
+    private TextField nameOperation;
+    @FXML
+    private TextField seqOperation;
     
     private void handleButtonAction(ActionEvent event) {
         
@@ -85,6 +97,7 @@ public class FXMLDocumentController implements Initializable {
         resetBtn.disableProperty().bind(Bindings.isEmpty(textArea.textProperty()));
         submitBtn.disableProperty().bind(Bindings.isEmpty(textArea.textProperty()));
         currentValue.textProperty().bindBidirectional(textArea.textProperty());
+        insertOpBtn.disableProperty().bind(Bindings.isEmpty(nameOperation.textProperty()).or(nameOperation.textProperty().isEqualTo("Operation name...")));
         
         labels.add(value1);
         labels.add(value2);
@@ -105,13 +118,11 @@ public class FXMLDocumentController implements Initializable {
     // Data la stringa in input, verifica se è un valore valido (operatore o operando). 
     // Nel caso in cui la stringa non sia valida, avvisa l'utente con un Alert.
     private void submit(ActionEvent event) {
-        // just for test
         Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid input, please retry.", ButtonType.OK);
         Alert alert2 = new Alert(Alert.AlertType.ERROR, "Please insert at least one other value ", ButtonType.OK);
         Alert alert3 = new Alert(Alert.AlertType.ERROR, "Impossible to divide ", ButtonType.OK);
         Alert alert4 = new Alert(Alert.AlertType.ERROR, "Invalid variable operation, please retry ", ButtonType.OK);
         
-        OperatorFactory of = new OperatorFactory();
         String text = textArea.getText();
         
         try {
@@ -146,57 +157,6 @@ public class FXMLDocumentController implements Initializable {
             }
             
         }
-        
-        
-
-        
-        
-        /*
-        Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid input, please retry.", ButtonType.OK);
-        Alert alert2 = new Alert(Alert.AlertType.ERROR, "Please insert at least one other value ", ButtonType.OK);
-        Alert alert3 = new Alert(Alert.AlertType.ERROR, "Impossible to divide ", ButtonType.OK);
-        Alert alert4 = new Alert(Alert.AlertType.ERROR, "Invalid variable operation, please retry ", ButtonType.OK);
-        try {
-            // verifica se è un operatore
-            String text = textArea.getText();
-            
-            
-            
-            
-            if (op.isOperator(text, stack) || op.isStackOperator(text, stack) || op.isVariableOperator(text, var)) {
-                updateTopLabel();
-                textArea.clear();
-            }
-            // altrimenti verifica se è un operando
-            else {
-                try {
-                    // if it's an operand then create a new complex number and push the complex number into stack
-                    checkComplex(textArea.getText());
-                    updateTopLabel();
-                    textArea.clear();
-                } catch (NumberFormatException e) {
-                    alert.showAndWait();
-                    if (alert.getResult() == ButtonType.OK) {
-                        textArea.clear();
-                    }
-                }
-            }
-        } catch (VariableException e0) {
-            alert4.showAndWait();
-            if (alert4.getResult() == ButtonType.OK) {
-                textArea.clear();
-            }
-        }catch (IllegalArgumentException e2){
-            alert3.showAndWait();
-            if (alert3.getResult() == ButtonType.OK) {
-                textArea.clear();
-            }
-        } catch (Exception ex) {
-            alert2.showAndWait();
-            if (alert2.getResult() == ButtonType.OK) {
-                textArea.clear();
-            }
-        }*/
     }
 
     @FXML
@@ -288,6 +248,29 @@ public class FXMLDocumentController implements Initializable {
     private void storeOnFile(ActionEvent event) {
         File file = selectFile();
         System.out.println("store on file must be implemented");
+    }
+
+    @FXML
+    private void addCustomOperation(ActionEvent event) {
+        nameOperation.setDisable(false);
+        seqOperation.setDisable(false);
+        nameOperation.clear();
+        seqOperation.clear();
+    }
+
+    @FXML
+    private void insertCustomOperation(ActionEvent event) {
+        String name = nameOperation.getText();
+        String seq = seqOperation.getText();
+        Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid custom operation, please retry ", ButtonType.OK);
+        
+        if(!custOp.istanziaNuovaOperazione(name, seq))
+            alert.showAndWait();
+        
+        nameOperation.clear();
+        seqOperation.clear();
+        nameOperation.setDisable(true);
+        seqOperation.setDisable(true);
     }
     
 }

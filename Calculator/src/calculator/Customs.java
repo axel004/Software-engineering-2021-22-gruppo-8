@@ -54,15 +54,15 @@ public class Customs {
     /*
     "istanziaNuovaOperazione" effettua sia la creazione che la modifica della nuova operazione dichiarata
     */
-    public void istanziaNuovaOperazione(String nomeOperazione, String operazione){
+    public boolean istanziaNuovaOperazione(String nomeOperazione, String operazione){
         if(this.operationCheck(operazione)){
             if(this.crea(nomeOperazione)){
                 this.modifica(nomeOperazione, operazione);
+                return true;
             }
         }
-        else{
-            System.out.print("Errore istanziazione operazione\n");
-        }
+        System.out.print("Errore istanziazione operazione\n");
+        return false;
     }
     
     /*
@@ -149,4 +149,14 @@ public class Customs {
         return true;
     }
     
+    @Override 
+    public String toString() {
+        String str = "";
+        for (Map.Entry<String, String> entry : mappa.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            str+=key+": "+value+"\n";
+        }
+        return str;
+    }
 }
