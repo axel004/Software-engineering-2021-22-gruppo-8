@@ -5,6 +5,8 @@
  */
 package calculator;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.After;
@@ -159,5 +161,29 @@ public class CustomsTest {
         instance.istanziaNuovaOperazione(nomeOperazione, operazione);
         assertEquals(instance.getOperazione(nomeOperazione),"+,+");
     }
+    
+    @Test
+    public void testLoadFromFile() {
+        System.out.println("*** LoadFromFile() test ***");
+        OperatorFactory of = new OperatorFactory();
+        Customs instance = new Customs(of.getOperationMap());
+        File file = new File("test/calculator/test.txt");
+        // verifico che il file esista
+        assertEquals(true, file.exists());
+        // verifico che tutte le operazioni siano state inserite con il giusto nome
+        // e la giusta sequenza associata
+        instance.loadFromFile(file);
+        String[] str = instance.toString().split("\\n");
+        for (String s : str) {
+            String opName = s.split(":")[0];
+            String opSeq = s.split(":")[1].trim();
+            assertEquals(opSeq, instance.getOperazione(opName));
+        }
+        // verifico che un file non esistente restituisca null
+        File fileNotExists = new File("test/calculator/thisNotExists.txt");
+        assertEquals(false, fileNotExists.exists());
+        assertEquals(null, instance.loadFromFile(fileNotExists));
+    }
+
     
 }

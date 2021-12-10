@@ -1,0 +1,12 @@
+doppiasum:+,+
+doppiasub:-,-
+op1:2+3j,12,+,sqrt
+op2:2+3j,12,swap,-,2,-
+quadrato:dup,*
+cubo:dup,dup,*,*
+pulisci:clear
+varOp1:2+3j,>x,2,+x
+varOp2:2+3j,>x,2,-x
+mix:3,3,dup,3j,doppiasum
+
+

@@ -5,8 +5,13 @@
  */
 package calculator;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.regex.Pattern;
 
 /**
@@ -158,5 +163,26 @@ public class Customs {
             str+=key+": "+value+"\n";
         }
         return str;
+    }
+    
+    public Customs loadFromFile(File file) {
+        try(Scanner i = new Scanner(new BufferedReader(new FileReader(file)))) {
+             // espressione regolare con OR logico dei caratteri pipe e fine linea
+            String name;
+            String seq;
+            String line;
+            
+            while(i.hasNext()){
+                line = i.next();
+                name = line.split(":")[0];
+                seq = line.split(":")[1];
+                this.istanziaNuovaOperazione(name, seq);
+            }
+        } catch (FileNotFoundException ex) {
+            System.out.println("File not found: "+file);
+            return null;
+        }
+        
+        return this;
     }
 }

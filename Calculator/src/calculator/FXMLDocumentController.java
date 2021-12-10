@@ -5,12 +5,16 @@
  */
 package calculator;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.net.URL;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
@@ -241,7 +245,9 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void loadFromFile(ActionEvent event) {
         File file = selectFile();
-        System.out.println("load from a file must be implemented");
+        custOp.loadFromFile(file);
+        System.out.println(custOp.toString());
+
     }
 
     @FXML
@@ -266,7 +272,9 @@ public class FXMLDocumentController implements Initializable {
         
         if(!custOp.istanziaNuovaOperazione(name, seq))
             alert.showAndWait();
-        
+        else 
+            System.out.println(custOp.toString());
+
         nameOperation.clear();
         seqOperation.clear();
         nameOperation.setDisable(true);
