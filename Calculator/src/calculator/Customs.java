@@ -16,9 +16,11 @@ import java.util.regex.Pattern;
 public class Customs {
     private HashMap<String,String> mappa = new HashMap();
     private Map operazioniDefault;
+    private OperatorFactory operatorfac;
 
-    Customs(Map<String, Command> operationMap) {
-        this.operazioniDefault = operationMap;
+    Customs(OperatorFactory of) {
+        this.operazioniDefault = of.getOperationMap();
+        this.operatorfac = of;
     }
 
     /*
@@ -44,7 +46,9 @@ public class Customs {
     */
     public void modifica(String nomeOperazione, String operazione){
         try{
-            mappa.replace(nomeOperazione, operazione);
+            if(this.operationCheck(operazione)){
+                mappa.replace(nomeOperazione, operazione);
+            }
         }
         catch(Exception e){
             System.out.print("Errore modifica comportamento operazione custom\n");
@@ -88,8 +92,11 @@ public class Customs {
             if(!operazioniDefault.containsKey(comando)){
                 if(!mappa.containsKey(comando)){
                     try{
-                        if(!this.checkComplesso(comando)){
-                            return false;
+                        String[] splot = comando.split("(?!^)");
+                        if(!((splot[0].matches(Pattern.quote("+"))||splot[0].matches("-")||splot[0].matches("<")||splot[0].matches(">")) && splot[1].matches("[a-z]{1}")) || comando.length()>2){
+                            if(!this.checkComplesso(comando)){
+                                return false;
+                            }
                         }
                     }
                     catch(Exception e){
@@ -160,6 +167,10 @@ public class Customs {
         return str;
     }
     
+    public HashMap<String, String> getOperationMap() {
+        return mappa;
+    }
+
     /*
     * la funzione prende in ingresso la variabile text che rappresenta il nome della funzione custom
     * la funzione esegue l'operazione custom e nel caso in cui l'operazione non esiste o si verificano errori con le operazioni specificate viene lanciata l'eccezione CustomException

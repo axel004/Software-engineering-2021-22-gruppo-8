@@ -36,7 +36,7 @@ public class FXMLDocumentController implements Initializable {
     Variable var = Variable.getVariable(stack);
     OperatorFactory of = new OperatorFactory();
 
-    Customs custOp = new Customs(of.getOperationMap());
+    Customs custOp = new Customs(of);
     
     @FXML
     private Label currentValue;
@@ -247,7 +247,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void storeOnFile(ActionEvent event) {
         File file = selectFile();
-        System.out.println("store on file must be implemented");
+        SalvaOperazioni so = new SalvaOperazioni(file,this.custOp);
     }
 
     @FXML

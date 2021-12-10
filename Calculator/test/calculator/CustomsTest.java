@@ -27,11 +27,8 @@ public class CustomsTest {
     public void testCrea() {
         System.out.println("crea test\n");
         String nomeOperazione = "somma";
-        Map<String, Command> operationMap = new HashMap<>();
-        operationMap.put("+", new SumCommand());
-        operationMap.put("-", new DiffCommand());
-        operationMap.put("+-", new RevSignCommand());
-        Customs instance = new Customs(operationMap);
+        OperatorFactory of = new OperatorFactory();
+        Customs instance = new Customs(of);
         boolean expResult = true;
         boolean result = instance.crea(nomeOperazione);
         assertEquals(expResult, result);
@@ -53,11 +50,8 @@ public class CustomsTest {
         System.out.println("modifica test\n");
         String nomeOperazione = "somma";
         String operazione = "+";
-        Map<String, Command> operationMap = new HashMap<>();
-        operationMap.put("+", new SumCommand());
-        operationMap.put("-", new DiffCommand());
-        operationMap.put("+-", new RevSignCommand());
-        Customs instance = new Customs(operationMap);
+        OperatorFactory of = new OperatorFactory();
+        Customs instance = new Customs(of);
         instance.crea(nomeOperazione);
         instance.modifica(nomeOperazione, operazione);
         assertEquals(instance.getOperazione(nomeOperazione),"+");
@@ -101,6 +95,56 @@ public class CustomsTest {
         operazione = "+,5";
         instance.modifica(nomeOperazione, operazione);
         assertEquals(instance.getOperazione(nomeOperazione),"+,5");
+        
+        nomeOperazione = "somma";
+        operazione = "+,<t";
+        instance.modifica(nomeOperazione, operazione);
+        assertEquals(instance.getOperazione(nomeOperazione),"+,<t");
+        
+        nomeOperazione = "somma";
+        operazione = "+,>t";
+        instance.modifica(nomeOperazione, operazione);
+        assertEquals(instance.getOperazione(nomeOperazione),"+,>t");
+        
+        nomeOperazione = "somma";
+        operazione = "+,-t";
+        instance.modifica(nomeOperazione, operazione);
+        assertEquals(instance.getOperazione(nomeOperazione),"+,-t");
+        
+        nomeOperazione = "somma";
+        operazione = "+,+t";
+        instance.modifica(nomeOperazione, operazione);
+        assertEquals(instance.getOperazione(nomeOperazione),"+,+t");
+        
+        nomeOperazione = "somma";
+        operazione = "+,>z";
+        instance.modifica(nomeOperazione, operazione);
+        assertEquals(instance.getOperazione(nomeOperazione),"+,>z");
+        
+        nomeOperazione = "somma";
+        operazione = "+,GGG";
+        instance.modifica(nomeOperazione, operazione);
+        assertEquals(instance.getOperazione(nomeOperazione),"+,>z");
+        
+        nomeOperazione = "somma";
+        operazione = "+,GG";
+        instance.modifica(nomeOperazione, operazione);
+        assertEquals(instance.getOperazione(nomeOperazione),"+,>z");
+        
+        nomeOperazione = "somma";
+        operazione = "+,>GG";
+        instance.modifica(nomeOperazione, operazione);
+        assertEquals(instance.getOperazione(nomeOperazione),"+,>z");
+        
+        nomeOperazione = "somma";
+        operazione = "+,>A";
+        instance.modifica(nomeOperazione, operazione);
+        assertEquals(instance.getOperazione(nomeOperazione),"+,>z");
+        
+        nomeOperazione = "somma";
+        operazione = "+,>gg";
+        instance.modifica(nomeOperazione, operazione);
+        assertEquals(instance.getOperazione(nomeOperazione),"+,>z");
     }
 
     /**
@@ -111,11 +155,8 @@ public class CustomsTest {
         System.out.println("istanziaNuovaOperazione test\n");
         String nomeOperazione = "somma";
         String operazione = "+,+-,-";
-        Map<String, Command> operationMap = new HashMap<>();
-        operationMap.put("+", new SumCommand());
-        operationMap.put("-", new DiffCommand());
-        operationMap.put("+-", new RevSignCommand());
-        Customs instance = new Customs(operationMap);
+        OperatorFactory of = new OperatorFactory();
+        Customs instance = new Customs(of);
         instance.istanziaNuovaOperazione(nomeOperazione, operazione);
         assertEquals(instance.getOperazione(nomeOperazione),"+,+-,-");
         
@@ -159,33 +200,28 @@ public class CustomsTest {
         instance.istanziaNuovaOperazione(nomeOperazione, operazione);
         assertEquals(instance.getOperazione(nomeOperazione),"+,+");
     }
-    
+
     /**
      * Test of executeCustom method, of class Customs.
      */
     @Test
     public void testExecuteCustom() throws Exception{
         System.out.println("executeCustom test\n");
-        Map<String, Command> operationMap = new HashMap<>();
-        operationMap.put("+", new SumCommand());
-        operationMap.put("-", new DiffCommand());
-        operationMap.put("+-", new RevSignCommand());
-        operationMap.put("clear", new ClearCommand());
-        operationMap.put(">var", new PushToVarCommand());
-        Customs c = new Customs(operationMap);
+        OperatorFactory of = new OperatorFactory();
+        Customs c = new Customs(of);
         StackCalc stack = StackCalc.getStack();
         Variable v = Variable.getVariable(stack);
         stack.push(new Complex(3,0));
         c.istanziaNuovaOperazione("provaComplex", "5-7j,+");
         c.istanziaNuovaOperazione("provaStack", "clear,6+1j");
-        //c.istanziaNuovaOperazione("provaVariable", "8-2j,>g");
+        c.istanziaNuovaOperazione("provaVariable", "8-2j,>g");
         c.istanziaNuovaOperazione("provaCustom", "provaStack,4,+");
         c.executeCustom("provaComplex");
         assertEquals(new Complex(8, -7), stack.peek());
         c.executeCustom("provaStack");
         assertEquals(new Complex(6, 1), stack.peek());
-        //c.executeCustom("provaVariable");
-        //assertEquals(new Complex(8, -2), v.getValue("g"));
+        c.executeCustom("provaVariable");
+        assertEquals(new Complex(8, -2), v.getValue("g"));
         c.executeCustom("provaCustom");
         assertEquals(new Complex(10, 1), stack.peek());
 
@@ -197,11 +233,8 @@ public class CustomsTest {
     @Test(expected=CustomException.class)
     public void checkExpectedException() throws Exception {
         System.out.println("checkExpectedException test\n");
-        Map<String, Command> operationMap = new HashMap<>();
-        operationMap.put("+", new SumCommand());
-        operationMap.put("-", new DiffCommand());
-        operationMap.put("+-", new RevSignCommand());
-        Customs c = new Customs(operationMap);
+        OperatorFactory of = new OperatorFactory();
+        Customs c = new Customs(of);
         c.istanziaNuovaOperazione("ProvaOperazioni", "+,+-,-");
         c.executeCustom("ProvaOperazioni");
         c.executeCustom("provaCustom");

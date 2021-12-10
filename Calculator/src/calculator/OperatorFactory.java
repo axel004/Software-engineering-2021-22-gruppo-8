@@ -8,6 +8,7 @@ package calculator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.*;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -39,14 +40,33 @@ public class OperatorFactory {
     }
     
     public Command getCommand(String operator) {
-        if ((operator.startsWith("+") && operator.length()==2))
-            return operationMap.get("+var");
-        else if ((operator.startsWith("-") && operator.length()==2))
-            return operationMap.get("-var");            
-        else if ((operator.startsWith(">") && operator.length()==2))
-            return operationMap.get(">var");
-        else if ((operator.startsWith("<") && operator.length()==2))
-            return operationMap.get("<var");
+        String[] splot = operator.split("(?!^)");
+        if (splot[0].matches(Pattern.quote("+")) && operator.length()==2){
+            if(splot[1].matches("[a-z]{1}")){
+                return operationMap.get("+var");
+            }
+        }
+        else{
+            if (splot[0].matches(Pattern.quote("-")) && operator.length()==2){
+                if(splot[1].matches("[a-z]{1}")){
+                    return operationMap.get("-var");
+                }
+            }
+            else{ 
+                if (splot[0].matches(Pattern.quote(">")) && operator.length()==2){
+                    if(splot[1].matches("[a-z]{1}")){
+                        return operationMap.get(">var");
+                    }
+                }
+                else{  
+                    if (splot[0].matches(Pattern.quote("<")) && operator.length()==2){
+                        if(splot[1].matches("[a-z]{1}")){
+                            return operationMap.get("<var");
+                        }
+                    }
+                }
+            }
+        }
         return operationMap.get(operator);
     }
 }
