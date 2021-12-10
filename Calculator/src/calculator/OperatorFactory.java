@@ -41,30 +41,21 @@ public class OperatorFactory {
     
     public Command getCommand(String operator) {
         String[] splot = operator.split("(?!^)");
-        if (splot[0].matches(Pattern.quote("+")) && operator.length()==2){
-            if(splot[1].matches("[a-z]{1}")){
+        if (splot[0].matches(Pattern.quote("+")) && operator.length() == 2) {
+            if (splot[1].matches("[a-z]{1}")) {
                 return operationMap.get("+var");
             }
-        }
-        else{
-            if (splot[0].matches(Pattern.quote("-")) && operator.length()==2){
-                if(splot[1].matches("[a-z]{1}")){
-                    return operationMap.get("-var");
-                }
+        }else if (splot[0].matches(Pattern.quote("-")) && operator.length()==2){
+            if (splot[1].matches("[a-z]{1}")) {
+                return operationMap.get("-var");
             }
-            else{ 
-                if (splot[0].matches(Pattern.quote(">")) && operator.length()==2){
-                    if(splot[1].matches("[a-z]{1}")){
-                        return operationMap.get(">var");
-                    }
-                }
-                else{  
-                    if (splot[0].matches(Pattern.quote("<")) && operator.length()==2){
-                        if(splot[1].matches("[a-z]{1}")){
-                            return operationMap.get("<var");
-                        }
-                    }
-                }
+        }else if(splot[0].matches(Pattern.quote(">")) && operator.length()==2){
+            if (splot[1].matches("[a-z]{1}")) {
+                return operationMap.get(">var");
+            }
+        } else if (splot[0].matches(Pattern.quote("<")) && operator.length() == 2) {
+            if (splot[1].matches("[a-z]{1}")) {
+                return operationMap.get("<var");
             }
         }
         return operationMap.get(operator);
