@@ -40,7 +40,7 @@ public class FXMLDocumentController implements Initializable {
     Variable var = Variable.getVariable(stack);
     OperatorFactory of = new OperatorFactory();
 
-    Customs custOp = new Customs(of.getOperationMap());
+    Customs custOp = new Customs(of);
     
     @FXML
     private Label currentValue;
@@ -126,6 +126,8 @@ public class FXMLDocumentController implements Initializable {
         Alert alert2 = new Alert(Alert.AlertType.ERROR, "Please insert at least one other value ", ButtonType.OK);
         Alert alert3 = new Alert(Alert.AlertType.ERROR, "Impossible to divide ", ButtonType.OK);
         Alert alert4 = new Alert(Alert.AlertType.ERROR, "Invalid variable operation, please retry ", ButtonType.OK);
+        Alert alert5 = new Alert(Alert.AlertType.ERROR, "Error with custom operation, please retry ", ButtonType.OK);
+
         
         String text = textArea.getText();
         
@@ -154,10 +156,26 @@ public class FXMLDocumentController implements Initializable {
                 updateTopLabel();
                 textArea.clear();
             } catch (NumberFormatException exNumb) {
-                alert.showAndWait();
-                if (alert.getResult() == ButtonType.OK) {
-                    textArea.clear();
+                
+                try {
+                    custOp.executeCustom(text);
+                    updateTopLabel();
+                    
+                } catch (Exception custEx) {
+                    if (custOp.getOperazione(text) == null) {
+                        alert.showAndWait();
+                        if (alert.getResult() == ButtonType.OK) {
+                            textArea.clear();
+                        }
+                    }
+                    else {
+                        alert5.showAndWait();
+                        if (alert.getResult() == ButtonType.OK) {
+                            textArea.clear();
+                        }
+                    }
                 }
+
             }
             
         }
@@ -253,7 +271,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void storeOnFile(ActionEvent event) {
         File file = selectFile();
-        System.out.println("store on file must be implemented");
+        SalvaOperazioni so = new SalvaOperazioni(file,this.custOp);
     }
 
     @FXML

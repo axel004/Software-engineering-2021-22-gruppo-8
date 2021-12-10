@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
-<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="Calculator.jnlp">
-  <information>
-    <title>Calculator</title>
-    <vendor>HP115-CS0026</vendor>
-    <description>null</description>
-    <offline-allowed/>
-  </information>
-  <resources>
-    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="Calculator.jar" size="31140" download="eager" />
-  </resources>
-  <jfx:javafx-desc  width="800" height="600" main-class="calculator.Calculator"  name="Calculator" />
-  <update check="always"/>
+<?xml version="1.0" encoding="UTF-8"?><jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="Calculator.jnlp">
+    <information>
+        <title>Calculator</title>
+        <vendor>HP115-CS0026</vendor>
+        <description>null</description>
+        <offline-allowed/>
+    </information>
+    <update check="always"/>
+    <resources>
+        <j2se version="9+" href="http://java.sun.com/products/autodl/j2se"/>
+        <jar href="Calculator.jar" size="33304" download="eager"/>
+    </resources>
+    <jfx:javafx-desc width="800" height="600" main-class="calculator.Calculator" name="Calculator"/>
 </jnlp>
+
