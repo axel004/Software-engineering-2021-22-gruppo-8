@@ -22,8 +22,8 @@ public class SalvaOperazioni {
             FileWriter myWriter = new FileWriter(file);
             for(String key: operazioni.getOperationMap().keySet()){
                 myWriter.write(key);
-                myWriter.write(" ");
-                myWriter.write(operazioni.getOperazione(key));
+                myWriter.write(":");
+                myWriter.write(operazioni.getOperazione(key) + "\n");
             }
             myWriter.close();
 
