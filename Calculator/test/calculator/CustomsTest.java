@@ -160,4 +160,50 @@ public class CustomsTest {
         assertEquals(instance.getOperazione(nomeOperazione),"+,+");
     }
     
+    /**
+     * Test of executeCustom method, of class Customs.
+     */
+    @Test
+    public void testExecuteCustom() throws Exception{
+        System.out.println("executeCustom test\n");
+        Map<String, Command> operationMap = new HashMap<>();
+        operationMap.put("+", new SumCommand());
+        operationMap.put("-", new DiffCommand());
+        operationMap.put("+-", new RevSignCommand());
+        operationMap.put("clear", new ClearCommand());
+        operationMap.put(">var", new PushToVarCommand());
+        Customs c = new Customs(operationMap);
+        StackCalc stack = StackCalc.getStack();
+        Variable v = Variable.getVariable(stack);
+        stack.push(new Complex(3,0));
+        c.istanziaNuovaOperazione("provaComplex", "5-7j,+");
+        c.istanziaNuovaOperazione("provaStack", "clear,6+1j");
+        //c.istanziaNuovaOperazione("provaVariable", "8-2j,>g");
+        c.istanziaNuovaOperazione("provaCustom", "provaStack,4,+");
+        c.executeCustom("provaComplex");
+        assertEquals(new Complex(8, -7), stack.peek());
+        c.executeCustom("provaStack");
+        assertEquals(new Complex(6, 1), stack.peek());
+        //c.executeCustom("provaVariable");
+        //assertEquals(new Complex(8, -2), v.getValue("g"));
+        c.executeCustom("provaCustom");
+        assertEquals(new Complex(10, 1), stack.peek());
+
+    }
+    
+    /**
+     * Test of executeCustom method, of class Customs.
+     */
+    @Test(expected=CustomException.class)
+    public void checkExpectedException() throws Exception {
+        System.out.println("checkExpectedException test\n");
+        Map<String, Command> operationMap = new HashMap<>();
+        operationMap.put("+", new SumCommand());
+        operationMap.put("-", new DiffCommand());
+        operationMap.put("+-", new RevSignCommand());
+        Customs c = new Customs(operationMap);
+        c.istanziaNuovaOperazione("ProvaOperazioni", "+,+-,-");
+        c.executeCustom("ProvaOperazioni");
+        c.executeCustom("provaCustom");
+    }
 }

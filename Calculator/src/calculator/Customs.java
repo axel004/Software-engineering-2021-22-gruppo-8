@@ -159,4 +159,42 @@ public class Customs {
         }
         return str;
     }
+    
+    /*
+    * la funzione prende in ingresso la variabile text che rappresenta il nome della funzione custom
+    * la funzione esegue l'operazione custom e nel caso in cui l'operazione non esiste o si verificano errori con le operazioni specificate viene lanciata l'eccezione CustomException
+     */
+    public void executeCustom(String text) throws LessArgException, VariableException, CustomException{
+        if (!mappa.containsKey(text)) { //riconoscimento del comando
+            throw new CustomException();
+        }
+        String op = getOperazione(text);
+        String operazioni[]=op.split(",");
+        OperatorFactory operator = new OperatorFactory();
+        FXMLDocumentController f = new FXMLDocumentController();
+        StackCalc stack = StackCalc.getStack();
+        Command c; 
+        for (String operazione : operazioni){
+            c=operator.getCommand(operazione);
+            if(c!=null){
+                try{
+                   c.execute(operazione); 
+                }catch(Exception e){
+                    throw new CustomException();
+                }
+                
+            }
+            else if(getOperazione(operazione)!=null){
+                executeCustom(operazione);
+            }
+            else{
+                try{
+                   f.checkComplex(operazione); 
+                }
+                catch(Exception e){
+                    throw new CustomException();
+                }
+            }
+        }
+    }
 }

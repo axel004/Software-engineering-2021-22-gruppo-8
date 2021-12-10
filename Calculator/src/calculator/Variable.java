@@ -49,16 +49,16 @@ public class Variable {
         return struct.get(key);
     }
     
+    public StackCalc getStack() {
+        return stack;
+    }
+    
     /*
     questa funzione salva il valore presente in cima allo stack nella variabile scelta dall'utente (key).
     corrisponde al comando ">x"
     */
     public void savingInVariable(String key) {
         this.setVariable(key, stack.pop());
-    }
-
-    public StackCalc getStack() {
-        return stack;
     }
     
     /*
