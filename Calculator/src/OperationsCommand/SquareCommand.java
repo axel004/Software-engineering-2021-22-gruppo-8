@@ -6,7 +6,7 @@ package OperationsCommand;
 
 import calculator.Command;
 import calculator.Complex;
-import calculator.LessArgException;
+import Exception.LessArgException;
 import calculator.Operations;
 import calculator.StackCalc;
 
@@ -25,11 +25,15 @@ public class SquareCommand implements Command{
         this.op = op;
     }
     
+    //la funzione execute prende in ingresso text che equivale all'operazione richiesta
+    // ritorna (?)
+    //controlla che lo stack abbia almeno un elemento altrimenti lancia un'eccezione
+    //se ha almeno un elemento allora chiama la funzione squareRoot e le passa il primo valore dello stack
     @Override
     public boolean execute(String text) throws LessArgException {
         if (stack.size() >= 1) {
             val1 = stack.pop();             // ottengo il valore dallo stack
-            stack.push(op.radice(val1));        //inserisco nello stack il nuovo valore    
+            stack.push(op.squareRoot(val1));        //inserisco nello stack il nuovo valore    
             return true;
         } else {
             num = 0;
@@ -37,6 +41,8 @@ public class SquareCommand implements Command{
         }
     }
 
+    //viene chiamata se l'operazione custom non va a buon fine
+    //riporta la variabile e lo stack allo stato iniziale prima di eseguire la execute
     @Override
     public void undo() {
         if (num != 0) {

@@ -2,16 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package calculator;
+package Exception;
 
 /**
  *
  * @author paola
  */
-public class EditCustomOpException extends Exception {
+public class DeleteCostumOpException extends Exception {
 
-    public EditCustomOpException(String toString) {
-        super(toString);
+    public DeleteCostumOpException(String toString) {
+       super(toString);
     }
     
 }

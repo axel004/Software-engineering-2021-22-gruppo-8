@@ -9,7 +9,7 @@ import calculator.Complex;
 import calculator.Operations;
 import calculator.StackCalc;
 import calculator.Variable;
-import calculator.VariableException;
+import Exception.VariableException;
 
 /**
  *
@@ -29,6 +29,10 @@ public class SubVarCommand implements Command {
         this.op = op;
     }
 
+    //la funzione execute prende in ingresso text che equivale all'operazione richiesta
+    // ritorna (?)
+    //controlla che l'operazione richiesta dall'utente sia corretta e quindi chiama la funzione diffVariable
+    //lancia un'eccezione se l'operazione inserita non è corretta
     @Override
     public boolean execute(String text) throws VariableException {
         opval = text.split("(?!^)");
@@ -37,16 +41,18 @@ public class SubVarCommand implements Command {
             return false;                                      //è formato da due valori(il tipo di operazione e la variabile)
         }
         if (var.getValue(opval[1]) != null && var.getStack().size() >= 1) { //controllo l'esistenza della chiave e l'esistenza di almeno un valore nello stack
-            value1=stack.peek();
-            value2 = var.getValue(opval[1]);
+            value1=stack.peek(); //variabile ausiliaria per il metodo undo che prende il primo valore dello stack
+            value2 = var.getValue(opval[1]); //variabile ausiliaria per il metodo undo che prende il valore presente nella variabile
             var.diffVariable(opval[1], op);
             return true;
         } else {
-            num = 0;
+            num = 0; //variabile flag per il funzionamento di undo
             throw new VariableException("La variabile non è stata definita oppure lo stack è vuoto");
         }
     }   
 
+    //viene chiamata se l'operazione custom non va a buon fine
+    //riporta la variabile e lo stack allo stato iniziale prima di eseguire la execute
     @Override
     public void undo() {
         if (num != 0) {

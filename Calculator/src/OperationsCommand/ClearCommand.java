@@ -24,14 +24,21 @@ public class ClearCommand implements Command {
         stackLast = new ArrayDeque<>();
     }
     
-    public boolean execute(String text){
+    //la funzione execute prende in ingresso text che equivale all'operazione richiesta
+    // ritorna (?)
+    //Salva lo stack in un array deque al fine di poterlo ripristinare nel caso in cui si verifica un'eccezione
+    //chiama la funzione clear per pulire lo stack
+    @Override
+    public boolean execute(String text) {
         for (Complex s : stack) {
             stackLast.add(s);
         }
         stack.clear();
-        return true;  
+        return true;
     }
 
+    //viene chiamata se l'operazione custom non va a buon fine
+    //ripristina lo stack
     @Override
     public void undo() {
         for (int i =stackLast.size(); i>0;i--) {

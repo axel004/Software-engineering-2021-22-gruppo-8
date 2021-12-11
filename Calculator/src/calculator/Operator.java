@@ -4,6 +4,8 @@
  */
 package calculator;
 
+import Exception.LessArgException;
+import Exception.VariableException;
 import java.util.*;
 
 /**

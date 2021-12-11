@@ -5,6 +5,11 @@
  */
 package calculator;
 
+import Exception.DeleteCostumOpException;
+import Exception.VariableException;
+import Exception.LessArgException;
+import Exception.EditCustomOpException;
+import Exception.CustomException;
 import java.io.File;
 import org.junit.Test;
 import static org.junit.Assert.*;

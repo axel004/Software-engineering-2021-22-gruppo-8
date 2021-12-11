@@ -88,7 +88,7 @@ public class Variable {
     corrisponde al comando "-x"
      */
     public void diffVariable(String key, Operations op) {
-        this.setVariable(key, op.differenza(this.getValue(key), stack.pop()));
+        this.setVariable(key, op.difference(this.getValue(key), stack.pop()));
     }
     
     public ArrayList<String> getListOfValues() {

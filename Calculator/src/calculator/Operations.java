@@ -71,7 +71,7 @@ public class Operations {
         }
     }
 
-    public Complex differenza(Complex val1, Complex val2){
+    public Complex difference(Complex val1, Complex val2){
         try{
             Complex res = new Complex(val1.getReal()-val2.getReal(),val1.getComplex()-val2.getComplex());  //eseguo la differenza
             res.setReal(this.round(res.getReal(),4));
@@ -86,7 +86,7 @@ public class Operations {
     }   
     
     
-    public Complex radice(Complex val) {
+    public Complex squareRoot(Complex val) {
         try {
             if (val.getComplex() == 0) //controllo se il valore è reale
             {
@@ -141,7 +141,7 @@ public class Operations {
     /*x=a+bj  y=c+dj
     la formula per la divisione è: (ac+bd)/(c^2+d^2)+j(bc-ad)/(c^2+d^2)
     */
-    public Complex divisione(Complex x, Complex y){
+    public Complex division(Complex x, Complex y){
         try {
             Complex comp = times(1 / square(y), conjugate(y));
             return times(x, comp);

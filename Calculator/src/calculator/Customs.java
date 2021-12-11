@@ -5,6 +5,11 @@
  */
 package calculator;
 
+import Exception.DeleteCostumOpException;
+import Exception.EditCustomOpException;
+import Exception.LessArgException;
+import Exception.VariableException;
+import Exception.CustomException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -5,11 +5,14 @@
  */
 package calculator;
 
+import Exception.LessArgException;
+import Exception.VariableException;
+
 /**
  *
  * @author HP115-CS0026
  */
 public interface Command {
-    boolean execute(String text) throws LessArgException, VariableException;
+    boolean execute(String text) throws LessArgException, VariableException, IllegalArgumentException;
     void undo();
 }

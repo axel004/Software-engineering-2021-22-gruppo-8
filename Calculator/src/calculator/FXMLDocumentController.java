@@ -5,6 +5,11 @@
  */
 package calculator;
 
+import Exception.DeleteCostumOpException;
+import Exception.EditCustomOpException;
+import Exception.LessArgException;
+import Exception.VariableException;
+import Exception.CustomException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -168,6 +173,10 @@ public class FXMLDocumentController implements Initializable {
             } catch (VariableException varEx) {
                 alert4.showAndWait();
                 if (alert4.getResult() == ButtonType.OK) {
+                    textArea.clear();
+                }
+            } catch(IllegalArgumentException illAegEx){
+                if (alert3.getResult() == ButtonType.OK) {
                     textArea.clear();
                 }
             }
