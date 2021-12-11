@@ -263,4 +263,35 @@ public class CustomsTest {
         assertEquals(false, fileNotExists.exists());
         assertEquals(null, instance.loadFromFile(fileNotExists));
     }
+    
+    
+    @Test
+    public void testEditCostumOperation() throws Exception{
+        System.out.println("test EditCostumOperation\n");
+        OperatorFactory of = new OperatorFactory();
+        Customs instance = new Customs(of);
+        boolean thrown = false;
+
+        instance.istanziaNuovaOperazione("addizione","+");
+        instance.istanziaNuovaOperazione("moltiplicazione", "addizione,*");
+        instance.istanziaNuovaOperazione("divisione", "/");
+        instance.istanziaNuovaOperazione("radice", "addizione,sqrt");
+        instance.istanziaNuovaOperazione("somma","+,-");
+        
+        assertEquals(true,instance.EditCostumOperation("divisione", "+,-"));   //controllo il corretto funzionamento
+        System.out.println(instance.getOperazione("divisione"));
+        assertEquals(false,instance.EditCostumOperation("swap", "+,-")); //controllo il caso in cui l'operazione non è presente
+ 
+        assertEquals(false,instance.EditCostumOperation("radice", "*+sqrt")); //controllo il caso in cui l'operazione non è corretta
+
+        assertEquals(false,instance.EditCostumOperation("addizione", "potenza,sqrt,swap"));
+        
+        try {
+          instance.EditCostumOperation("addizione", "somma,radice,sqrt,swap"); //controllo il corretto funzionamento del lancio dell'eccezione
+        } catch (EditCostumOpException e) {
+          thrown = true;
+        }
+        assertTrue(thrown);
+        System.out.println(instance.getOperazione("addizione"));
+    }
 }

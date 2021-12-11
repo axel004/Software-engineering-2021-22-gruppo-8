@@ -9,7 +9,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -234,4 +236,33 @@ public class Customs {
             }
         }
     }
+    
+    public boolean EditCostumOperation(String nomeOperazione, String operazione) throws EditCostumOpException{
+        List<String> listOfKeys = new ArrayList();
+        if(operationCheck(operazione)){  //controllo se l'operazione è corretta
+            if(mappa.containsKey(nomeOperazione)){  //controllo se la mappa contiene il nome dell'operazione da modificare
+                for (String value : mappa.values()) {
+                    if(value.contains(nomeOperazione)) //creo la lista delle chaivi che hanno come valore il nome dell'operazione da modificare
+                        KeyList(mappa,value,listOfKeys);    
+                }
+                modifica(nomeOperazione,operazione);  //effettuo la modifica
+            if(!listOfKeys.isEmpty()){
+                throw new EditCostumOpException(listOfKeys.toString()); //se la lista non è vuota lancio l'allert altrimenti ritorno true
+            }else
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+           
+    public void KeyList(Map<String,String> mappa,String value,List<String>listOfKeys){
+        for (Map.Entry<String, String> entry: mappa.entrySet()){          
+            // Check if value matches with given value
+            if (entry.getValue().equals(value))
+                // Store the key from entry to the list
+                listOfKeys.add(entry.getKey());    
+        } 
+    }    
 }
+
