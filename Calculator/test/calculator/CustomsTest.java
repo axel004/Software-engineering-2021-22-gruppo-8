@@ -301,10 +301,12 @@ public class CustomsTest {
         assertEquals(null, instance.loadFromFile(fileNotExists));
     }
     
-    
+    /**
+     * Test of EditCostumOperation method, of class Customs.
+     */
     @Test
-    public void testEditCostumOperation() throws Exception{
-        System.out.println("test EditCostumOperation\n");
+    public void testEditCustomOperation() throws Exception{
+        System.out.println("test EditCustomOperation\n");
         OperatorFactory of = new OperatorFactory();
         Customs instance = new Customs(of);
         boolean thrown = false;
@@ -315,20 +317,19 @@ public class CustomsTest {
         instance.istanziaNuovaOperazione("radice", "addizione,sqrt");
         instance.istanziaNuovaOperazione("somma","+,-,moltiplicazione");
         
-        instance.EditCostumOperation("divisione", "+,-");
+        instance.editCustomOperation("divisione", "+,-");
         assertEquals("+,-",instance.getOperazione("divisione")); //controllo il corretto funzionamento
-        assertEquals(false,instance.EditCostumOperation("swap", "+,-")); //controllo il caso in cui l'operazione non è presente
+        assertEquals(false,instance.editCustomOperation("swap", "+,-")); //controllo il caso in cui l'operazione non è presente
  
-        assertEquals(false,instance.EditCostumOperation("radice", "*+sqrt")); //controllo il caso in cui l'operazione non è corretta
+        assertEquals(false,instance.editCustomOperation("radice", "*+sqrt")); //controllo il caso in cui l'operazione non è corretta
 
-        assertEquals(false,instance.EditCostumOperation("addizione", "potenza,sqrt,swap"));
+        assertEquals(false,instance.editCustomOperation("addizione", "potenza,sqrt,swap"));
         
-        assertEquals(false,instance.EditCostumOperation("divisione", "suop,+,-"));
-        
-        
+        assertEquals(false,instance.editCustomOperation("divisione", "suop,+,-"));
+  
         try {
-          instance.EditCostumOperation("addizione", "somma,radice,sqrt,swap"); //controllo il corretto funzionamento del lancio dell'eccezione
-        } catch (EditCostumOpException e) {
+          instance.editCustomOperation("addizione", "somma,radice,sqrt,swap"); //controllo il corretto funzionamento del lancio dell'eccezione
+        } catch (EditCustomOpException e) {
           thrown = true;
           assertEquals("[moltiplicazione, radice]",e.getMessage());
         }
@@ -336,12 +337,89 @@ public class CustomsTest {
         assertEquals("somma,radice,sqrt,swap",instance.getOperazione("addizione"));
     
         try {
-          instance.EditCostumOperation("moltiplicazione", "dup,radice,sqrt,swap"); //controllo il corretto funzionamento del lancio dell'eccezione
-        } catch (EditCostumOpException e) {
+          instance.editCustomOperation("moltiplicazione", "dup,radice,sqrt,swap"); //controllo il corretto funzionamento del lancio dell'eccezione
+        } catch (EditCustomOpException e) {
           thrown = true;
           assertEquals("[somma]",e.getMessage());
         }
         assertTrue(thrown);
         assertEquals("dup,radice,sqrt,swap",instance.getOperazione("moltiplicazione"));
+    }
+    
+    /**
+     * Test of EditCostumOp method, of class Customs.
+     */
+    @Test(expected = EditCustomOpException.class)
+    public void checkEditCostumOpException1() throws Exception {
+        System.out.println("checkEditCostumOpException1 test\n");
+        OperatorFactory of = new OperatorFactory();
+        Customs instance = new Customs(of);
+        instance.istanziaNuovaOperazione("addizione","+");
+        instance.istanziaNuovaOperazione("moltiplicazione", "addizione,*");
+        instance.istanziaNuovaOperazione("divisione", "/");
+        instance.istanziaNuovaOperazione("radice", "addizione,sqrt");
+        instance.istanziaNuovaOperazione("somma","+,-,moltiplicazione");
+        instance.editCustomOperation("moltiplicazione", "dup,radice,sqrt,swap"); //controllo il corretto funzionamento del lancio dell'eccezione
+        
+    }
+    
+    /**
+     * Test of EditCostumOp method, of class Customs.
+     */
+    @Test(expected = EditCustomOpException.class)
+    public void checkEditCostumOpException2() throws Exception {
+        System.out.println("checkEditCostumOpException2 test\n");
+        OperatorFactory of = new OperatorFactory();
+        Customs instance = new Customs(of);
+        instance.istanziaNuovaOperazione("addizione","+");
+        instance.istanziaNuovaOperazione("moltiplicazione", "addizione,*");
+        instance.istanziaNuovaOperazione("divisione", "/");
+        instance.istanziaNuovaOperazione("radice", "addizione,sqrt");
+        instance.istanziaNuovaOperazione("somma","+,-,moltiplicazione");
+        instance.editCustomOperation("addizione", "somma,radice,sqrt,swap"); //controllo il corretto funzionamento del lancio dell'eccezione
+        
+    }
+    
+    @Test
+    public void testDeleteCostum() throws Exception {
+        System.out.println("test EditCostumOperation\n");
+        OperatorFactory of = new OperatorFactory();
+        Customs instance = new Customs(of);
+        boolean thrown = false;
+
+        instance.istanziaNuovaOperazione("addizione", "+");
+        instance.istanziaNuovaOperazione("moltiplicazione", "addizione,*");
+        instance.istanziaNuovaOperazione("divisione", "/");
+        instance.istanziaNuovaOperazione("radice", "addizione,sqrt");
+        instance.istanziaNuovaOperazione("somma", "+,-,moltiplicazione");
+        
+        try {
+            assertEquals(false, instance.deleteCustom("addizione"));//controllo il corretto funzionamento
+
+        } catch (DeleteCostumOpException e) {
+            assertEquals(null, instance.getOperazione("addizione"));
+            assertEquals(null, instance.getOperazione("radice"));
+        }
+
+        assertTrue(instance.deleteCustom("divisione"));
+        assertEquals(null, instance.getOperazione("divisione")); //controllo che la divisione sia stata correttamente cancellata
+        assertEquals(false, instance.deleteCustom("swap")); //controllo il caso in cui l'operazione non è presente
+    }
+    
+    /**
+     * Test of deleteCostumOp method, of class Customs.
+     */
+    @Test(expected = DeleteCostumOpException.class)
+    public void checkDeleteCostumOpException() throws Exception {
+        System.out.println("checkDeleteCostumOpException test\n");
+        OperatorFactory of = new OperatorFactory();
+        Customs instance = new Customs(of);
+        instance.istanziaNuovaOperazione("addizione", "+");
+        instance.istanziaNuovaOperazione("moltiplicazione", "addizione,*");
+        instance.istanziaNuovaOperazione("divisione", "/");
+        instance.istanziaNuovaOperazione("radice", "addizione,sqrt");
+        instance.istanziaNuovaOperazione("somma", "+,-,moltiplicazione");
+        assertEquals(false, instance.deleteCustom("addizione")); //controllo il corretto funzionamento del lancio dell'eccezione
+
     }
 }
