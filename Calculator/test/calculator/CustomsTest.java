@@ -276,22 +276,35 @@ public class CustomsTest {
         instance.istanziaNuovaOperazione("moltiplicazione", "addizione,*");
         instance.istanziaNuovaOperazione("divisione", "/");
         instance.istanziaNuovaOperazione("radice", "addizione,sqrt");
-        instance.istanziaNuovaOperazione("somma","+,-");
+        instance.istanziaNuovaOperazione("somma","+,-,moltiplicazione");
         
-        assertEquals(true,instance.EditCostumOperation("divisione", "+,-"));   //controllo il corretto funzionamento
-        System.out.println(instance.getOperazione("divisione"));
+        instance.EditCostumOperation("divisione", "+,-");
+        assertEquals("+,-",instance.getOperazione("divisione")); //controllo il corretto funzionamento
         assertEquals(false,instance.EditCostumOperation("swap", "+,-")); //controllo il caso in cui l'operazione non è presente
  
         assertEquals(false,instance.EditCostumOperation("radice", "*+sqrt")); //controllo il caso in cui l'operazione non è corretta
 
         assertEquals(false,instance.EditCostumOperation("addizione", "potenza,sqrt,swap"));
         
+        assertEquals(false,instance.EditCostumOperation("divisione", "suop,+,-"));
+        
+        
         try {
           instance.EditCostumOperation("addizione", "somma,radice,sqrt,swap"); //controllo il corretto funzionamento del lancio dell'eccezione
         } catch (EditCostumOpException e) {
           thrown = true;
+          assertEquals("[moltiplicazione, radice]",e.getMessage());
         }
         assertTrue(thrown);
-        System.out.println(instance.getOperazione("addizione"));
+        assertEquals("somma,radice,sqrt,swap",instance.getOperazione("addizione"));
+    
+        try {
+          instance.EditCostumOperation("moltiplicazione", "dup,radice,sqrt,swap"); //controllo il corretto funzionamento del lancio dell'eccezione
+        } catch (EditCostumOpException e) {
+          thrown = true;
+          assertEquals("[somma]",e.getMessage());
+        }
+        assertTrue(thrown);
+        assertEquals("dup,radice,sqrt,swap",instance.getOperazione("moltiplicazione"));
     }
 }
