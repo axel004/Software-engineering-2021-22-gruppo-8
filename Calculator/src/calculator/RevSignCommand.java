@@ -12,20 +12,32 @@ package calculator;
 public class RevSignCommand implements Command {
     private StackCalc stack;
     private Operations op;
+    private Complex val1;
+    private Integer num;
     
-    public RevSignCommand() {
+    public RevSignCommand(Operations op) {
         stack = StackCalc.getStack();
-        op = new Operations();
+        this.op = op;
     }
     
     public boolean execute(String text) throws LessArgException{
         if(stack.size()>=1){
-            Complex val1 = stack.pop();
+            val1 = stack.pop();
  
             Complex res = op.reverseSign(val1);
             stack.push(res);
             return true;
         }
+        num = 0;
         throw new LessArgException("Non ci sono abbastanza valori nello stack");
+    }
+
+    @Override
+    public void undo() {
+        if (num != 0) {
+            stack.pop();
+            stack.push(val1);
+        }
+        num = 1;
     }
 }

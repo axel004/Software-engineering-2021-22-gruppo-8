@@ -9,6 +9,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -205,21 +207,17 @@ public class Customs {
         if (!mappa.containsKey(text)) { //riconoscimento del comando
             throw new CustomException();
         }
-        String op = getOperazione(text);
-        String operazioni[]=op.split(",");
+        String value = getOperazione(text);
+        String operazioni[]=value.split(",");
         OperatorFactory operator = new OperatorFactory();
         FXMLDocumentController f = new FXMLDocumentController();
+        Operator op = Operator.getOperator();
         StackCalc stack = StackCalc.getStack();
         Command c; 
         for (String operazione : operazioni){
             c=operator.getCommand(operazione);
             if(c!=null){
-                try {
-                   c.execute(operazione); 
-                } catch (Exception e){
-                    throw new CustomException();
-                }
-                
+                    op.execute(c, operazione);
             }
             else if(getOperazione(operazione)!=null){
                 executeCustom(operazione); 
@@ -233,5 +231,6 @@ public class Customs {
                 }
             }
         }
+        op.clear();
     }
 }

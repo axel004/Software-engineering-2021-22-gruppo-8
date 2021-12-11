@@ -67,6 +67,7 @@ public class Variable {
     */
     public void savingInStack(String key) {
         stack.push(struct.get(key));
+        struct.remove(key);
     }
     
     /*

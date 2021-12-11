@@ -11,6 +11,8 @@ package calculator;
  */
 public class SwapCommand implements Command {
     private StackCalc stack;
+    private Complex val1;
+    private Integer num;
     
     public SwapCommand() {
         stack = StackCalc.getStack();
@@ -21,6 +23,15 @@ public class SwapCommand implements Command {
             stack.swap();
             return true;
         }
+        num = 0;
         throw new LessArgException("Non ci sono abbastanza valori nello stack");
+    }
+
+    @Override
+    public void undo() {
+        if (num != 0) {
+            stack.swap();
+        }
+        num = 1;
     }
 }

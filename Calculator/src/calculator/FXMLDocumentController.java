@@ -39,6 +39,7 @@ public class FXMLDocumentController implements Initializable {
     StackCalc stack = StackCalc.getStack();
     Variable var = Variable.getVariable(stack);
     OperatorFactory of = new OperatorFactory();
+    Operator op = Operator.getOperator();
 
     Customs custOp = new Customs(of);
     
@@ -121,26 +122,25 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     // Data la stringa in input, verifica se è un valore valido (operatore o operando). 
     // Nel caso in cui la stringa non sia valida, avvisa l'utente con un Alert.
-    private void submit(ActionEvent event) {
+    private void submit(ActionEvent event){
         Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid input, please retry.", ButtonType.OK);
         Alert alert2 = new Alert(Alert.AlertType.ERROR, "Please insert at least one other value ", ButtonType.OK);
         Alert alert3 = new Alert(Alert.AlertType.ERROR, "Impossible to divide ", ButtonType.OK);
         Alert alert4 = new Alert(Alert.AlertType.ERROR, "Invalid variable operation, please retry ", ButtonType.OK);
         Alert alert5 = new Alert(Alert.AlertType.ERROR, "Error with custom operation, please retry ", ButtonType.OK);
 
-        
         String text = textArea.getText();
-        
+
         try {
             Command c = of.getCommand(text);
-            try { 
+            try {
                 c.execute(text);
-            } catch(LessArgException lessArgEx) {
+            } catch (LessArgException lessArgEx) {
                 alert2.showAndWait();
                 if (alert2.getResult() == ButtonType.OK) {
                     textArea.clear();
                 }
-            } catch(VariableException varEx) {
+            } catch (VariableException varEx) {
                 alert4.showAndWait();
                 if (alert4.getResult() == ButtonType.OK) {
                     textArea.clear();
@@ -149,35 +149,31 @@ public class FXMLDocumentController implements Initializable {
             textArea.clear();
             updateTopLabel();
         } catch (Exception ex) {
-            
+            System.out.println("mah");
             try {
                 // if it's an operand then create a new complex number and push the complex number into stack
                 checkComplex(textArea.getText());
                 updateTopLabel();
                 textArea.clear();
             } catch (NumberFormatException exNumb) {
-                
+
                 try {
                     custOp.executeCustom(text);
                     updateTopLabel();
-                    
-                } catch (Exception custEx) {
-                    if (custOp.getOperazione(text) == null) {
-                        alert.showAndWait();
-                        if (alert.getResult() == ButtonType.OK) {
-                            textArea.clear();
-                        }
-                    }
-                    else {
+
+                } catch (CustomException custEx) {
                         alert5.showAndWait();
                         if (alert.getResult() == ButtonType.OK) {
                             textArea.clear();
                         }
+                }catch(Exception inCustEx){
+                    op.undoLast();
+                    alert.showAndWait();
+                    if (alert.getResult() == ButtonType.OK) {
+                        textArea.clear();
                     }
                 }
-
             }
-            
         }
     }
 

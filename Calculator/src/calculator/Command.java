@@ -11,4 +11,5 @@ package calculator;
  */
 public interface Command {
     boolean execute(String text) throws LessArgException, VariableException;
+    void undo();
 }

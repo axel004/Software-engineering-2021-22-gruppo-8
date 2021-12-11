@@ -12,21 +12,34 @@ package calculator;
 public class MulCommand implements Command{
     private StackCalc stack;
     private Operations op;
+    private Complex val1, val2;
+    private Integer num;
     
-    public MulCommand() {
+    public MulCommand(Operations op) {
         stack = StackCalc.getStack();
-        op = new Operations();
+        this.op = op;
     }
     
     public boolean execute(String text) throws LessArgException{
         if(stack.size()>=2){
-            Complex val2 = stack.pop();
-            Complex val1 = stack.pop();
+            val2 = stack.pop();
+            val1 = stack.pop();
             
             Complex res = op.multiply(val1, val2);
             stack.push(res);
             return true;
         }
+        num = 0;
         throw new LessArgException("Non ci sono abbastanza valori nello stack");
+    }
+
+    @Override
+    public void undo() {
+        if (num != 0) {
+            stack.pop();
+            stack.push(val1);
+            stack.push(val2);
+        }
+        num = 1;
     }
 }

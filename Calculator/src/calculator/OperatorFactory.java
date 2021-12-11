@@ -16,14 +16,15 @@ import java.util.regex.Pattern;
  */
 public class OperatorFactory {
     private final Map<String, Command> operationMap = new HashMap<>();
+    private Operations op = new Operations();
     
     public OperatorFactory() {
-        operationMap.put("+", new SumCommand());
-        operationMap.put("-", new DiffCommand());
-        operationMap.put("+-", new RevSignCommand());
-        operationMap.put("*", new MulCommand());
-        operationMap.put("/", new DivCommand());
-        operationMap.put("sqrt", new SquareCommand());
+        operationMap.put("+", new SumCommand(op));
+        operationMap.put("-", new DiffCommand(op));
+        operationMap.put("+-", new RevSignCommand(op));
+        operationMap.put("*", new MulCommand(op));
+        operationMap.put("/", new DivCommand(op));
+        operationMap.put("sqrt", new SquareCommand(op));
         operationMap.put("dup", new DupCommand());
         operationMap.put("swap", new SwapCommand());
         operationMap.put("over", new OverCommand());
@@ -31,8 +32,8 @@ public class OperatorFactory {
         operationMap.put("drop", new DropCommand());
         operationMap.put(">var", new PushToVarCommand());
         operationMap.put("<var", new PushFromVarCommand());
-        operationMap.put("+var", new AddVarCommand());
-        operationMap.put("-var", new SubVarCommand());
+        operationMap.put("+var", new AddVarCommand(op));
+        operationMap.put("-var", new SubVarCommand(op));
     }
     
     public Map<String, Command> getOperationMap() {

@@ -11,6 +11,8 @@ package calculator;
  */
 public class DropCommand implements Command {
     private StackCalc stack;
+    private Complex val;
+    private Integer num;
     
     public DropCommand() {
         stack = StackCalc.getStack();
@@ -18,9 +20,19 @@ public class DropCommand implements Command {
     
     public boolean execute(String text) throws LessArgException{
         if(stack.size()>=1){
+            val = stack.peek();
             stack.drop();
             return true;
         }
+        num = 0;
         throw new LessArgException("Non ci sono abbastanza valori nello stack");
+    }
+
+    @Override
+    public void undo() {
+        if (num != 0) {
+            stack.push(val);
+        }
+        num = 1;
     }
 }
