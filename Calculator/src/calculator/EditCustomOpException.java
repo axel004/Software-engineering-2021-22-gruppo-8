@@ -6,12 +6,12 @@ package calculator;
 
 /**
  *
- * @author Asus
+ * @author paola
  */
-public class EditCostumOpException extends Exception {
+public class EditCustomOpException extends Exception {
 
-    public EditCostumOpException(String string) {
-        super(string);
+    public EditCustomOpException(String toString) {
+        super(toString);
     }
     
 }

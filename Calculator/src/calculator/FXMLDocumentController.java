@@ -327,11 +327,11 @@ public class FXMLDocumentController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.ERROR, "", ButtonType.OK);
 
         try {
-            if(!custOp.EditCostumOperation(name,seq)) {
+            if(!custOp.editCustomOperation(name,seq)) {
                 alert.setContentText("Invalid modify operation");
                 alert.showAndWait();
             }
-        } catch (EditCostumOpException ex) {
+        } catch (EditCustomOpException ex) {
             alert.setContentText("The change is propagated to the operation(s): "+ex.getMessage());
             alert.showAndWait();
         }
@@ -346,12 +346,12 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void deleteCustomOperation(ActionEvent event) {
+        seqOperation.setDisable(true);
         String name = nameOperation.getText();
-        String seq = seqOperation.getText();
         Alert alert = new Alert(Alert.AlertType.ERROR, "", ButtonType.OK);
         
         try {
-            if(!custOp.DeleteCostumOperation(name,seq)) {
+            if(!custOp.deleteCustom(name)) {
                 alert.setContentText("Invalid delete operation");
                 alert.showAndWait();
             }
@@ -363,9 +363,7 @@ public class FXMLDocumentController implements Initializable {
         listCust = FXCollections.observableList(custOp.getListOfValues());
         CustList.setItems(listCust);
         nameOperation.clear();
-        seqOperation.clear();
         nameOperation.setDisable(true);
-        seqOperation.setDisable(true);
         
     }
     

@@ -8,7 +8,7 @@
     <update check="always"/>
     <resources>
         <j2se version="9+" href="http://java.sun.com/products/autodl/j2se"/>
-        <jar href="Calculator.jar" size="42275" download="eager"/>
+        <jar href="Calculator.jar" size="42957" download="eager"/>
     </resources>
     <jfx:javafx-desc width="800" height="600" main-class="calculator.Calculator" name="Calculator"/>
 </jnlp>

@@ -244,19 +244,18 @@ public class Customs {
         return list;
     }
     
-    public boolean EditCostumOperation(String nomeOperazione, String operazione) throws EditCostumOpException{
+    public boolean editCustomOperation(String nomeOperazione, String operazione) throws EditCustomOpException{
         List<String> listOfKeys = new ArrayList();
         if(operationCheck(operazione)){  //controllo se l'operazione è corretta
-            System.out.println("l'operazione è corretta");
             if(mappa.containsKey(nomeOperazione)){  //controllo se la mappa contiene il nome dell'operazione da modificare
-                System.out.println("l'operazione è nella mappa");
                 for (String value : mappa.values()) {
-                    if(value.contains(nomeOperazione)) //creo la lista delle chaivi che hanno come valore il nome dell'operazione da modificare
-                        KeyList(mappa,value,listOfKeys);    
+                    if(value.contains(nomeOperazione)){ //creo la lista delle chaivi che hanno come valore il nome dell'operazione da modificare
+                        keyList(mappa,value,listOfKeys); 
+                    }
                 }
                 modifica(nomeOperazione,operazione);  //effettuo la modifica
             if(!listOfKeys.isEmpty()){
-                throw new EditCostumOpException(listOfKeys.toString()); //se la lista non è vuota lancio l'alert altrimenti ritorno true
+                throw new EditCustomOpException(listOfKeys.toString()); //se la lista non è vuota lancio l'allert altrimenti ritorno true
             }else
                 return true;
             }
@@ -265,13 +264,38 @@ public class Customs {
         return false;
     }
            
-    public void KeyList(Map<String,String> mappa,String value,List<String>listOfKeys){
-        for (Map.Entry<String, String> entry: mappa.entrySet()){          
+    public void keyList(Map<String, String> mappa, String value, List<String> listOfKeys) {
+        for (Map.Entry<String, String> entry : mappa.entrySet()) {
             // Check if value matches with given value
-            if (entry.getValue().equals(value))
-                // Store the key from entry to the list
-                listOfKeys.add(entry.getKey());    
-        } 
-    }    
+            if (entry.getValue().equals(value)) // Store the key from entry to the list
+            {
+                listOfKeys.add(entry.getKey());
+            }
+        }
+    }
+
+    
+    public boolean deleteCustom(String nomeOperazione) throws DeleteCostumOpException {
+        List<String> listOfKeys = new ArrayList();
+            if (mappa.containsKey(nomeOperazione)) {  //controllo se la mappa contiene il nome dell'operazione da cancellare
+                for (String value : mappa.values()) {
+                    if (value.contains(nomeOperazione)) //creo la lista delle chaivi che hanno come valore il nome dell'operazione da cancellare
+                    {
+                        keyList(mappa, value, listOfKeys);
+                    }
+                }
+                listOfKeys.add(nomeOperazione);
+                for (String key : listOfKeys){
+                    mappa.remove(key);
+                }
+                listOfKeys.remove(nomeOperazione);
+                if (!listOfKeys.isEmpty()) {
+                    throw new DeleteCostumOpException(listOfKeys.toString()); //se la lista non è vuota lancio l'allert altrimenti ritorno true
+                } else {
+                    return true;
+                }
+            }
+            return false;
+    }
 }
 
