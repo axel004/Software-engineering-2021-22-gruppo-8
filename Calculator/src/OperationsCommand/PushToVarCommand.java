@@ -3,8 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package calculator;
+package OperationsCommand;
 
+import calculator.Command;
+import calculator.Complex;
+import calculator.StackCalc;
+import calculator.Variable;
+import calculator.VariableException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

@@ -3,25 +3,35 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package calculator;
+package OperationsCommand;
+
+import calculator.Command;
+import calculator.Complex;
+import calculator.LessArgException;
+import calculator.Operations;
+import calculator.StackCalc;
 
 /**
  *
  * @author Alberto
  */
-public class DropCommand implements Command {
+public class RevSignCommand implements Command {
     private StackCalc stack;
-    private Complex val;
+    private Operations op;
+    private Complex val1;
     private Integer num;
     
-    public DropCommand() {
+    public RevSignCommand(Operations op) {
         stack = StackCalc.getStack();
+        this.op = op;
     }
     
     public boolean execute(String text) throws LessArgException{
         if(stack.size()>=1){
-            val = stack.peek();
-            stack.drop();
+            val1 = stack.pop();
+ 
+            Complex res = op.reverseSign(val1);
+            stack.push(res);
             return true;
         }
         num = 0;
@@ -31,7 +41,8 @@ public class DropCommand implements Command {
     @Override
     public void undo() {
         if (num != 0) {
-            stack.push(val);
+            stack.pop();
+            stack.push(val1);
         }
         num = 1;
     }

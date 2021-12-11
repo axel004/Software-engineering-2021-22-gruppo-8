@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package calculator;
+package OperationsCommand;
 
+import calculator.Command;
+import calculator.Complex;
+import calculator.StackCalc;
 import java.util.ArrayDeque;
 import java.util.Deque;
 

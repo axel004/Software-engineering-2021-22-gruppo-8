@@ -3,8 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package calculator;
+package OperationsCommand;
 
+import calculator.Command;
+import calculator.Complex;
+import calculator.LessArgException;
+import calculator.StackCalc;
+import calculator.Variable;
+import calculator.VariableException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
@@ -17,6 +23,7 @@ public class SaveCommand implements Command {
     private Variable var;
     private StackCalc stack;
     private static Stack<String> stackMappeVariabili = new Stack<>();
+    private String array;
 
     public SaveCommand() {
         stack = StackCalc.getStack();
@@ -25,7 +32,7 @@ public class SaveCommand implements Command {
     
     @Override
     public boolean execute(String text) throws LessArgException, VariableException {
-        String array = "";
+        array = "";
         for(Map.Entry<String,Complex> entry : var.getMap().entrySet()) {
             String key = entry.getKey();
             Complex value = entry.getValue();
@@ -42,5 +49,6 @@ public class SaveCommand implements Command {
 
     @Override
     public void undo() {
+        stackMappeVariabili.remove(array.substring(1));
     }
 }

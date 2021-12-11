@@ -3,25 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package calculator;
+package OperationsCommand;
+
+import calculator.Command;
+import calculator.Complex;
+import calculator.LessArgException;
+import calculator.StackCalc;
 
 /**
  *
  * @author Alberto
  */
-public class OverCommand implements Command {
+public class DropCommand implements Command {
     private StackCalc stack;
     private Complex val;
     private Integer num;
     
-    public OverCommand() {
+    public DropCommand() {
         stack = StackCalc.getStack();
     }
     
     public boolean execute(String text) throws LessArgException{
-        if(stack.size()>=2){
+        if(stack.size()>=1){
             val = stack.peek();
-            stack.over();
+            stack.drop();
             return true;
         }
         num = 0;
@@ -31,8 +36,6 @@ public class OverCommand implements Command {
     @Override
     public void undo() {
         if (num != 0) {
-            stack.pop();
-            stack.pop();
             stack.push(val);
         }
         num = 1;

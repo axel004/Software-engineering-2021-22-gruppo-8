@@ -3,31 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package calculator;
+package OperationsCommand;
+
+import calculator.Command;
+import calculator.Complex;
+import calculator.LessArgException;
+import calculator.StackCalc;
 
 /**
  *
  * @author Alberto
  */
-public class DiffCommand implements Command {
+public class SwapCommand implements Command {
     private StackCalc stack;
-    private Operations op;
-    private Complex val1, val2;
+    private Complex val1;
     private Integer num;
     
-    public DiffCommand(Operations op) {
+    public SwapCommand() {
         stack = StackCalc.getStack();
-        this.op = op;
     }
     
-    @Override
     public boolean execute(String text) throws LessArgException{
         if(stack.size()>=2){
-            val2 = stack.pop();
-            val1 = stack.pop();
-            
-            Complex res = op.differenza(val1, val2);
-            stack.push(res);
+            stack.swap();
             return true;
         }
         num = 0;
@@ -36,11 +34,9 @@ public class DiffCommand implements Command {
 
     @Override
     public void undo() {
-        if(num!=0){
-            stack.pop();
-            stack.push(val1);
-            stack.push(val2);
+        if (num != 0) {
+            stack.swap();
         }
-        num=1;
+        num = 1;
     }
 }

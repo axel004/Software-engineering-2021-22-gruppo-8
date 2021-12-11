@@ -5,6 +5,23 @@
  */
 package calculator;
 
+import OperationsCommand.PushFromVarCommand;
+import OperationsCommand.PushToVarCommand;
+import OperationsCommand.RevSignCommand;
+import OperationsCommand.RestoreCommand;
+import OperationsCommand.SaveCommand;
+import OperationsCommand.SquareCommand;
+import OperationsCommand.SubVarCommand;
+import OperationsCommand.SumCommand;
+import OperationsCommand.SwapCommand;
+import OperationsCommand.OverCommand;
+import OperationsCommand.MulCommand;
+import OperationsCommand.DivCommand;
+import OperationsCommand.DropCommand;
+import OperationsCommand.DupCommand;
+import OperationsCommand.DiffCommand;
+import OperationsCommand.ClearCommand;
+import OperationsCommand.AddVarCommand;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.*;

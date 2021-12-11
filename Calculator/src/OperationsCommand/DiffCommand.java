@@ -3,28 +3,36 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package calculator;
+package OperationsCommand;
+
+import calculator.Command;
+import calculator.Complex;
+import calculator.LessArgException;
+import calculator.Operations;
+import calculator.StackCalc;
 
 /**
  *
  * @author Alberto
  */
-public class RevSignCommand implements Command {
+public class DiffCommand implements Command {
     private StackCalc stack;
     private Operations op;
-    private Complex val1;
+    private Complex val1, val2;
     private Integer num;
     
-    public RevSignCommand(Operations op) {
+    public DiffCommand(Operations op) {
         stack = StackCalc.getStack();
         this.op = op;
     }
     
+    @Override
     public boolean execute(String text) throws LessArgException{
-        if(stack.size()>=1){
+        if(stack.size()>=2){
+            val2 = stack.pop();
             val1 = stack.pop();
- 
-            Complex res = op.reverseSign(val1);
+            
+            Complex res = op.differenza(val1, val2);
             stack.push(res);
             return true;
         }
@@ -34,10 +42,11 @@ public class RevSignCommand implements Command {
 
     @Override
     public void undo() {
-        if (num != 0) {
+        if(num!=0){
             stack.pop();
             stack.push(val1);
+            stack.push(val2);
         }
-        num = 1;
+        num=1;
     }
 }

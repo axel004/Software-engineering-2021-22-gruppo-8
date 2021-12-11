@@ -3,30 +3,39 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package calculator;
+package OperationsCommand;
+
+import calculator.Command;
+import calculator.Complex;
+import calculator.LessArgException;
+import calculator.Operations;
+import calculator.StackCalc;
 
 /**
  *
- * @author HP115-CS0026
+ * @author Alberto
  */
-public class SumCommand implements Command {
+public class DivCommand implements Command{
     private StackCalc stack;
     private Operations op;
     private Complex val1, val2;
     private Integer num;
     
-    public SumCommand(Operations op) {
+    public DivCommand(Operations op){
         stack = StackCalc.getStack();
         this.op = op;
     }
-
+    
     @Override
     public boolean execute(String text) throws LessArgException {
-        if (stack.size() >= 2) {
+        if(stack.size()>=2){
+            if (stack.peek().equals(new Complex(0,0))) {
+                return false;
+            }
             val2 = stack.pop();
             val1 = stack.pop();
             
-            Complex res = op.sum(val1, val2);
+            Complex res = op.divisione(val1, val2);
             stack.push(res);
             return true;
         }
@@ -36,13 +45,11 @@ public class SumCommand implements Command {
 
     @Override
     public void undo() {
-        if (num != 0){
+        if (num != 0) {
             stack.pop();
             stack.push(val1);
             stack.push(val2);
         }
         num = 1;
     }
-    
-    
 }

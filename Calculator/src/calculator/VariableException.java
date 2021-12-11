@@ -9,9 +9,9 @@ package calculator;
  *
  * @author HP115-CS0026
  */
-class VariableException extends Exception {
+public class VariableException extends Exception {
 
-    VariableException(String la_variabile_non_è_stata_definita) {
+    public VariableException(String la_variabile_non_è_stata_definita) {
         super();
     }
     
