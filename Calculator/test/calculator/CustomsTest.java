@@ -6,12 +6,6 @@
 package calculator;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -305,5 +299,49 @@ public class CustomsTest {
         File fileNotExists = new File("test/calculator/thisNotExists.txt");
         assertEquals(false, fileNotExists.exists());
         assertEquals(null, instance.loadFromFile(fileNotExists));
+    }
+    
+    
+    @Test
+    public void testEditCostumOperation() throws Exception{
+        System.out.println("test EditCostumOperation\n");
+        OperatorFactory of = new OperatorFactory();
+        Customs instance = new Customs(of);
+        boolean thrown = false;
+
+        instance.istanziaNuovaOperazione("addizione","+");
+        instance.istanziaNuovaOperazione("moltiplicazione", "addizione,*");
+        instance.istanziaNuovaOperazione("divisione", "/");
+        instance.istanziaNuovaOperazione("radice", "addizione,sqrt");
+        instance.istanziaNuovaOperazione("somma","+,-,moltiplicazione");
+        
+        instance.EditCostumOperation("divisione", "+,-");
+        assertEquals("+,-",instance.getOperazione("divisione")); //controllo il corretto funzionamento
+        assertEquals(false,instance.EditCostumOperation("swap", "+,-")); //controllo il caso in cui l'operazione non è presente
+ 
+        assertEquals(false,instance.EditCostumOperation("radice", "*+sqrt")); //controllo il caso in cui l'operazione non è corretta
+
+        assertEquals(false,instance.EditCostumOperation("addizione", "potenza,sqrt,swap"));
+        
+        assertEquals(false,instance.EditCostumOperation("divisione", "suop,+,-"));
+        
+        
+        try {
+          instance.EditCostumOperation("addizione", "somma,radice,sqrt,swap"); //controllo il corretto funzionamento del lancio dell'eccezione
+        } catch (EditCostumOpException e) {
+          thrown = true;
+          assertEquals("[moltiplicazione, radice]",e.getMessage());
+        }
+        assertTrue(thrown);
+        assertEquals("somma,radice,sqrt,swap",instance.getOperazione("addizione"));
+    
+        try {
+          instance.EditCostumOperation("moltiplicazione", "dup,radice,sqrt,swap"); //controllo il corretto funzionamento del lancio dell'eccezione
+        } catch (EditCostumOpException e) {
+          thrown = true;
+          assertEquals("[somma]",e.getMessage());
+        }
+        assertTrue(thrown);
+        assertEquals("dup,radice,sqrt,swap",instance.getOperazione("moltiplicazione"));
     }
 }

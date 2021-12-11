@@ -149,7 +149,6 @@ public class FXMLDocumentController implements Initializable {
             textArea.clear();
             updateTopLabel();
         } catch (Exception ex) {
-            System.out.println("mah");
             try {
                 // if it's an operand then create a new complex number and push the complex number into stack
                 checkComplex(textArea.getText());
