@@ -19,6 +19,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -27,6 +29,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -91,17 +96,34 @@ public class FXMLDocumentController implements Initializable {
     private TextField nameOperation;
     @FXML
     private TextField seqOperation;
+    @FXML
+    private Button modifyBtn;
+    @FXML
+    private Button deleteBtn;
+    @FXML
+    private ListView<String> VarList;
+    @FXML
+    private ListView<String> CustList;
     
-    private void handleButtonAction(ActionEvent event) {
-        
-    }
+    private ObservableList<String> listVar;
+    private ObservableList<String> listCust;
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        listVar = FXCollections.observableList(var.getListOfValues());
+        listCust = FXCollections.observableList(custOp.getListOfValues());
+
+        VarList.setItems(listVar);
+        CustList.setItems(listCust);
+
         resetBtn.disableProperty().bind(Bindings.isEmpty(textArea.textProperty()));
         submitBtn.disableProperty().bind(Bindings.isEmpty(textArea.textProperty()));
         currentValue.textProperty().bindBidirectional(textArea.textProperty());
         insertOpBtn.disableProperty().bind(Bindings.isEmpty(nameOperation.textProperty()).or(nameOperation.textProperty().isEqualTo("Operation name...")));
+        modifyBtn.disableProperty().bind(Bindings.isEmpty(nameOperation.textProperty()).or(nameOperation.textProperty().isEqualTo("Operation name...")));
+        deleteBtn.disableProperty().bind(Bindings.isEmpty(nameOperation.textProperty()).or(nameOperation.textProperty().isEqualTo("Operation name...")));
+
         
         labels.add(value1);
         labels.add(value2);
@@ -133,8 +155,12 @@ public class FXMLDocumentController implements Initializable {
         
         try {
             Command c = of.getCommand(text);
+
             try { 
                 c.execute(text);
+                listVar = FXCollections.observableList(var.getListOfValues());
+                VarList.setItems(listVar);
+                                                
             } catch(LessArgException lessArgEx) {
                 alert2.showAndWait();
                 if (alert2.getResult() == ButtonType.OK) {
@@ -264,8 +290,8 @@ public class FXMLDocumentController implements Initializable {
     private void loadFromFile(ActionEvent event) {
         File file = selectFile();
         custOp.loadFromFile(file);
-        System.out.println(custOp.toString());
-
+        listCust = FXCollections.observableList(custOp.getListOfValues());
+        CustList.setItems(listCust);
     }
 
     @FXML
@@ -290,13 +316,24 @@ public class FXMLDocumentController implements Initializable {
         
         if(!custOp.istanziaNuovaOperazione(name, seq))
             alert.showAndWait();
-        else 
-            System.out.println(custOp.toString());
-
+        else {
+            listCust = FXCollections.observableList(custOp.getListOfValues());
+            CustList.setItems(listCust);
+        }
         nameOperation.clear();
         seqOperation.clear();
         nameOperation.setDisable(true);
         seqOperation.setDisable(true);
+    }
+
+    @FXML
+    private void modifyCustomOperation(ActionEvent event) {
+        System.out.println("Not implemented");
+    }
+
+    @FXML
+    private void deleteCustomOperation(ActionEvent event) {
+        System.out.println("Not implemented");
     }
     
 }

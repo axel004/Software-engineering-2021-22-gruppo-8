@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -234,4 +235,15 @@ public class Customs {
             }
         }
     }
+    
+    public ArrayList<String> getListOfValues() {
+        ArrayList<String> list = new ArrayList<>();
+        for(Map.Entry<String,String> entry : mappa.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            list.add(key+" => "+value);
+        }
+        return list;
+    }
+    
 }
