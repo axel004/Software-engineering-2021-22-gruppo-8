@@ -11,20 +11,32 @@ package calculator;
 public class SquareCommand implements Command{
     private StackCalc stack;
     private Operations op;
+    private Complex val1;
+    private Integer num;
 
-    public SquareCommand() {
+    public SquareCommand(Operations op) {
         stack = StackCalc.getStack();
-        op = new Operations();
+        this.op = op;
     }
     
     @Override
     public boolean execute(String text) throws LessArgException {
         if (stack.size() >= 1) {
-            Complex val1 = stack.pop();             // ottengo il valore dallo stack
+            val1 = stack.pop();             // ottengo il valore dallo stack
             stack.push(op.radice(val1));        //inserisco nello stack il nuovo valore    
             return true;
         } else {
+            num = 0;
             throw new LessArgException("Non ci sono abbastanza valori nello stack");
         }
+    }
+
+    @Override
+    public void undo() {
+        if (num != 0) {
+            stack.pop();
+            stack.push(val1);
+        }
+        num = 1;
     }
 }

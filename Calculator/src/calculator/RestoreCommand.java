@@ -55,5 +55,9 @@ public class RestoreCommand implements Command {
 
         return true;
     }
+
+    @Override
+    public void undo() {
+    }
     
 }

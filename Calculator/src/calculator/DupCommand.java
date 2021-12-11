@@ -23,4 +23,9 @@ public class DupCommand implements Command {
         }
         throw new LessArgException("Non ci sono abbastanza valori nello stack");
     }
+
+    @Override
+    public void undo() {
+        stack.pop();
+    }
 }

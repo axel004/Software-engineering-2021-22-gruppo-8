@@ -39,4 +39,8 @@ public class SaveCommand implements Command {
     public static Stack<String> getStackMappeVariabili() {
         return stackMappeVariabili;
     }
+
+    @Override
+    public void undo() {
+    }
 }
