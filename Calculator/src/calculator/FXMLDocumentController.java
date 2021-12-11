@@ -328,7 +328,27 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void modifyCustomOperation(ActionEvent event) {
-        System.out.println("Not implemented");
+        System.out.println("modify");
+        String name = nameOperation.getText();
+        String seq = seqOperation.getText();
+        Alert alert = new Alert(Alert.AlertType.ERROR, "", ButtonType.OK);
+
+        try {
+            if(!custOp.EditCostumOperation(name,seq)) {
+                alert.setContentText("Invalid modify operation");
+                alert.showAndWait();
+            }
+        } catch (EditCostumOpException ex) {
+            alert.setContentText("The change is propagated to the operation(s): "+ex.getMessage());
+            alert.showAndWait();
+        }
+        
+        listCust = FXCollections.observableList(custOp.getListOfValues());
+        CustList.setItems(listCust);
+        nameOperation.clear();
+        seqOperation.clear();
+        nameOperation.setDisable(true);
+        seqOperation.setDisable(true);
     }
 
     @FXML

@@ -100,5 +100,9 @@ public class Variable {
         }
         return list;
     }
+    
+    public TreeMap<String, Complex> getMap() {
+        return struct;
+    }
 
 }
