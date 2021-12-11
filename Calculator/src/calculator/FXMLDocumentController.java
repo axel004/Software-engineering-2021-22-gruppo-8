@@ -322,7 +322,6 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void modifyCustomOperation(ActionEvent event) {
-        System.out.println("modify");
         String name = nameOperation.getText();
         String seq = seqOperation.getText();
         Alert alert = new Alert(Alert.AlertType.ERROR, "", ButtonType.OK);
@@ -347,7 +346,27 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void deleteCustomOperation(ActionEvent event) {
-        System.out.println("Not implemented");
+        String name = nameOperation.getText();
+        String seq = seqOperation.getText();
+        Alert alert = new Alert(Alert.AlertType.ERROR, "", ButtonType.OK);
+        
+        try {
+            if(!custOp.DeleteCostumOperation(name,seq)) {
+                alert.setContentText("Invalid delete operation");
+                alert.showAndWait();
+            }
+        } catch (DeleteCostumOpException ex) {
+            alert.setContentText("elimination spreads to operation(s): "+ex.getMessage());
+            alert.showAndWait();
+        }
+        
+        listCust = FXCollections.observableList(custOp.getListOfValues());
+        CustList.setItems(listCust);
+        nameOperation.clear();
+        seqOperation.clear();
+        nameOperation.setDisable(true);
+        seqOperation.setDisable(true);
+        
     }
     
 }
