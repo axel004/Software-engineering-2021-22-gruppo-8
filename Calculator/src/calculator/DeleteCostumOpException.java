@@ -11,7 +11,7 @@ package calculator;
 class DeleteCostumOpException extends Exception {
 
     DeleteCostumOpException(String toString) {
-       
+       super(toString);
     }
     
 }
