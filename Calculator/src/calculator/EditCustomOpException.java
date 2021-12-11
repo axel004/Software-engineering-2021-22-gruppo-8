@@ -11,6 +11,7 @@ package calculator;
 public class EditCustomOpException extends Exception {
 
     public EditCustomOpException(String toString) {
+        super(toString);
     }
     
 }

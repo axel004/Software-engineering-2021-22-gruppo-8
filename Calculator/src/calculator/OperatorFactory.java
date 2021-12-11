@@ -34,6 +34,8 @@ public class OperatorFactory {
         operationMap.put("<var", new PushFromVarCommand());
         operationMap.put("+var", new AddVarCommand(op));
         operationMap.put("-var", new SubVarCommand(op));
+        operationMap.put("save", new SaveCommand());
+        operationMap.put("restore", new RestoreCommand());
     }
     
     public Map<String, Command> getOperationMap() {

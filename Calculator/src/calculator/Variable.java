@@ -5,6 +5,9 @@
  */
 package calculator;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
 /**
@@ -87,4 +90,19 @@ public class Variable {
     public void diffVariable(String key, Operations op) {
         this.setVariable(key, op.differenza(this.getValue(key), stack.pop()));
     }
+    
+    public ArrayList<String> getListOfValues() {
+        ArrayList<String> list = new ArrayList<>();
+        for(Map.Entry<String,Complex> entry : struct.entrySet()) {
+            String key = entry.getKey();
+            Complex value = entry.getValue();
+            list.add(key+" => "+value);
+        }
+        return list;
+    }
+    
+    public TreeMap<String, Complex> getMap() {
+        return struct;
+    }
+
 }

@@ -233,6 +233,16 @@ public class Customs {
         }
         op.clear();
     }
+
+    public ArrayList<String> getListOfValues() {
+        ArrayList<String> list = new ArrayList<>();
+        for(Map.Entry<String,String> entry : mappa.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            list.add(key+" => "+value);
+        }
+        return list;
+    }
     
     public boolean editCustomOperation(String nomeOperazione, String operazione) throws EditCustomOpException{
         List<String> listOfKeys = new ArrayList();
