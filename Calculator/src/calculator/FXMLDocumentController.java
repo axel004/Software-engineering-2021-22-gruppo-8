@@ -195,6 +195,8 @@ public class FXMLDocumentController implements Initializable {
                 try {
                     custOp.executeCustom(text);
                     updateTopLabel();
+                    listVar = FXCollections.observableList(var.getListOfValues());
+                    VarList.setItems(listVar);
                 } catch (CustomException custEx) {
                         alert5.showAndWait();
                         if (alert.getResult() == ButtonType.OK) {
@@ -208,6 +210,8 @@ public class FXMLDocumentController implements Initializable {
                         textArea.clear();
                     }
                 }
+                textArea.clear();
+                updateTopLabel();
             }
         }
     }
