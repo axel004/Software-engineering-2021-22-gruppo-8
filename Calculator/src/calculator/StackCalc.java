@@ -5,6 +5,8 @@
  */
 package calculator;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.EmptyStackException;
 import java.util.Stack;
 //import calculator.Complex;
@@ -15,6 +17,7 @@ import java.util.Stack;
  */
 public class StackCalc extends Stack<Complex>{
     static private StackCalc stack = null;
+    private Deque<Complex> aux;
     
     public static StackCalc getStack() {
         if (stack == null) {
@@ -23,9 +26,10 @@ public class StackCalc extends Stack<Complex>{
         return stack;
     }
     private StackCalc() {
+        aux = new ArrayDeque<>();
     }
     
-   
+   //prende il primo elemento dello stack
     @Override
     public Complex pop(){
         try{
@@ -38,6 +42,7 @@ public class StackCalc extends Stack<Complex>{
         }
     }
     
+    //inserisce l'elemento nello stack
     @Override
     public Complex push(Complex item) {
         item = super.push(item);
@@ -106,13 +111,14 @@ public class StackCalc extends Stack<Complex>{
         this.push(this.peek());
     }
     
-        
+    //pulisce lo stack
     public void clear() {
         if (this.isEmpty())
             return;
         this.destroy();
     }
     
+    //inverte la posizione degli ultimi due elementi dello stack
     public void swap() {
         Complex val1 = this.pop();
         Complex val2 = this.pop();
@@ -132,5 +138,15 @@ public class StackCalc extends Stack<Complex>{
         } catch (Exception e) {
             System.out.print("Over error\n");
         }
+    }
+    
+    //metodo ausiliario per il metodo undo. Salva i numeri complessi da ripristinare nello stack in seguito
+    public void insertAux(Complex c) {
+        aux.addFirst(c);
+    }
+
+    //metodo ausiliario per il metodo undo. Rimuove i numeri complessi da ripristinare nello stack in seguito
+    public Complex returnAux() {
+        return aux.removeFirst();
     }
 }

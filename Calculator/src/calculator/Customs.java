@@ -36,11 +36,11 @@ public class Customs {
     }
 
     /*
-    "crea" inserisce una chiave nomeOperazione nella mappa, e vi inserisce la stringa "0" come valore;
+    "create" inserisce una chiave nomeOperazione nella mappa, e vi inserisce la stringa "0" come valore;
     putIfAbsent restituisce null se la posizione non era occupata, altrimenti restituisce il valore associato alla chiave
     non crea l'operazione se essa esiste già nelle operazioni di default o nelle operazioni custom con lo stesso nome
     */
-    public boolean crea(String nomeOperazione){
+    public boolean create(String nomeOperazione){
         try{
             if(mappa.putIfAbsent(nomeOperazione, "default") != null || operazioniDefault.containsKey(nomeOperazione)){
                 throw new Exception();
@@ -54,9 +54,9 @@ public class Customs {
     }
     
     /*
-    "modifica" va a modificare il valore della chiave nomeOperazione se esiste
+    "modify" va a modificare il valore della chiave nomeOperazione se esiste
     */
-    public void modifica(String nomeOperazione, String operazione){
+    public void modify(String nomeOperazione, String operazione){
         try{
             if(this.operationCheck(operazione)){
                 mappa.replace(nomeOperazione, operazione);
@@ -68,12 +68,12 @@ public class Customs {
     }
     
     /*
-    "istanziaNuovaOperazione" effettua sia la creazione che la modifica della nuova operazione dichiarata
+    "createNewOperation" effettua sia la creazione che la modifica della nuova operazione dichiarata
     */
-    public boolean istanziaNuovaOperazione(String nomeOperazione, String operazione){
+    public boolean createNewOperation(String nomeOperazione, String operazione){
         if(this.operationCheck(operazione)){
-            if(this.crea(nomeOperazione)){
-                this.modifica(nomeOperazione, operazione);
+            if(this.create(nomeOperazione)){
+                this.modify(nomeOperazione, operazione);
                 return true;
             }
         }
@@ -82,9 +82,9 @@ public class Customs {
     }
     
     /*
-    getOperazione restituisce la sequenza di operazioni inserita 
+    getOperation restituisce la sequenza di operazioni inserita 
     */
-    public String getOperazione(String nomeOperazione){
+    public String getOperation(String nomeOperazione){
         try{
             return mappa.get(nomeOperazione);
         }
@@ -106,7 +106,7 @@ public class Customs {
                     try{
                         String[] splot = comando.split("(?!^)");
                         if(!((splot[0].matches(Pattern.quote("+"))||splot[0].matches("-")||splot[0].matches("<")||splot[0].matches(">")) && splot[1].matches("[a-z]{1}")) || comando.length()>2){
-                            if(!this.checkComplesso(comando)){
+                            if(!this.checkComplex(comando)){
                                 return false;
                             }
                         }
@@ -129,7 +129,7 @@ public class Customs {
     /*
     controlla se ciò che è stato inserito è un numero complesso
     */
-    private boolean checkComplesso(String numComplex) throws NumberFormatException {
+    private boolean checkComplex(String numComplex) throws NumberFormatException {
         String number[], num = "";
         double real, complex;
         if (numComplex.contains("+")) {
@@ -168,6 +168,7 @@ public class Customs {
         return true;
     }
     
+    //metodo per stampare le operazioni custom
     @Override 
     public String toString() {
         String str = "";
@@ -179,27 +180,7 @@ public class Customs {
         return str;
     }
     
-    public Customs loadFromFile(File file) {
-        try(Scanner i = new Scanner(new BufferedReader(new FileReader(file)))) {
-             // espressione regolare con OR logico dei caratteri pipe e fine linea
-            String name;
-            String seq;
-            String line;
-            
-            while(i.hasNext()){
-                line = i.next();
-                name = line.split(":")[0];
-                seq = line.split(":")[1];
-                this.istanziaNuovaOperazione(name, seq);
-            }
-        } catch (FileNotFoundException ex) {
-            System.out.println("File not found: "+file);
-            return null;
-        }
-        
-        return this;
-    }
-    
+    //ritorna la mappa della classe Custom
     public HashMap<String, String> getOperationMap() {
         return mappa;
     }
@@ -212,7 +193,7 @@ public class Customs {
         if (!mappa.containsKey(text)) { //riconoscimento del comando
             throw new CustomException();
         }
-        String value = getOperazione(text);
+        String value = getOperation(text);
         String operazioni[]=value.split(",");
         OperatorFactory operator = new OperatorFactory();
         FXMLDocumentController f = new FXMLDocumentController();
@@ -224,7 +205,7 @@ public class Customs {
             if(c!=null){
                     op.execute(c, operazione);
             }
-            else if(getOperazione(operazione)!=null){
+            else if(getOperation(operazione)!=null){
                 executeCustom(operazione); 
             }
             else {
@@ -239,6 +220,7 @@ public class Customs {
         op.clear();
     }
 
+    //restituisce la lista contenente le operazioni custom
     public ArrayList<String> getListOfValues() {
         ArrayList<String> list = new ArrayList<>();
         for(Map.Entry<String,String> entry : mappa.entrySet()) {
@@ -249,6 +231,7 @@ public class Customs {
         return list;
     }
     
+    //ritorna false sia se l'operazione passata non è presente nella lista delle operazioni custom e sia se la modifica che vuole effettuare l'utente non è coerente
     public boolean editCustomOperation(String nomeOperazione, String operazione) throws EditCustomOpException{
         List<String> listOfKeys = new ArrayList();
         if(operationCheck(operazione)){  //controllo se l'operazione è corretta
@@ -258,7 +241,7 @@ public class Customs {
                         keyList(mappa,value,listOfKeys); 
                     }
                 }
-                modifica(nomeOperazione,operazione);  //effettuo la modifica
+                modify(nomeOperazione,operazione);  //effettuo la modifica
             if(!listOfKeys.isEmpty()){
                 throw new EditCustomOpException(listOfKeys.toString()); //se la lista non è vuota lancio l'allert altrimenti ritorno true
             }else
@@ -268,7 +251,8 @@ public class Customs {
         }
         return false;
     }
-           
+    
+    //metodo ausiliario che salva le chiavi delle operazioni custom da cancellare/modificare in una lista
     public void keyList(Map<String, String> mappa, String value, List<String> listOfKeys) {
         for (Map.Entry<String, String> entry : mappa.entrySet()) {
             // Check if value matches with given value
@@ -279,7 +263,7 @@ public class Customs {
         }
     }
 
-    
+    //ritorna false se l'operazione passata non è presente nella lista delle operazioni custom
     public boolean deleteCustom(String nomeOperazione) throws DeleteCostumOpException {
         List<String> listOfKeys = new ArrayList();
             if (mappa.containsKey(nomeOperazione)) {  //controllo se la mappa contiene il nome dell'operazione da cancellare

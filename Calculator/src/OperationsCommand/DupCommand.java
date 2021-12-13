@@ -19,10 +19,8 @@ public class DupCommand implements Command {
     public DupCommand() {
         stack = StackCalc.getStack();
     }
-    
-    //la funzione execute prende in ingresso text che equivale all'operazione richiesta
-    // ritorna (?)
-    //controlla che lo stack abbia almeno un elemento altrimenti lancia un'eccezione
+
+    //la funzione execute controlla che lo stack abbia almeno un elemento altrimenti lancia un'eccezione
     //se ha almeno un elemento chiama la funzione drop
     @Override
     public boolean execute(String text) throws LessArgException{
@@ -33,10 +31,10 @@ public class DupCommand implements Command {
         throw new LessArgException("Non ci sono abbastanza valori nello stack");
     }
 
-    //viene chiamata se l'operazione custom non va a buon fine
-    //riporta lo stack allo stato iniziale prima di eseguire la execute
     @Override
-    public void undo() {
-        stack.pop();
+    public void undo(Integer num) {
+        if (num != 0) {
+            stack.pop();
+        }
     }
 }

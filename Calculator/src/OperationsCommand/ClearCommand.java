@@ -18,31 +18,34 @@ import java.util.Deque;
 public class ClearCommand implements Command {
     private StackCalc stack;
     private Deque<Complex> stackLast;
+    private Integer n=0;
     
     public ClearCommand() {
         stack = StackCalc.getStack();
         stackLast = new ArrayDeque<>();
     }
     
-    //la funzione execute prende in ingresso text che equivale all'operazione richiesta
-    // ritorna (?)
-    //Salva lo stack in un array deque al fine di poterlo ripristinare nel caso in cui si verifica un'eccezione
+    //la funzione execute salva lo stack in un array deque al fine di poterlo ripristinare nel caso in cui si verifica un'eccezione
     //chiama la funzione clear per pulire lo stack
     @Override
     public boolean execute(String text) {
         for (Complex s : stack) {
-            stackLast.add(s);
+            stack.insertAux(s);
+            n++;
         }
         stack.clear();
         return true;
     }
 
-    //viene chiamata se l'operazione custom non va a buon fine
-    //ripristina lo stack
+
     @Override
-    public void undo() {
-        for (int i =stackLast.size(); i>0;i--) {
-            stack.push(stackLast.poll());
+    public void undo(Integer num) {
+        for (int i = 0; i<n;i++) {
+            System.out.println(n);
+            stackLast.addFirst(stack.returnAux());
+        }
+        for (Complex s: stackLast){
+            stack.push(s);
         }
     }
 }

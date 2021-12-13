@@ -5,7 +5,9 @@
  */
 package calculator;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -18,6 +20,7 @@ public class Variable {
     static private Variable instance = null;
     private TreeMap<String, Complex> struct;
     private StackCalc stack;
+    private Deque<String> aux;
     
     public static Variable getVariable(StackCalc stack){
         if (instance==null)
@@ -28,14 +31,18 @@ public class Variable {
     private Variable(StackCalc stack) {
         struct = new TreeMap<>();
         this.stack = stack;
+        aux = new ArrayDeque<>();
     }
     
+    
+    //verifica che la variabile passata sia una lettera minuscola tra le 26 possibili e nel caso ritorna true
     public boolean checkVariable(String key) {
         if (!key.matches("[a-z]{1}"))
             return false;
         return true;
     }
     
+    //crea una nuova coppia variabile-valore
     public Complex setVariable(String key, Complex value) {
         // verifico se la variabile è ammissibile
         // deve essere un carattere e deve essere un carattere dell'alfabeto
@@ -47,13 +54,9 @@ public class Variable {
         return struct.get(key);
     }
 
-    
+    //restituisce il valore presente nella variabile
     public Complex getValue(String key) {
         return struct.get(key);
-    }
-    
-    public StackCalc getStack() {
-        return stack;
     }
     
     /*
@@ -91,6 +94,7 @@ public class Variable {
         this.setVariable(key, op.difference(this.getValue(key), stack.pop()));
     }
     
+    //restituisce la lista delle coppie variabile-valore
     public ArrayList<String> getListOfValues() {
         ArrayList<String> list = new ArrayList<>();
         for(Map.Entry<String,Complex> entry : struct.entrySet()) {
@@ -101,8 +105,18 @@ public class Variable {
         return list;
     }
     
+    //restituisce la mappa contenente le coppie variabile-valore
     public TreeMap<String, Complex> getMap() {
         return struct;
     }
 
+    //metodo ausiliario per il metodo undo. Salva le variabili da ripristinare in seguito
+    public void insertAux(String v) {
+        aux.addFirst(v);
+    }
+
+    //metodo ausiliario per il metodo undo. Rimuove le variabili da ripristinare in seguito
+    public String returnAux() {
+        return aux.removeFirst();
+    }
 }

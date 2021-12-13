@@ -46,11 +46,12 @@ import javafx.stage.FileChooser.ExtensionFilter;
  * @author HP115-CS0026
  */
 public class FXMLDocumentController implements Initializable {
+    //dichiarazione delle variabili sfruttando il pattern Singleton
     StackCalc stack = StackCalc.getStack();
     Variable var = Variable.getVariable(stack);
-    OperatorFactory of = new OperatorFactory();
     Operator op = Operator.getOperator();
-
+    
+    OperatorFactory of = new OperatorFactory();
     Customs custOp = new Customs(of);
     
     @FXML
@@ -117,6 +118,7 @@ public class FXMLDocumentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //liste ausiliarie per la visualizzazione delle variabili e delle operazioni custom
         listVar = FXCollections.observableList(var.getListOfValues());
         listCust = FXCollections.observableList(custOp.getListOfValues());
 
@@ -130,7 +132,6 @@ public class FXMLDocumentController implements Initializable {
         modifyBtn.disableProperty().bind(Bindings.isEmpty(nameOperation.textProperty()).or(nameOperation.textProperty().isEqualTo("Operation name...")));
         deleteBtn.disableProperty().bind(Bindings.isEmpty(nameOperation.textProperty()).or(nameOperation.textProperty().isEqualTo("Operation name...")));
 
-        
         labels.add(value1);
         labels.add(value2);
         labels.add(value3);
@@ -154,7 +155,7 @@ public class FXMLDocumentController implements Initializable {
         Alert alert2 = new Alert(Alert.AlertType.ERROR, "Please insert at least one other value ", ButtonType.OK);
         Alert alert3 = new Alert(Alert.AlertType.ERROR, "Impossible to divide ", ButtonType.OK);
         Alert alert4 = new Alert(Alert.AlertType.ERROR, "Invalid variable operation, please retry ", ButtonType.OK);
-        Alert alert5 = new Alert(Alert.AlertType.ERROR, "Error with custom operation, please retry ", ButtonType.OK);
+        Alert alert5 = new Alert(Alert.AlertType.ERROR, "Error with entered operation, please retry ", ButtonType.OK);
 
         String text = textArea.getText();
 
@@ -171,11 +172,13 @@ public class FXMLDocumentController implements Initializable {
                     textArea.clear();
                 }
             } catch (VariableException varEx) {
+                System.out.println("sono entrato2");
                 alert4.showAndWait();
                 if (alert4.getResult() == ButtonType.OK) {
                     textArea.clear();
                 }
             } catch(IllegalArgumentException illAegEx){
+                alert3.showAndWait();
                 if (alert3.getResult() == ButtonType.OK) {
                     textArea.clear();
                 }
@@ -184,23 +187,22 @@ public class FXMLDocumentController implements Initializable {
             updateTopLabel();
         } catch (Exception ex) {
             try {
-                // if it's an operand then create a new complex number and push the complex number into stack
+                // se è un operando, crea un nuovo numero complesso e inserisce il numero complesso nello stack
                 checkComplex(textArea.getText());
                 updateTopLabel();
                 textArea.clear();
             } catch (NumberFormatException exNumb) {
-
                 try {
                     custOp.executeCustom(text);
                     updateTopLabel();
-
                 } catch (CustomException custEx) {
                         alert5.showAndWait();
                         if (alert.getResult() == ButtonType.OK) {
                             textArea.clear();
                         }
                 }catch(Exception inCustEx){
-                    op.undoLast();
+                    Integer num=0; //variabile ausiliaria per la funzione undo
+                    op.undoLast(num); //se si verifica un problema con un'operazione custom viene chiamata il metodo undoLast
                     alert.showAndWait();
                     if (alert.getResult() == ButtonType.OK) {
                         textArea.clear();
@@ -233,7 +235,7 @@ public class FXMLDocumentController implements Initializable {
 
     }
     
-        /*
+    /*
     metodo che verifica la correttezza del numero complesso inserito dall'utente
     ritorna il numero complesso 
      */
@@ -276,6 +278,7 @@ public class FXMLDocumentController implements Initializable {
         stack.add(new Complex(real, complex));
     }
 
+    //metodo per selezionare il file, ritorna il file selezionato
     private File selectFile() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Load from file");
@@ -289,20 +292,25 @@ public class FXMLDocumentController implements Initializable {
         return null;
     }
     
+    //metodo per caricare un file
     @FXML
     private void loadFromFile(ActionEvent event) {
         File file = selectFile();
-        custOp.loadFromFile(file);
+        FileOperation so = new FileOperation();
+        so.loadFromFile(file,this.custOp);
         listCust = FXCollections.observableList(custOp.getListOfValues());
         CustList.setItems(listCust);
     }
 
+    //metodo per salvare su di un file
     @FXML
     private void storeOnFile(ActionEvent event) {
         File file = selectFile();
-        SalvaOperazioni so = new SalvaOperazioni(file,this.custOp);
+        FileOperation so = new FileOperation();
+        so.storeOnFile(file,this.custOp);
     }
 
+    //metodo che aggiorna l'interfaccia per disabilitare i pulsanti che non servono sull'interfaccia 
     @FXML
     private void addCustomOperation(ActionEvent event) {
         nameOperation.setDisable(false);
@@ -311,13 +319,14 @@ public class FXMLDocumentController implements Initializable {
         seqOperation.clear();
     }
 
+    //metodo per inserire le operazioni custom 
     @FXML
     private void insertCustomOperation(ActionEvent event) {
         String name = nameOperation.getText();
         String seq = seqOperation.getText();
         Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid custom operation, please retry ", ButtonType.OK);
         
-        if(!custOp.istanziaNuovaOperazione(name, seq))
+        if(!custOp.createNewOperation(name, seq))
             alert.showAndWait();
         else {
             listCust = FXCollections.observableList(custOp.getListOfValues());
@@ -329,6 +338,7 @@ public class FXMLDocumentController implements Initializable {
         seqOperation.setDisable(true);
     }
 
+    //metodo per modificare operazioni custom
     @FXML
     private void modifyCustomOperation(ActionEvent event) {
         String name = nameOperation.getText();
@@ -353,6 +363,7 @@ public class FXMLDocumentController implements Initializable {
         seqOperation.setDisable(true);
     }
 
+    //metodo per eliminare operazioni custom
     @FXML
     private void deleteCustomOperation(ActionEvent event) {
         seqOperation.setDisable(true);

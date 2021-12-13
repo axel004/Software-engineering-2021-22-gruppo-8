@@ -12,7 +12,8 @@ import Exception.VariableException;
  *
  * @author HP115-CS0026
  */
+//interfaccia per l'implementazione del pattern Command
 public interface Command {
     boolean execute(String text) throws LessArgException, VariableException, IllegalArgumentException;
-    void undo();
+    void undo(Integer num);
 }

@@ -11,6 +11,31 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/palop/Documents/NetBeansProjects/Software-engineering-2021-22-gruppo-8/Calculator/src/OperationsCommand/PushFromVarCommand.java</file>
+            <file>file:/C:/Users/palop/Documents/NetBeansProjects/Software-engineering-2021-22-gruppo-8/Calculator/src/OperationsCommand/RestoreCommand.java</file>
+            <file>file:/C:/Users/palop/Documents/NetBeansProjects/Software-engineering-2021-22-gruppo-8/Calculator/src/OperationsCommand/SumCommand.java</file>
+            <file>file:/C:/Users/palop/Documents/NetBeansProjects/Software-engineering-2021-22-gruppo-8/Calculator/src/OperationsCommand/SaveCommand.java</file>
+            <file>file:/C:/Users/palop/Documents/NetBeansProjects/Software-engineering-2021-22-gruppo-8/Calculator/src/OperationsCommand/PushToVarCommand.java</file>
+            <file>file:/C:/Users/palop/Documents/NetBeansProjects/Software-engineering-2021-22-gruppo-8/Calculator/src/OperationsCommand/MulCommand.java</file>
+            <file>file:/C:/Users/palop/Documents/NetBeansProjects/Software-engineering-2021-22-gruppo-8/Calculator/src/OperationsCommand/AddVarCommand.java</file>
+            <file>file:/C:/Users/palop/Documents/NetBeansProjects/Software-engineering-2021-22-gruppo-8/Calculator/src/OperationsCommand/SubVarCommand.java</file>
+            <file>file:/C:/Users/palop/Documents/NetBeansProjects/Software-engineering-2021-22-gruppo-8/Calculator/src/calculator/FileOperation.java</file>
+            <file>file:/C:/Users/palop/Documents/NetBeansProjects/Software-engineering-2021-22-gruppo-8/Calculator/src/calculator/Operator.java</file>
+            <file>file:/C:/Users/palop/Documents/NetBeansProjects/Software-engineering-2021-22-gruppo-8/Calculator/src/OperationsCommand/DropCommand.java</file>
+            <file>file:/C:/Users/palop/Documents/NetBeansProjects/Software-engineering-2021-22-gruppo-8/Calculator/src/calculator/Command.java</file>
+            <file>file:/C:/Users/palop/Documents/NetBeansProjects/Software-engineering-2021-22-gruppo-8/Calculator/src/calculator/Customs.java</file>
+            <file>file:/C:/Users/palop/Documents/NetBeansProjects/Software-engineering-2021-22-gruppo-8/Calculator/src/OperationsCommand/ClearCommand.java</file>
+            <file>file:/C:/Users/palop/Documents/NetBeansProjects/Software-engineering-2021-22-gruppo-8/Calculator/src/calculator/FXMLDocumentController.java</file>
+            <file>file:/C:/Users/palop/Documents/NetBeansProjects/Software-engineering-2021-22-gruppo-8/Calculator/src/OperationsCommand/OverCommand.java</file>
+            <file>file:/C:/Users/palop/Documents/NetBeansProjects/Software-engineering-2021-22-gruppo-8/Calculator/src/OperationsCommand/DiffCommand.java</file>
+            <file>file:/C:/Users/palop/Documents/NetBeansProjects/Software-engineering-2021-22-gruppo-8/Calculator/src/calculator/Variable.java</file>
+            <file>file:/C:/Users/palop/Documents/NetBeansProjects/Software-engineering-2021-22-gruppo-8/Calculator/src/OperationsCommand/RevSignCommand.java</file>
+            <file>file:/C:/Users/palop/Documents/NetBeansProjects/Software-engineering-2021-22-gruppo-8/Calculator/src/OperationsCommand/DupCommand.java</file>
+            <file>file:/C:/Users/palop/Documents/NetBeansProjects/Software-engineering-2021-22-gruppo-8/Calculator/src/OperationsCommand/SwapCommand.java</file>
+            <file>file:/C:/Users/palop/Documents/NetBeansProjects/Software-engineering-2021-22-gruppo-8/Calculator/src/OperationsCommand/SquareCommand.java</file>
+            <file>file:/C:/Users/palop/Documents/NetBeansProjects/Software-engineering-2021-22-gruppo-8/Calculator/src/calculator/OperatorFactory.java</file>
+            <file>file:/C:/Users/palop/Documents/NetBeansProjects/Software-engineering-2021-22-gruppo-8/Calculator/src/OperationsCommand/DivCommand.java</file>
+        </group>
     </open-files>
 </project-private>

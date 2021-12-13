@@ -33,6 +33,7 @@ public class Complex {
     public void setComplex(double complex) {
         this.complex = complex;
     }
+    //metodo per stampare i numeri complessi
     @Override 
     public String toString(){
         if(this.getComplex()>=0){

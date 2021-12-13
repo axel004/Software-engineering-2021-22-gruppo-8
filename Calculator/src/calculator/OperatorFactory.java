@@ -31,6 +31,8 @@ import java.util.regex.Pattern;
  *
  * @author HP115-CS0026
  */
+
+//factory method
 public class OperatorFactory {
     private final Map<String, Command> operationMap = new HashMap<>();
     private Operations op = new Operations();
@@ -55,10 +57,13 @@ public class OperatorFactory {
         operationMap.put("restore", new RestoreCommand());
     }
     
+    //restiruisce la mappa contenente la lista delle operazioni
     public Map<String, Command> getOperationMap() {
         return operationMap;
     }
     
+    //chiama le operazioni richieste dall'utente
+    //restituisce null se l'operazione non è presente
     public Command getCommand(String operator) {
         String[] splot = operator.split("(?!^)");
         if (splot[0].matches(Pattern.quote("+")) && operator.length() == 2) {

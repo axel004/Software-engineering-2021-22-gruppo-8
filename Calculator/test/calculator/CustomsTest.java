@@ -30,15 +30,15 @@ public class CustomsTest {
         OperatorFactory of = new OperatorFactory();
         Customs instance = new Customs(of);
         boolean expResult = true;
-        boolean result = instance.crea(nomeOperazione);
+        boolean result = instance.create(nomeOperazione);
         assertEquals(expResult, result);
 
         expResult = false;
-        result = instance.crea(nomeOperazione);
+        result = instance.create(nomeOperazione);
         assertEquals(expResult, result);
 
         expResult = false;
-        result = instance.crea("+");
+        result = instance.create("+");
         assertEquals(expResult, result);
     }
 
@@ -52,99 +52,99 @@ public class CustomsTest {
         String operazione = "+";
         OperatorFactory of = new OperatorFactory();
         Customs instance = new Customs(of);
-        instance.crea(nomeOperazione);
-        instance.modifica(nomeOperazione, operazione);
-        assertEquals(instance.getOperazione(nomeOperazione), "+");
+        instance.create(nomeOperazione);
+        instance.modify(nomeOperazione, operazione);
+        assertEquals(instance.getOperation(nomeOperazione), "+");
 
         nomeOperazione = "somma";
         operazione = "+";
-        instance.modifica(nomeOperazione, operazione);
-        assertEquals(instance.getOperazione(nomeOperazione), "+");
+        instance.modify(nomeOperazione, operazione);
+        assertEquals(instance.getOperation(nomeOperazione), "+");
 
         nomeOperazione = "somma";
         operazione = "+,-,+-";
-        instance.modifica(nomeOperazione, operazione);
-        assertEquals(instance.getOperazione(nomeOperazione), "+,-,+-");
+        instance.modify(nomeOperazione, operazione);
+        assertEquals(instance.getOperation(nomeOperazione), "+,-,+-");
 
         nomeOperazione = "somma";
         operazione = "+,-,+-";
-        instance.modifica(nomeOperazione, operazione);
-        assertEquals(instance.getOperazione(nomeOperazione), "+,-,+-");
+        instance.modify(nomeOperazione, operazione);
+        assertEquals(instance.getOperation(nomeOperazione), "+,-,+-");
 
         nomeOperazione = "somma";
         operazione = "+,+-,-";
-        instance.modifica(nomeOperazione, operazione);
-        assertEquals(instance.getOperazione(nomeOperazione), "+,+-,-");
+        instance.modify(nomeOperazione, operazione);
+        assertEquals(instance.getOperation(nomeOperazione), "+,+-,-");
 
         nomeOperazione = "differenza";
         operazione = "+,+-,-";
-        instance.modifica(nomeOperazione, operazione);
-        assertEquals(instance.getOperazione(nomeOperazione), null);
+        instance.modify(nomeOperazione, operazione);
+        assertEquals(instance.getOperation(nomeOperazione), null);
 
         nomeOperazione = "somma";
         operazione = "+,5+5j";
-        instance.modifica(nomeOperazione, operazione);
-        assertEquals(instance.getOperazione(nomeOperazione), "+,5+5j");
+        instance.modify(nomeOperazione, operazione);
+        assertEquals(instance.getOperation(nomeOperazione), "+,5+5j");
 
         nomeOperazione = "somma";
         operazione = "+,5j";
-        instance.modifica(nomeOperazione, operazione);
-        assertEquals(instance.getOperazione(nomeOperazione), "+,5j");
+        instance.modify(nomeOperazione, operazione);
+        assertEquals(instance.getOperation(nomeOperazione), "+,5j");
 
         nomeOperazione = "somma";
         operazione = "+,5";
-        instance.modifica(nomeOperazione, operazione);
-        assertEquals(instance.getOperazione(nomeOperazione), "+,5");
+        instance.modify(nomeOperazione, operazione);
+        assertEquals(instance.getOperation(nomeOperazione), "+,5");
 
         nomeOperazione = "somma";
         operazione = "+,<t";
-        instance.modifica(nomeOperazione, operazione);
-        assertEquals(instance.getOperazione(nomeOperazione), "+,<t");
+        instance.modify(nomeOperazione, operazione);
+        assertEquals(instance.getOperation(nomeOperazione), "+,<t");
 
         nomeOperazione = "somma";
         operazione = "+,>t";
-        instance.modifica(nomeOperazione, operazione);
-        assertEquals(instance.getOperazione(nomeOperazione), "+,>t");
+        instance.modify(nomeOperazione, operazione);
+        assertEquals(instance.getOperation(nomeOperazione), "+,>t");
 
         nomeOperazione = "somma";
         operazione = "+,-t";
-        instance.modifica(nomeOperazione, operazione);
-        assertEquals(instance.getOperazione(nomeOperazione), "+,-t");
+        instance.modify(nomeOperazione, operazione);
+        assertEquals(instance.getOperation(nomeOperazione), "+,-t");
 
         nomeOperazione = "somma";
         operazione = "+,+t";
-        instance.modifica(nomeOperazione, operazione);
-        assertEquals(instance.getOperazione(nomeOperazione), "+,+t");
+        instance.modify(nomeOperazione, operazione);
+        assertEquals(instance.getOperation(nomeOperazione), "+,+t");
 
         nomeOperazione = "somma";
         operazione = "+,>z";
-        instance.modifica(nomeOperazione, operazione);
-        assertEquals(instance.getOperazione(nomeOperazione), "+,>z");
+        instance.modify(nomeOperazione, operazione);
+        assertEquals(instance.getOperation(nomeOperazione), "+,>z");
 
         nomeOperazione = "somma";
         operazione = "+,GGG";
-        instance.modifica(nomeOperazione, operazione);
-        assertEquals(instance.getOperazione(nomeOperazione), "+,>z");
+        instance.modify(nomeOperazione, operazione);
+        assertEquals(instance.getOperation(nomeOperazione), "+,>z");
 
         nomeOperazione = "somma";
         operazione = "+,GG";
-        instance.modifica(nomeOperazione, operazione);
-        assertEquals(instance.getOperazione(nomeOperazione), "+,>z");
+        instance.modify(nomeOperazione, operazione);
+        assertEquals(instance.getOperation(nomeOperazione), "+,>z");
 
         nomeOperazione = "somma";
         operazione = "+,>GG";
-        instance.modifica(nomeOperazione, operazione);
-        assertEquals(instance.getOperazione(nomeOperazione), "+,>z");
+        instance.modify(nomeOperazione, operazione);
+        assertEquals(instance.getOperation(nomeOperazione), "+,>z");
 
         nomeOperazione = "somma";
         operazione = "+,>A";
-        instance.modifica(nomeOperazione, operazione);
-        assertEquals(instance.getOperazione(nomeOperazione), "+,>z");
+        instance.modify(nomeOperazione, operazione);
+        assertEquals(instance.getOperation(nomeOperazione), "+,>z");
 
         nomeOperazione = "somma";
         operazione = "+,>gg";
-        instance.modifica(nomeOperazione, operazione);
-        assertEquals(instance.getOperazione(nomeOperazione), "+,>z");
+        instance.modify(nomeOperazione, operazione);
+        assertEquals(instance.getOperation(nomeOperazione), "+,>z");
     }
 
     /**
@@ -157,48 +157,48 @@ public class CustomsTest {
         String operazione = "+,+-,-";
         OperatorFactory of = new OperatorFactory();
         Customs instance = new Customs(of);
-        instance.istanziaNuovaOperazione(nomeOperazione, operazione);
-        assertEquals(instance.getOperazione(nomeOperazione), "+,+-,-");
+        instance.createNewOperation(nomeOperazione, operazione);
+        assertEquals(instance.getOperation(nomeOperazione), "+,+-,-");
 
         nomeOperazione = "somma";
         operazione = "+,+-,-";
-        instance.istanziaNuovaOperazione(nomeOperazione, operazione);
-        assertEquals(instance.getOperazione(nomeOperazione), "+,+-,-");
+        instance.createNewOperation(nomeOperazione, operazione);
+        assertEquals(instance.getOperation(nomeOperazione), "+,+-,-");
 
         nomeOperazione = "differenza";
         operazione = "+,+-,-";
-        instance.istanziaNuovaOperazione(nomeOperazione, operazione);
-        assertEquals(instance.getOperazione(nomeOperazione), "+,+-,-");
+        instance.createNewOperation(nomeOperazione, operazione);
+        assertEquals(instance.getOperation(nomeOperazione), "+,+-,-");
 
         nomeOperazione = "doppiasomma";
         operazione = "+,+";
-        instance.istanziaNuovaOperazione(nomeOperazione, operazione);
-        assertEquals(instance.getOperazione(nomeOperazione), "+,+");
+        instance.createNewOperation(nomeOperazione, operazione);
+        assertEquals(instance.getOperation(nomeOperazione), "+,+");
 
         nomeOperazione = "doppio";
         operazione = "+,gagag";
-        instance.istanziaNuovaOperazione(nomeOperazione, operazione);
-        assertEquals(instance.getOperazione(nomeOperazione), null);
+        instance.createNewOperation(nomeOperazione, operazione);
+        assertEquals(instance.getOperation(nomeOperazione), null);
 
         nomeOperazione = "doppio";
         operazione = "+,+";
-        instance.istanziaNuovaOperazione(nomeOperazione, operazione);
-        assertEquals(instance.getOperazione(nomeOperazione), "+,+");
+        instance.createNewOperation(nomeOperazione, operazione);
+        assertEquals(instance.getOperation(nomeOperazione), "+,+");
 
         nomeOperazione = "doppio";
         operazione = "+,5+5j";
-        instance.istanziaNuovaOperazione(nomeOperazione, operazione);
-        assertEquals(instance.getOperazione(nomeOperazione), "+,+");
+        instance.createNewOperation(nomeOperazione, operazione);
+        assertEquals(instance.getOperation(nomeOperazione), "+,+");
 
         nomeOperazione = "doppio";
         operazione = "+,5j";
-        instance.istanziaNuovaOperazione(nomeOperazione, operazione);
-        assertEquals(instance.getOperazione(nomeOperazione), "+,+");
+        instance.createNewOperation(nomeOperazione, operazione);
+        assertEquals(instance.getOperation(nomeOperazione), "+,+");
 
         nomeOperazione = "doppio";
         operazione = "+,5";
-        instance.istanziaNuovaOperazione(nomeOperazione, operazione);
-        assertEquals(instance.getOperazione(nomeOperazione), "+,+");
+        instance.createNewOperation(nomeOperazione, operazione);
+        assertEquals(instance.getOperation(nomeOperazione), "+,+");
     }
 
     /**
@@ -212,10 +212,10 @@ public class CustomsTest {
         StackCalc stack = StackCalc.getStack();
         Variable v = Variable.getVariable(stack);
         stack.push(new Complex(3, 0));
-        c.istanziaNuovaOperazione("provaComplex", "5-7j,+");
-        c.istanziaNuovaOperazione("provaStack", "clear,6+1j");
-        c.istanziaNuovaOperazione("provaVariable", "8-2j,>g");
-        c.istanziaNuovaOperazione("provaCustom", "provaStack,4,+");
+        c.createNewOperation("provaComplex", "5-7j,+");
+        c.createNewOperation("provaStack", "clear,6+1j");
+        c.createNewOperation("provaVariable", "8-2j,>g");
+        c.createNewOperation("provaCustom", "provaStack,4,+");
         c.executeCustom("provaComplex");
         assertEquals(new Complex(8, -7), stack.peek());
         c.executeCustom("provaStack");
@@ -230,14 +230,14 @@ public class CustomsTest {
         stack.push(val3);
         stack.push(val2);
         stack.push(val1);
-        c.istanziaNuovaOperazione("ProvaOperazioni", "+,+-,-");
+        c.createNewOperation("ProvaOperazioni", "+,+-,-");
         c.executeCustom("ProvaOperazioni");
         assertEquals(new Complex(6, 0), stack.peek());
         stack.push(val1);
         stack.push(val1);
         stack.push(val3);
         stack.push(val2);
-        c.istanziaNuovaOperazione("ProvaOperazioni2", "+,-,clear");
+        c.createNewOperation("ProvaOperazioni2", "+,-,clear");
         c.executeCustom("ProvaOperazioni2");
         assertEquals(0, stack.size());
     }
@@ -264,7 +264,7 @@ public class CustomsTest {
         StackCalc stack = StackCalc.getStack();
         Variable v = Variable.getVariable(stack);
         stack.push(new Complex(3, 0));
-        c.istanziaNuovaOperazione("ProvaOperazioni", "+,+-,-");
+        c.createNewOperation("ProvaOperazioni", "+,+-,-");
         c.executeCustom("ProvaOperazioni");
     }
     
@@ -279,32 +279,10 @@ public class CustomsTest {
         StackCalc stack = StackCalc.getStack();
         Variable v = Variable.getVariable(stack);
         stack.push(new Complex(3, 0));
-        c.istanziaNuovaOperazione("ProvaOperazioni", ">a,>b,<a");
+        c.createNewOperation("ProvaOperazioni", ">a,>b,<a");
         c.executeCustom("ProvaOperazioni");
     }
     
-    @Test
-    public void testLoadFromFile() {
-        System.out.println("*** LoadFromFile() test ***");
-        OperatorFactory of = new OperatorFactory();
-        Customs instance = new Customs(of);
-        File file = new File("test/calculator/test.txt");
-        // verifico che il file esista
-        assertEquals(true, file.exists());
-        // verifico che tutte le operazioni siano state inserite con il giusto nome
-        // e la giusta sequenza associata
-        instance.loadFromFile(file);
-        String[] str = instance.toString().split("\\n");
-        for (String s : str) {
-            String opName = s.split(":")[0];
-            String opSeq = s.split(":")[1].trim();
-            assertEquals(opSeq, instance.getOperazione(opName));
-        }
-        // verifico che un file non esistente restituisca null
-        File fileNotExists = new File("test/calculator/thisNotExists.txt");
-        assertEquals(false, fileNotExists.exists());
-        assertEquals(null, instance.loadFromFile(fileNotExists));
-    }
     
     /**
      * Test of EditCostumOperation method, of class Customs.
@@ -316,14 +294,14 @@ public class CustomsTest {
         Customs instance = new Customs(of);
         boolean thrown = false;
 
-        instance.istanziaNuovaOperazione("addizione","+");
-        instance.istanziaNuovaOperazione("moltiplicazione", "addizione,*");
-        instance.istanziaNuovaOperazione("divisione", "/");
-        instance.istanziaNuovaOperazione("radice", "addizione,sqrt");
-        instance.istanziaNuovaOperazione("somma","+,-,moltiplicazione");
+        instance.createNewOperation("addizione","+");
+        instance.createNewOperation("moltiplicazione", "addizione,*");
+        instance.createNewOperation("divisione", "/");
+        instance.createNewOperation("radice", "addizione,sqrt");
+        instance.createNewOperation("somma","+,-,moltiplicazione");
         
         instance.editCustomOperation("divisione", "+,-");
-        assertEquals("+,-",instance.getOperazione("divisione")); //controllo il corretto funzionamento
+        assertEquals("+,-",instance.getOperation("divisione")); //controllo il corretto funzionamento
         assertEquals(false,instance.editCustomOperation("swap", "+,-")); //controllo il caso in cui l'operazione non è presente
  
         assertEquals(false,instance.editCustomOperation("radice", "*+sqrt")); //controllo il caso in cui l'operazione non è corretta
@@ -339,7 +317,7 @@ public class CustomsTest {
           assertEquals("[moltiplicazione, radice]",e.getMessage());
         }
         assertTrue(thrown);
-        assertEquals("somma,radice,sqrt,swap",instance.getOperazione("addizione"));
+        assertEquals("somma,radice,sqrt,swap",instance.getOperation("addizione"));
     
         try {
           instance.editCustomOperation("moltiplicazione", "dup,radice,sqrt,swap"); //controllo il corretto funzionamento del lancio dell'eccezione
@@ -348,7 +326,7 @@ public class CustomsTest {
           assertEquals("[somma]",e.getMessage());
         }
         assertTrue(thrown);
-        assertEquals("dup,radice,sqrt,swap",instance.getOperazione("moltiplicazione"));
+        assertEquals("dup,radice,sqrt,swap",instance.getOperation("moltiplicazione"));
     }
     
     /**
@@ -359,11 +337,11 @@ public class CustomsTest {
         System.out.println("checkEditCostumOpException1 test\n");
         OperatorFactory of = new OperatorFactory();
         Customs instance = new Customs(of);
-        instance.istanziaNuovaOperazione("addizione","+");
-        instance.istanziaNuovaOperazione("moltiplicazione", "addizione,*");
-        instance.istanziaNuovaOperazione("divisione", "/");
-        instance.istanziaNuovaOperazione("radice", "addizione,sqrt");
-        instance.istanziaNuovaOperazione("somma","+,-,moltiplicazione");
+        instance.createNewOperation("addizione","+");
+        instance.createNewOperation("moltiplicazione", "addizione,*");
+        instance.createNewOperation("divisione", "/");
+        instance.createNewOperation("radice", "addizione,sqrt");
+        instance.createNewOperation("somma","+,-,moltiplicazione");
         instance.editCustomOperation("moltiplicazione", "dup,radice,sqrt,swap"); //controllo il corretto funzionamento del lancio dell'eccezione
         
     }
@@ -376,11 +354,11 @@ public class CustomsTest {
         System.out.println("checkEditCostumOpException2 test\n");
         OperatorFactory of = new OperatorFactory();
         Customs instance = new Customs(of);
-        instance.istanziaNuovaOperazione("addizione","+");
-        instance.istanziaNuovaOperazione("moltiplicazione", "addizione,*");
-        instance.istanziaNuovaOperazione("divisione", "/");
-        instance.istanziaNuovaOperazione("radice", "addizione,sqrt");
-        instance.istanziaNuovaOperazione("somma","+,-,moltiplicazione");
+        instance.createNewOperation("addizione","+");
+        instance.createNewOperation("moltiplicazione", "addizione,*");
+        instance.createNewOperation("divisione", "/");
+        instance.createNewOperation("radice", "addizione,sqrt");
+        instance.createNewOperation("somma","+,-,moltiplicazione");
         instance.editCustomOperation("addizione", "somma,radice,sqrt,swap"); //controllo il corretto funzionamento del lancio dell'eccezione
         
     }
@@ -392,22 +370,22 @@ public class CustomsTest {
         Customs instance = new Customs(of);
         boolean thrown = false;
 
-        instance.istanziaNuovaOperazione("addizione", "+");
-        instance.istanziaNuovaOperazione("moltiplicazione", "addizione,*");
-        instance.istanziaNuovaOperazione("divisione", "/");
-        instance.istanziaNuovaOperazione("radice", "addizione,sqrt");
-        instance.istanziaNuovaOperazione("somma", "+,-,moltiplicazione");
+        instance.createNewOperation("addizione", "+");
+        instance.createNewOperation("moltiplicazione", "addizione,*");
+        instance.createNewOperation("divisione", "/");
+        instance.createNewOperation("radice", "addizione,sqrt");
+        instance.createNewOperation("somma", "+,-,moltiplicazione");
         
         try {
             assertEquals(false, instance.deleteCustom("addizione"));//controllo il corretto funzionamento
 
         } catch (DeleteCostumOpException e) {
-            assertEquals(null, instance.getOperazione("addizione"));
-            assertEquals(null, instance.getOperazione("radice"));
+            assertEquals(null, instance.getOperation("addizione"));
+            assertEquals(null, instance.getOperation("radice"));
         }
 
         assertTrue(instance.deleteCustom("divisione"));
-        assertEquals(null, instance.getOperazione("divisione")); //controllo che la divisione sia stata correttamente cancellata
+        assertEquals(null, instance.getOperation("divisione")); //controllo che la divisione sia stata correttamente cancellata
         assertEquals(false, instance.deleteCustom("swap")); //controllo il caso in cui l'operazione non è presente
     }
     
@@ -419,11 +397,11 @@ public class CustomsTest {
         System.out.println("checkDeleteCostumOpException test\n");
         OperatorFactory of = new OperatorFactory();
         Customs instance = new Customs(of);
-        instance.istanziaNuovaOperazione("addizione", "+");
-        instance.istanziaNuovaOperazione("moltiplicazione", "addizione,*");
-        instance.istanziaNuovaOperazione("divisione", "/");
-        instance.istanziaNuovaOperazione("radice", "addizione,sqrt");
-        instance.istanziaNuovaOperazione("somma", "+,-,moltiplicazione");
+        instance.createNewOperation("addizione", "+");
+        instance.createNewOperation("moltiplicazione", "addizione,*");
+        instance.createNewOperation("divisione", "/");
+        instance.createNewOperation("radice", "addizione,sqrt");
+        instance.createNewOperation("somma", "+,-,moltiplicazione");
         assertEquals(false, instance.deleteCustom("addizione")); //controllo il corretto funzionamento del lancio dell'eccezione
 
     }

@@ -19,44 +19,38 @@ public class DivCommand implements Command{
     private StackCalc stack;
     private Operations op;
     private Complex val1, val2;
-    private Integer num;
     
     public DivCommand(Operations op){
         stack = StackCalc.getStack();
         this.op = op;
     }
-    
-    //la funzione execute prende in ingresso text che equivale all'operazione richiesta
-    // ritorna (?)
-    //controlla che lo stack abbia almeno due elementi e, nel caso, controlla che il divisore sia diverso da zero oppure lancia l'eccezione
+
+    //la funzione execute controlla che lo stack abbia almeno due elementi e, nel caso, controlla che il divisore sia diverso da zero oppure lancia l'eccezione
     //rimuove i primi due elementi e chiama la funzione division e inserisce il risultato nello stack
     //lancia un'eccezione se lo stack ha meno di due elementi
     @Override
     public boolean execute(String text) throws LessArgException, IllegalArgumentException{
         if(stack.size()>=2){
             if (stack.peek().equals(new Complex(0,0))) {
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("Il divisore non può essere nullo");
             }
             val2 = stack.pop();
             val1 = stack.pop();
-            
+            stack.insertAux(val2);
+            stack.insertAux(val1);
             Complex res = op.division(val1, val2);
             stack.push(res);
             return true;
         }
-        num = 0; //variabile flag per il funzionamento di undo
         throw new LessArgException("Non ci sono abbastanza valori nello stack");
     }
 
-    //viene chiamata se l'operazione custom non va a buon fine
-    //riporta lo stack allo stato iniziale prima di eseguire la execute
     @Override
-    public void undo() {
+    public void undo(Integer num) {
         if (num != 0) {
             stack.pop();
-            stack.push(val1);
-            stack.push(val2);
+            stack.push(stack.returnAux());
+            stack.push(stack.returnAux());
         }
-        num = 1;
     }
 }

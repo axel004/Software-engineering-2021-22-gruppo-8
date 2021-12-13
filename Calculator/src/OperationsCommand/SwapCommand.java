@@ -17,14 +17,12 @@ import calculator.StackCalc;
 public class SwapCommand implements Command {
     private StackCalc stack;
     private Complex val1;
-    private Integer num;
     
     public SwapCommand() {
         stack = StackCalc.getStack();
     }
     
-    //la funzione execute prende in ingresso text che equivale all'operazione richiesta
-    // ritorna (?)
+
     //controlla che lo stack abbia almeno due elementi e, nel caso, chiama la funzione swap
     //lancia un'eccezione se lo stack ha meno di due elementi
     @Override
@@ -33,17 +31,13 @@ public class SwapCommand implements Command {
             stack.swap();
             return true;
         }
-        num = 0; //variabile flag per il funzionamento di undo
         throw new LessArgException("Non ci sono abbastanza valori nello stack");
     }
 
-    //viene chiamata se l'operazione custom non va a buon fine
-    //riporta lo stack allo stato iniziale prima di eseguire la execute
     @Override
-    public void undo() {
+    public void undo(Integer num) {
         if (num != 0) {
             stack.swap();
         }
-        num = 1;
     }
 }

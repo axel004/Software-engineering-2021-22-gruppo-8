@@ -30,8 +30,11 @@ public class SaveCommand implements Command {
         var = Variable.getVariable(stack);
     }
     
-    //la funzione execute prende in ingresso text che equivale all'operazione richiesta
-    // ritorna (?)
+/*
+la funzione execute della classe SaveCommand prende le coppie chiave - valore dalla mappa dove sono salvate le variabili,
+le trasforma in stringhe e le inserisce dentro uno stack statico. Le stringhe nello stack statico sono poi ripristinabili tramite
+il comando restore.
+*/
     @Override
     public boolean execute(String text) throws LessArgException, VariableException {
         array = "";
@@ -49,10 +52,10 @@ public class SaveCommand implements Command {
         return stackMappeVariabili;
     }
 
-    //viene chiamata se l'operazione custom non va a buon fine
-    //riporta la variabile e lo stack allo stato iniziale prima di eseguire la execute
     @Override
-    public void undo() {
-        stackMappeVariabili.remove(array.substring(1));
+    public void undo(Integer num) {
+        if (num != 0) {
+            stackMappeVariabili.remove(array.substring(1));
+        }
     }
 }

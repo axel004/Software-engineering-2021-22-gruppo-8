@@ -28,15 +28,18 @@ public class Operator {
         stack = new ArrayDeque<>();
     }
     
+    //metodo che chiama il metodo execute relativo al comando passatogli
     public void execute (Command command, String text) throws LessArgException, VariableException{
-        stack.addLast(command);
-        command.execute(text);
+        stack.addLast(command); //inserisce il comando passatogli nello stack. Serve per il corretto funzionamento del metodo undoLast
+        command.execute(text); //viene passata al metodo execute la stringa text che equivale all'operazione richiesta dall'utente
     }
     
-    public void undoLast(){
-        while(!stack.isEmpty()){
+    //metodo che richiama il metodo undo per annullare tutte le operazioni custom effettuate dall'utente nel caso un cui si verifica un'eccezione
+    public void undoLast(Integer num){
+        while(!stack.isEmpty()){ //chiama il metodo undo fin quando lo stack non diventa vuoto
             Command last = stack.removeLast();
-            last.undo();
+            last.undo(num);
+            num = 1; //variabile flag per il funzionamento di undo
         }
     }
     

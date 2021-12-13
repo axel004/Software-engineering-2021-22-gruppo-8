@@ -19,16 +19,13 @@ public class DiffCommand implements Command {
     private StackCalc stack;
     private Operations op;
     private Complex val1, val2;
-    private Integer num;
     
     public DiffCommand(Operations op) {
         stack = StackCalc.getStack();
         this.op = op;
     }
     
-    //la funzione execute prende in ingresso text che equivale all'operazione richiesta
-    // ritorna (?)
-    //controlla che lo stack abbia almeno due elementi e, nel caso, rimuove i primi due elementi e chiama la funzione difference
+    //la funzione execute controlla che lo stack abbia almeno due elementi e, nel caso, rimuove i primi due elementi e chiama la funzione difference
     //inserisce il risultato nello stack
     //lancia un'eccezione se lo stack ha meno di due elementi
     @Override
@@ -36,24 +33,21 @@ public class DiffCommand implements Command {
         if(stack.size()>=2){
             val2 = stack.pop();
             val1 = stack.pop();
-            
+            stack.insertAux(val2);
+            stack.insertAux(val1);
             Complex res = op.difference(val1, val2);
             stack.push(res);
             return true;
         }
-        num = 0; //variabile flag per il funzionamento di undo
         throw new LessArgException("Non ci sono abbastanza valori nello stack");
     }
 
-    //viene chiamata se l'operazione custom non va a buon fine
-    //riporta lo stack allo stato iniziale prima di eseguire la execute
     @Override
-    public void undo() {
+    public void undo(Integer num) {
         if(num!=0){
             stack.pop();
-            stack.push(val1);
-            stack.push(val2);
+            stack.push(stack.returnAux());
+            stack.push(stack.returnAux());
         }
-        num=1;
     }
 }

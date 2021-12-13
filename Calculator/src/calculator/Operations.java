@@ -15,6 +15,7 @@ import java.math.RoundingMode;
  */
 public class Operations {
     
+    //metodo per arrotondare i numeri double
     private static double round(double value, int places) {
         if (places < 0) {
             throw new IllegalArgumentException();
@@ -25,6 +26,7 @@ public class Operations {
         return bd.doubleValue();
     }
   
+    //metodo per l'inversione del segno di un numero complesso
     public Complex reverseSign(Complex value) {
         try{
             double real = value.getReal();
@@ -42,6 +44,7 @@ public class Operations {
         }
     }
     
+    //metodo per effettuare la moltiplicazione tra due numeri complessi
     public Complex multiply(Complex a, Complex b){
         try{
             Double A = a.getReal();
@@ -60,6 +63,7 @@ public class Operations {
         }
     }
     
+    //metodo per sommare due numeri complessi
     public Complex sum(Complex a, Complex b){
         try{
             Complex res = new Complex (a.getReal() + b.getReal(), a.getComplex() + b.getComplex());
@@ -71,6 +75,7 @@ public class Operations {
         }
     }
 
+    //metodo per sottrarre due numeri complessi
     public Complex difference(Complex val1, Complex val2){
         try{
             Complex res = new Complex(val1.getReal()-val2.getReal(),val1.getComplex()-val2.getComplex());  //eseguo la differenza
@@ -85,7 +90,7 @@ public class Operations {
      
     }   
     
-    
+    //metodo per eseguire la radice quadrata di un numero complesso
     public Complex squareRoot(Complex val) {
         try {
             if (val.getComplex() == 0) //controllo se il valore è reale
@@ -116,24 +121,28 @@ public class Operations {
         }
     }
 
+    //metodo ausiliario per la divisione
     public Complex times(Complex x, Complex y) { //questa funzione implementa la formula della divisione, le viene passato il dividendo e il risultato della funzione times seguente
         double reP = this.round(x.getReal() * y.getReal() - x.getComplex() * y.getComplex(),4); //(ac+bd)/(c^2+d^2)
         double imP = this.round(x.getComplex() * y.getReal() + x.getReal() * y.getComplex(), 4); //(bc-ad)/(C^2+d^2)
         return new Complex (reP, imP);
     }
 
+    //metodo ausiliario per la divisione
     public Complex times(double a, Complex y) { //a corrisponde al denominatore della forumula. Viene moltiplicato il denominatore della formula per il divisore coniugato
         double reP =  this.round((double) a * y.getReal(),8);
         double imP =  this.round((double) a * y.getComplex(),8);
         return new Complex (reP, imP); //reP=c/(C^2+d^2) imP=-d/(C^2+d^2)
     }
-
-    public double square(Complex y) { //restituisce la somma dei quadrati della parte reale e immaginaria del numero complesso passato
+    
+    //metodo per la somma dei quadrati
+    public double quadraticSum(Complex y) { //restituisce la somma dei quadrati della parte reale e immaginaria del numero complesso passato
         double reP =  this.round(y.getReal() * y.getReal(), 4);
         double imP = this.round(y.getComplex() * y.getComplex(), 4);
-        return reP+imP; //C^2+d^2
+        return reP+imP; //c^2+d^2
     }
 
+    //metodo per ottenere il coniugato di un numero complesso
     public Complex conjugate(Complex y) { //restituisce il coniugato del numero complesso passato
         return new Complex(y.getReal(), -y.getComplex());
     }
@@ -141,9 +150,10 @@ public class Operations {
     /*x=a+bj  y=c+dj
     la formula per la divisione è: (ac+bd)/(c^2+d^2)+j(bc-ad)/(c^2+d^2)
     */
+    //metodo per effettuare la divisione tra due numeri complessi
     public Complex division(Complex x, Complex y){
         try {
-            Complex comp = times(1 / square(y), conjugate(y));
+            Complex comp = times(1 / quadraticSum(y), conjugate(y));
             return times(x, comp);
         } catch (Exception e) {
             System.out.print("Div error\n");
